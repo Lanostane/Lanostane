@@ -93,10 +93,9 @@ namespace GamePlay.Judge.Handles
             if (NoteJudgeManager.Instance.AutoPlay)
                 return true;
 
-            if (chartTime >= Timing - Timeout)
-                return true;
-
-            if (chartTime <= Timing + Duration)
+            var min = Timing - Timeout;
+            var max = Timing + Duration;
+            if (min <= chartTime && chartTime <= max)
                 return true;
 
             return false;

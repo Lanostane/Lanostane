@@ -1,6 +1,7 @@
 ﻿using Charts;
 using GamePlay.Graphics;
 using GamePlay.Judge.Inputs;
+using GamePlay.Motions;
 using GamePlay.Scoring;
 using UnityEngine;
 using Utils;
@@ -117,6 +118,10 @@ namespace GamePlay.Judge.Handles
             {
                 Debug.LogError($"SizeType: {Size} was not implemented! defaulting to size0");
             }
+
+            DebugLines.DrawToBorder(CurrentDegree + range, Color.yellow, 0.1f);
+            DebugLines.DrawToBorder(CurrentDegree - range, Color.yellow, 0.1f);
+            DebugLines.DrawToBorder(inputDegree, Color.cyan, 0.1f);
 
             if (MathfE.ApproxAngle(inputDegree, CurrentDegree, range))
                 return true;

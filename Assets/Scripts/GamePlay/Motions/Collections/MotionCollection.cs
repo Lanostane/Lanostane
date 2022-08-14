@@ -38,7 +38,7 @@ namespace GamePlay.Motions.Collections
             for (int i = 0; i < length; i++)
             {
                 var item = MotionDataHolder[i];
-                if (item.Timing <= timing && i > index)
+                if (item.Timing < timing && i > index)
                 {
                     index = i;
                 }

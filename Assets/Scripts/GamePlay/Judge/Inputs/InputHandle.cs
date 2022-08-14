@@ -22,10 +22,12 @@ namespace GamePlay.Judge.Inputs
 
     public sealed class InputHandle
     {
+        public const float FlickThreshold = 0.3f;
+
         public readonly int ID;
         public InputEvent EventType;
         public float Angle;
-        public float GameAngle => Angle - MotionManager.Instance.CurrentRotation;
+        public float GameAngle => Angle + MotionManager.Instance.CurrentRotation;
         public float Timing;
 
         public bool Holding;
@@ -36,7 +38,7 @@ namespace GamePlay.Judge.Inputs
         public Vector3 PreviousFlickPosition;
         public float FlickAmount;
         public float FlickAngle;
-        public float GameFlickAngle => FlickAngle - MotionManager.Instance.CurrentRotation;
+        public float GameFlickAngle => FlickAngle + MotionManager.Instance.CurrentRotation;
         public LST_FlickDir LastFlickDir;
         public bool HasHandledFlick;
 
@@ -70,17 +72,11 @@ namespace GamePlay.Judge.Inputs
         {
             var deg = (Mathf.Atan2(position.y, position.x) * Mathf.Rad2Deg) + 90.0f;
             Angle = deg;
-
-            var x = FastTrig.Sin(Angle);
-            var y = FastTrig.Cos(Angle);
-            var start = new Vector3(x, y, 0.0f) * GameConst.SpaceEnd;
-            var end = new Vector3(x, y, 0.0f) * (GameConst.SpaceEnd + 1.5f);
-            Debug.DrawLine(start, end, Color.magenta, 1.0f);
         }
 
         public bool TryUpdateFlick(Vector3 position)
         {
-            if ((position - PreviousFlickPosition).sqrMagnitude < 0.0225f) //0.15
+            if ((position - PreviousFlickPosition).sqrMagnitude < (FlickThreshold * FlickThreshold))
                 return false;
 
             UpdateFlick(position);

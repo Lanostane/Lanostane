@@ -179,7 +179,7 @@ namespace GamePlay.Motions
 
         public void SetRotation(float absRotation)
         {
-            CurrentRotation = -absRotation;
+            CurrentRotation = absRotation;
             RotationOrigin.localEulerAngles = new(0.0f, 0.0f, -absRotation);
         }
     }
