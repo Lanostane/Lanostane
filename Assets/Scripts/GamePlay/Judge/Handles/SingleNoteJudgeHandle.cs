@@ -35,15 +35,15 @@ namespace GamePlay.Judge.Handles
             if (JudgeDone)
                 return;
 
-            if (!IsJudgeReportAllowed(clickTime))
-                return;
-
             var result = GetJudgeResult(Timing, clickTime);
             if (result == JudgeType.Miss) //???
             {
                 TryReportMiss();
                 return;
             }
+
+            if (!IsJudgeReportAllowed(clickTime))
+                return;
 
             JudgeDone = true;
             Graphic.JudgeDone = true;
@@ -70,16 +70,6 @@ namespace GamePlay.Judge.Handles
         }
 
         protected virtual void OnMissReported() { }
-
-        protected void OnJudge(JudgeType type)
-        {
-            if (JudgeDone)
-                return;
-
-            JudgeDone = true;
-            Graphic.TriggerJudgeEffect(type);
-            Graphic.Hide();
-        }
 
         protected float GetDelta(float chartTime)
         {

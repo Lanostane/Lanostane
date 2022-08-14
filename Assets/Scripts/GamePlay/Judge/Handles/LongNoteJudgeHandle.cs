@@ -70,7 +70,11 @@ namespace GamePlay.Judge.Handles
         public void ReportJudge(JudgeType type, bool fullyDone = false)
         {
             if (JudgeDone)
+            {
+                Debug.LogError($"Judge was reported after rail is done! {type}");
                 return;
+            }
+                
 
             if (type == JudgeType.Miss)
             {

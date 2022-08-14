@@ -32,6 +32,7 @@ namespace GamePlay.Judge.Handles
         public override int TotalNoteCount => _TotalSubNoteCount;
         public override float CurrentTiming => Mathf.Clamp(ChartPlayer.OffsetChartTime, Timing, Timing + Duration);
         public override float CurrentDegree => Graphic.HeadDegree;
+        public bool IsDerailed => MathfE.AbsDelta(CurrentTiming, LastInputTime) > 0.4f;
 
         private readonly Queue<HoldJudgeTimingInfo> _JudgeTimings = new();
         private HoldJudgeTimingInfo? _CurrentJudgeTiming = null;
@@ -132,7 +133,7 @@ namespace GamePlay.Judge.Handles
             if (JudgeDone && !Graphic.JudgeEffectEnabled)
                 return;
 
-            if (MathfE.AbsDelta(CurrentTiming, LastInputTime) <= 0.04 && !JudgeDone) //Not Derailed
+            if (!IsDerailed && chartTime >= Timing && !JudgeDone) //Not Derailed
             {
                 Graphic.EnableJudgeEffect(JudgeType.Perfect);
             }
@@ -150,46 +151,35 @@ namespace GamePlay.Judge.Handles
                 return;
             }
 
-            if (MathfE.AbsDelta(CurrentTiming, LastInputTime) > 0.04) //Derailed
+            if (MathfE.AbsDelta(CurrentTiming, LastInputTime) > 0.04f) //Derailed
             {
-                ResetInputID();
+                ResetInputTime();
             }
 
-            if (_CurrentJudgeTiming.HasValue)
+            var timingInfo = _CurrentJudgeTiming.Value;
+            var tolerance = (timingInfo.IsFirst || timingInfo.IsLast) ? _TickInterval * 3.5f : _TickInterval * 2.5f;
+
+            if (NoteJudgeManager.Instance.AutoPlay)
             {
-                var timingInfo = _CurrentJudgeTiming.Value;
-
-                var tolerance = (timingInfo.IsFirst || timingInfo.IsLast) ? _TickInterval * 3.5f : _TickInterval * 2.5f;
-                if (timingInfo.Timing > chartTime)
+                if (timingInfo.Timing <= chartTime)
                 {
-                    return;
+                    ReportJudge(JudgeType.Perfect, timingInfo.IsLast);
+                    TryDequeueTiming();
                 }
+                return;
+            }
 
-                if (NoteJudgeManager.Instance.AutoPlay)
-                {
-                    if (timingInfo.Timing <= chartTime)
-                    {
-                        ReportJudge(JudgeType.Perfect, timingInfo.IsLast);
-                        TryDequeueTiming();
-                    }
-                    return;
-                }
-
+            if (timingInfo.Timing <= chartTime)
+            {
                 if (MathfE.AbsApprox(LastInputTime, timingInfo.Timing, tolerance))
                 {
-                    if (LastInputType == InputEvent.PointerHold)
-                    {
-                        ReportJudge(JudgeType.Perfect, timingInfo.IsLast);
-                        TryDequeueTiming();
-                    }
+                    ReportJudge(JudgeType.Perfect, timingInfo.IsLast);
+                    TryDequeueTiming();
                 }
-                else if (chartTime > Timing + tolerance)
+                else
                 {
-                    if (timingInfo.Timing < chartTime)
-                    {
-                        ReportJudge(JudgeType.Miss, timingInfo.IsLast);
-                        TryDequeueTiming();
-                    }
+                    ReportJudge(JudgeType.Miss, timingInfo.IsLast);
+                    TryDequeueTiming();
                 }
             }
         }

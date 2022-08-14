@@ -63,25 +63,29 @@ public sealed class ChartPlayer : MonoBehaviour
         foreach (var note in chart.TapNotes)
         {
             var graphic = NoteGraphicManager.Instance.AddSingleNote(note.NoteInfo);
-            NoteJudgeManager.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
+            if (note.Timing <= chart.SongLength)
+                NoteJudgeManager.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
         }
 
         foreach (var note in chart.CatchNotes)
         {
             var graphic = NoteGraphicManager.Instance.AddSingleNote(note.NoteInfo);
-            NoteJudgeManager.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
+            if (note.Timing <= chart.SongLength)
+                NoteJudgeManager.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
         }
 
         foreach (var note in chart.FlickNotes)
         {
             var graphic = NoteGraphicManager.Instance.AddSingleNote(note.NoteInfo);
-            NoteJudgeManager.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
+            if (note.Timing <= chart.SongLength)
+                NoteJudgeManager.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
         }
 
         foreach (var note in chart.HoldNotes)
         {
             var graphic = NoteGraphicManager.Instance.AddLongNote(note.NoteInfo);
-            NoteJudgeManager.Instance.AddLongJudgeHandle(note.NoteInfo, graphic);
+            if (note.Timing <= chart.SongLength)
+                NoteJudgeManager.Instance.AddLongJudgeHandle(note.NoteInfo, graphic);
         }
 
         NoteJudgeManager.Instance.InitializeScoring();
@@ -155,10 +159,7 @@ public sealed class ChartPlayer : MonoBehaviour
             NoteJudgeManager.Instance.UpdateChart(OffsetChartTime);
             MotionManager.Instance.UpdateChart(OffsetChartTime);
 
-            //_sw.Restart();
             NoteGraphicManager.Instance.UpdateChart(OffsetChartTime);
-            //_sw.Stop();
-            //Debug.LogError($"NoteGraphic Batch: {_sw.ElapsedTicks} ticks");
         }
     }
 }
