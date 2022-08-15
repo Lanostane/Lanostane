@@ -21,11 +21,12 @@ namespace GamePlay.Judge
 
     public partial class NoteJudgeManager : MonoBehaviour, INoteJudgeManager
     {
-        public const float Timeout = 0.3f;
-        public const float TapPerfect = 0.06f;
-        public const float FlickPerfect = 0.09f;
-        public const float TapGood = 0.115f;
-        public const float FlickGood = 0.21f;
+        public const float Timeout = 0.31f;
+        public const float TapPerfectPlus = 0.07f;
+        public const float TapPerfect = 0.11f;
+        public const float FlickPerfect = 0.1f;
+        public const float TapGood = 0.175f;
+        public const float FlickGood = 0.25f;
         public const float Size0Deg = 8.5f;
         public const float Size1Deg = 12.5f;
         public const float Size2Deg = 17.0f;

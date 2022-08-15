@@ -35,10 +35,11 @@ namespace GamePlay.Graphics.FX.Combo
         {
             var color = type switch
             {
+                JudgeType.PerfectPlus => PerfectColor,
                 JudgeType.Perfect => PerfectColor,
                 JudgeType.Good => GoodColor,
                 JudgeType.Miss => MissColor,
-                _ => MissColor
+                _ => throw new System.NotImplementedException(),
             };
 
             degree = MathfE.AbsAngle(degree);

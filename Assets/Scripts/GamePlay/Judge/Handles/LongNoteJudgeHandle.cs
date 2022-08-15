@@ -90,7 +90,11 @@ namespace GamePlay.Judge.Handles
                 ResetInputTime();
             }
 
-            ScoreManager.RegisterNote(type, CurrentDegree);
+            ScoreManager.RegisterNote(new()
+            {
+                Type = type,
+                Degree = CurrentDegree
+            });
         }
 
         private void ReportMiss(bool fullyDone = false)
@@ -105,7 +109,11 @@ namespace GamePlay.Judge.Handles
                 Graphic.Hide();
             }
 
-            ScoreManager.RegisterNote(JudgeType.Miss, CurrentDegree);
+            ScoreManager.RegisterNote(new()
+            {
+                Type = JudgeType.Miss,
+                Degree = CurrentDegree
+            });
         }
 
         public bool IsDegreeInRange(float inputDegree)

@@ -4,136 +4,119 @@ using GamePlay.Judge;
 using GamePlay.Motions;
 using GamePlay.Scrolls;
 using Newtonsoft.Json;
+using Settings;
+using System;
 using UnityEngine;
 using Utils;
 
-public sealed class ChartPlayer : MonoBehaviour
+namespace GamePlay
 {
-    public static bool ChartLoaded { get; private set; }
-    public static float MusicTime { get; private set; }
-    public static float ChartTime { get; private set; }
-    public static float OffsetChartTime { get; private set; }
-
-    public TextAsset Chart;
-    public AudioClip Music;
-
-    public AudioSource Audio;
-    public float Offset = 0.01f;
-    [Range(0.1f, 8.0f)] public float PlaySpeed = 1.0f;
-    public bool StartChartOnLoaded;
-
-    private bool _ChartPlaying = false;
-
-    void Start()
+    public interface IChartPlayer
     {
-        LoadChart(Music, Chart.text);
+        void LoadChart(AudioClip music, string json);
     }
 
-    void OnDestroy()
+    public sealed class ChartPlayer : MonoBehaviour, IChartPlayer
     {
-        ResetValues();
-    }
+        public static bool ChartLoaded { get; private set; }
+        public static float MusicTime { get; private set; }
+        public static float ChartTime { get; private set; }
+        public static float OffsetChartTime { get; private set; }
 
-    void OnValidate()
-    {
-        Audio.pitch = PlaySpeed;
+        public static event Action<float> ChartProgressUpdated;
+        public static event Action<float> ChartTimeUpdated;
+        public static event Action ChartPlayFinished;
 
-    }
+        public TextAsset Chart;
+        public AudioClip Music;
 
-    private void LoadChart(AudioClip music, string json)
-    {
-        ResetValues();
+        public AudioSource Audio;
+        [Range(0.1f, 8.0f)] public float PlaySpeed = 1.0f;
+        public bool StartChartOnLoaded;
 
-        Audio.clip = music;
-        MusicTime = Audio.clip.length;
+        private readonly ChartUpdater _Updater = new();
+        private bool _ChartPlaying = false;
+        private float _ChartOffset = 0.0f;
 
-        var laChart = JsonConvert.DeserializeObject<LaChart>(json);
-        var chart = laChart.CreateLanostaneChart();
-
-        MotionManager.Instance.SetDefaultMotion(chart.Default);
-        MotionManager.Instance.AddMotions(chart);
-        MotionManager.Instance.UpdateAbsValue();
-
-        foreach (var scroll in chart.Scrolls)
+        void Start()
         {
-            ScrollManager.Instance.AddScroll(scroll);
-        }
-        ScrollManager.Instance.UpdateAbsValue();
-
-        foreach (var note in chart.TapNotes)
-        {
-            var graphic = NoteGraphicManager.Instance.AddSingleNote(note.NoteInfo);
-            if (note.Timing <= chart.SongLength)
-                NoteJudgeManager.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
+            _ChartOffset = -UserSetting.Offset * 1000.0f;
+            LoadChart(Music, Chart.text);
         }
 
-        foreach (var note in chart.CatchNotes)
+        void OnDestroy()
         {
-            var graphic = NoteGraphicManager.Instance.AddSingleNote(note.NoteInfo);
-            if (note.Timing <= chart.SongLength)
-                NoteJudgeManager.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
+            ResetValues();
         }
 
-        foreach (var note in chart.FlickNotes)
+        void OnValidate()
         {
-            var graphic = NoteGraphicManager.Instance.AddSingleNote(note.NoteInfo);
-            if (note.Timing <= chart.SongLength)
-                NoteJudgeManager.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
+            Audio.pitch = PlaySpeed;
+
         }
 
-        foreach (var note in chart.HoldNotes)
+        public void LoadChart(AudioClip music, string json)
         {
-            var graphic = NoteGraphicManager.Instance.AddLongNote(note.NoteInfo);
-            if (note.Timing <= chart.SongLength)
-                NoteJudgeManager.Instance.AddLongJudgeHandle(note.NoteInfo, graphic);
+            ResetValues();
+
+            Audio.clip = music;
+            MusicTime = Audio.clip.length;
+
+            var laChart = JsonConvert.DeserializeObject<LaChart>(json);
+            var chart = laChart.CreateLanostaneChart();
+            _Updater.Setup(chart); 
+
+            ChartLoaded = true;
+            if (StartChartOnLoaded)
+            {
+                MotionManager.Instance.StartDefaultMotion(2.0f);
+                Invoke(nameof(StartChart), 2.0f);
+            }
         }
 
-        NoteJudgeManager.Instance.InitializeScoring();
-
-        ChartLoaded = true;
-        if (StartChartOnLoaded)
+        public void Invoke_TimeUpdate(float time)
         {
-            StartChart();
+            ChartTimeUpdated?.Invoke(time);
+            ChartProgressUpdated?.Invoke(time / MusicTime);
         }
-    }
 
-    private void ResetValues()
-    {
-        ChartLoaded = false;
-        MusicTime = 0.0f;
-        ChartTime = 0.0f;
-        OffsetChartTime = 0.0f;
-    }
-
-    private void CleanupCharts()
-    {
-
-    }
-
-    public void Pause()
-    {
-        if (ChartLoaded && _ChartPlaying)
+        private void ResetValues()
         {
-            Audio.Pause();
+            ChartLoaded = false;
+            MusicTime = 0.0f;
+            ChartTime = 0.0f;
+            OffsetChartTime = 0.0f;
         }
-    }
 
-    public void Resume()
-    {
-        if (ChartLoaded && !_ChartPlaying)
+        private void CleanupCharts()
         {
-            Audio.UnPause();
+            _Updater.CleanUp();
         }
-    }
 
-    void StartChart()
-    {
-        Audio.Play();
-        Audio.pitch = PlaySpeed;
-        ChartTime = 0.0f;
-        OffsetChartTime = 0.0f;
-        _ChartPlaying = true;
-    }
+        public void Pause()
+        {
+            if (ChartLoaded && _ChartPlaying)
+            {
+                Audio.Pause();
+            }
+        }
+
+        public void Resume()
+        {
+            if (ChartLoaded && !_ChartPlaying)
+            {
+                Audio.UnPause();
+            }
+        }
+
+        void StartChart()
+        {
+            Audio.Play();
+            Audio.pitch = PlaySpeed;
+            ChartTime = 0.0f;
+            OffsetChartTime = 0.0f;
+            _ChartPlaying = true;
+        }
 
 #if !UNITY_EDITOR
     void FixedUpdate()
@@ -142,24 +125,21 @@ public sealed class ChartPlayer : MonoBehaviour
     }
 #endif
 
-    void Update()
-    {
-        if (_ChartPlaying && Audio.isPlaying)
+        void Update()
         {
-            ChartTime += (Time.deltaTime * PlaySpeed);
-
-            var audioTime = Audio.time;
-            if (!MathfE.AbsApprox(ChartTime, audioTime, 0.05f))
+            if (_ChartPlaying && Audio.isPlaying)
             {
-                ChartTime = audioTime;
+                ChartTime += (Time.deltaTime * PlaySpeed);
+
+                var audioTime = Audio.time;
+                if (!MathfE.AbsApprox(ChartTime, audioTime, 0.05f))
+                {
+                    ChartTime = audioTime;
+                }
+
+                OffsetChartTime = ChartTime + _ChartOffset;
+                _Updater.UpdateChart(OffsetChartTime);
             }
-
-            OffsetChartTime = ChartTime + Offset;
-            ScrollManager.Instance.UpdateChart(OffsetChartTime);
-            NoteJudgeManager.Instance.UpdateChart(OffsetChartTime);
-            MotionManager.Instance.UpdateChart(OffsetChartTime);
-
-            NoteGraphicManager.Instance.UpdateChart(OffsetChartTime);
         }
     }
 }

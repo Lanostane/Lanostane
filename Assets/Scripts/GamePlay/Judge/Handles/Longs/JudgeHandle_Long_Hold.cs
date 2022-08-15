@@ -135,11 +135,11 @@ namespace GamePlay.Judge.Handles
 
             if (!IsDerailed && chartTime >= Timing && !JudgeDone) //Not Derailed
             {
-                Graphic.EnableJudgeEffect(JudgeType.Perfect);
+                Graphic.EnableJudgeEffect(JudgeType.PerfectPlus);
             }
             else
             {
-                Graphic.DisableJudgeEffect(JudgeType.Perfect);
+                Graphic.DisableJudgeEffect(JudgeType.PerfectPlus);
             }
         }
 
@@ -157,13 +157,13 @@ namespace GamePlay.Judge.Handles
             }
 
             var timingInfo = _CurrentJudgeTiming.Value;
-            var tolerance = (timingInfo.IsFirst || timingInfo.IsLast) ? _TickInterval * 3.5f : _TickInterval * 2.5f;
+            var tolerance = (timingInfo.IsFirst || timingInfo.IsLast) ? _TickInterval * 7.5f : _TickInterval * 4.0f;
 
             if (NoteJudgeManager.Instance.AutoPlay)
             {
                 if (timingInfo.Timing <= chartTime)
                 {
-                    ReportJudge(JudgeType.Perfect, timingInfo.IsLast);
+                    ReportJudge(JudgeType.PerfectPlus, timingInfo.IsLast);
                     TryDequeueTiming();
                 }
                 return;
@@ -173,7 +173,7 @@ namespace GamePlay.Judge.Handles
             {
                 if (MathfE.AbsApprox(LastInputTime, timingInfo.Timing, tolerance))
                 {
-                    ReportJudge(JudgeType.Perfect, timingInfo.IsLast);
+                    ReportJudge(JudgeType.PerfectPlus, timingInfo.IsLast);
                     TryDequeueTiming();
                 }
                 else

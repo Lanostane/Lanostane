@@ -4,17 +4,25 @@ using UnityEngine;
 
 namespace GamePlay.Scoring
 {
+
+    public struct ScoreData
+    {
+        public JudgeType Type;
+        public float Degree;
+    }
+
     public static class ScoreManager
     {
         public delegate void NoteRegisteredDel(JudgeType type, float degree);
 
-        public const double MaxScore = 1000000000;
-        public const double GoodScoreMult = 0.6f;
+        public const double MaxScore = 10000000;
+        public const double GoodScoreMult = 0.25f;
 
         public static bool IsPerfect { get; private set; }
         public static bool IsAllCombo { get; private set; }
         public static float Score { get; private set; }
         public static int ScoreRounded { get; private set; }
+        public static string ScoreString { get; private set; }
         public static int TotalNotes => _NoteCount;
         public static int RegisteredNotes => _PerfectCount + _GoodCount + _MissCount;
         public static int ComboCount { get; private set; }
@@ -24,6 +32,7 @@ namespace GamePlay.Scoring
 
         private static double _ScorePerNote;
         private static int _NoteCount;
+        private static int _PerfectPlusCount;
         private static int _PerfectCount;
         private static int _GoodCount;
         private static int _MissCount;
@@ -38,6 +47,7 @@ namespace GamePlay.Scoring
             _ScorePerNote = MaxScore / _NoteCount;
 
             _PerfectCount = 0;
+            _PerfectPlusCount = 0;
             _GoodCount = 0;
             _MissCount = 0;
 
@@ -47,10 +57,16 @@ namespace GamePlay.Scoring
             UpdateScore();
         }
 
-        public static void RegisterNote(JudgeType type, float degree)
+        public static void RegisterNote(ScoreData data)
         {
-            switch (type)
+            switch (data.Type)
             {
+                case JudgeType.PerfectPlus:
+                    ComboCount++;
+                    _PerfectCount++;
+                    _PerfectPlusCount++;
+                    break;
+
                 case JudgeType.Perfect:
                     ComboCount++;
                     _PerfectCount++;
@@ -73,7 +89,7 @@ namespace GamePlay.Scoring
                     return;
             }
 
-            NoteRegistered?.Invoke(type, degree);
+            NoteRegistered?.Invoke(data.Type, data.Degree);
             UpdateScore();
         }
 
@@ -82,10 +98,16 @@ namespace GamePlay.Scoring
             var perfectScore = _ScorePerNote * _PerfectCount;
             var goodScore = _ScorePerNote * _GoodCount * GoodScoreMult;
 
-            Score = (float)(perfectScore + goodScore);
+            Score = (float)(perfectScore + goodScore + _PerfectPlusCount);
             ScoreRounded = Mathf.RoundToInt(Score);
+            SetScoreString(ScoreRounded);
 
             ScoreUpdated?.Invoke();
+        }
+
+        private static void SetScoreString(int intScore)
+        {
+            ScoreString = $"{intScore:00000000}";
         }
     }
 }

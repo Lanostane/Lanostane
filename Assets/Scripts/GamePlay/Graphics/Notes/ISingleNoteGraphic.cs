@@ -16,5 +16,6 @@ namespace GamePlay.Graphics
         void TriggerJudgeEffect(JudgeType type);
         void SetNoteType(LST_SingleNoteType type);
         void UpdateProgress(float progress01);
+        void DestroyInstance();
     }
 }

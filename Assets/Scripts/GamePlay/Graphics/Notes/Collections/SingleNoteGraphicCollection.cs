@@ -70,8 +70,16 @@ namespace GamePlay.Graphics.Collections
             _IsDirty = true;
         }
 
-        public void Clear()
+        public void Clear(bool destroy)
         {
+            if (destroy)
+            {
+                foreach (var note in _List)
+                {
+                    note.DestroyInstance();
+                }
+            }
+
             _List.Clear();
             _IsDirty = true;
         }

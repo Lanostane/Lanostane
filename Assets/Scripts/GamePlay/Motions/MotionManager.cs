@@ -1,5 +1,6 @@
 ﻿using Charts;
 using GamePlay.Motions.Collections;
+using System.Collections;
 using UnityEngine;
 using Utils;
 
@@ -18,6 +19,7 @@ namespace GamePlay.Motions
 
         void AddMotions(LST_Chart chart);
         void UpdateAbsValue();
+        void StartDefaultMotion(float duration);
         bool TryGetBPMByTime(float time, out float bpm);
         void SetDefaultMotion(LST_DefaultMotion defaultMotion);
         void SetCameraTransform(Vector3 xyPos, float absHeight);
@@ -29,10 +31,15 @@ namespace GamePlay.Motions
 
     internal class MotionManager : MonoBehaviour, IMotionManager
     {
+        public const float InitialTheta = 0.0f;
+        public const float InitialRho = 0.0f;
+        public const float InitialHeight = -20.0f;
+        public const float InitialRotation = 0.0f;
+        public readonly static Vector3 InitialXY = Vector3.zero;
+
         public static IMotionManager Instance { get; private set; }
 
         public Transform RotationOrigin;
-        public Transform CameraTransform;
 
         public float CurrentBPM { get; private set; }
         public float CurrentRotation { get; private set; }
@@ -94,6 +101,32 @@ namespace GamePlay.Motions
             _BPMS.UpdateMotionAbsData();
         }
 
+        public void StartDefaultMotion(float duration)
+        {
+            StartCoroutine(DoDefaultMotion());
+
+            IEnumerator DoDefaultMotion()
+            {
+                var time = 0.0f;
+                while(time <= duration)
+                {
+                    var p = time / duration;
+                    p = Ease.Sinusoidal.In(p);
+
+                    SetRotation(Mathf.Lerp(InitialRotation, StartingRotation, p));
+                    SetCameraPos(Vector3.Lerp(InitialXY, StartingPosition, p));
+                    SetCameraHeight(Mathf.Lerp(InitialHeight, StartingHeight, p));
+
+                    time += Time.deltaTime;
+                    yield return null;
+                }
+
+                SetRotation(StartingRotation);
+                SetCameraPos(StartingPosition);
+                SetCameraHeight(StartingHeight);
+            }
+        }
+
         public void UpdateChart(float chartTime)
         {
             _Rots.UpdateChartTime(chartTime);
@@ -115,11 +148,11 @@ namespace GamePlay.Motions
             _Heights.Clear();
             _BPMS.Clear();
 
-            StartingTheta = 0.0f;
-            StartingHeight = -20.0f;
-            StartingPosition = Vector3.zero;
-            StartingRho = 0.0f;
-            StartingRotation = 0.0f;
+            StartingTheta = InitialTheta;
+            StartingHeight = InitialHeight;
+            StartingPosition = InitialXY;
+            StartingRho = InitialRho;
+            StartingRotation = InitialRotation;
         }
 
         public bool TryGetBPMByTime(float time, out float bpm)
@@ -141,40 +174,36 @@ namespace GamePlay.Motions
             StartingTheta = defaultMotion.Degree;
             StartingRho = defaultMotion.Radius;
             StartingPosition = new PolarPoint(StartingRho, StartingTheta).ToCoord();
-
             StartingHeight = defaultMotion.Height;
-            SetCameraTransform(StartingPosition, StartingHeight);
-
             StartingRotation = defaultMotion.Rotation;
-            SetRotation(StartingRotation);
         }
 
         public void SetCameraTransform(Vector3 xyPos, float absHeight)
         {
             xyPos.z = absHeight;
-            CameraTransform.position = xyPos;
+            GameCamera.Transform.position = xyPos;
         }
 
         public void SetCameraPos(Vector3 xyPos)
         {
-            var cameraPos = CameraTransform.position;
+            var cameraPos = GameCamera.Transform.position;
             xyPos.z = cameraPos.z;
-            CameraTransform.position = xyPos;
+            GameCamera.Transform.position = xyPos;
         }
 
         public void SetCameraPos(PolarPoint polar)
         {
-            var height = CameraTransform.position.z;
+            var height = GameCamera.Transform.position.z;
             var coord = polar.ToCoord();
             coord.z = height;
-            CameraTransform.position = coord;
+            GameCamera.Transform.position = coord;
         }
 
         public void SetCameraHeight(float absHeight)
         {
-            var cameraPos = CameraTransform.position;
+            var cameraPos = GameCamera.Transform.position;
             cameraPos.z = absHeight;
-            CameraTransform.position = cameraPos;
+            GameCamera.Transform.position = cameraPos;
         }
 
         public void SetRotation(float absRotation)

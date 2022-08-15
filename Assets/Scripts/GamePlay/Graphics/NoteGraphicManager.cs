@@ -70,7 +70,8 @@ namespace GamePlay.Graphics
 
         public void CleanUp()
         {
-            //TODO: clean up graphics
+            _Singles.Clear(destroy: true);
+            _Longs.Clear(destroy: true);
         }
 
         private void UpdateSingleNotes(float chartTime)

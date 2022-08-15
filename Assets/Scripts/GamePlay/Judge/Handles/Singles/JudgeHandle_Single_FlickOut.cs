@@ -8,9 +8,7 @@ namespace GamePlay.Judge.Handles
     {
         #region Constants
         public const float Timeout = NoteJudgeManager.Timeout;
-        public const float TapPerfect = NoteJudgeManager.TapPerfect;
         public const float FlickPerfect = NoteJudgeManager.FlickPerfect;
-        public const float TapGood = NoteJudgeManager.TapGood;
         public const float FlickGood = NoteJudgeManager.FlickGood;
         public const float Size0Deg = NoteJudgeManager.Size0Deg;
         public const float Size1Deg = NoteJudgeManager.Size1Deg;
@@ -72,11 +70,11 @@ namespace GamePlay.Judge.Handles
         protected override JudgeType GetJudgeResult(float noteTime, float clickTime)
         {
             if (NoteJudgeManager.Instance.AutoPlay)
-                return JudgeType.Perfect;
+                return JudgeType.PerfectPlus;
 
             var delta = MathfE.AbsDelta(noteTime, clickTime);
             if (delta <= FlickPerfect)
-                return JudgeType.Perfect;
+                return JudgeType.PerfectPlus;
             else if (delta <= FlickGood)
                 return JudgeType.Good;
             else

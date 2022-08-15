@@ -49,7 +49,11 @@ namespace GamePlay.Judge.Handles
             Graphic.JudgeDone = true;
             Graphic.Hide();
 
-            ScoreManager.RegisterNote(result, Degree);
+            ScoreManager.RegisterNote(new()
+            {
+                Type = result,
+                Degree = Degree
+            });
             Graphic.TriggerJudgeEffect(result);
             OnJudgeReported(result, handle);
         }
@@ -64,7 +68,11 @@ namespace GamePlay.Judge.Handles
             JudgeDone = true;
             Graphic.JudgeDone = true;
             Graphic.Hide();
-            ScoreManager.RegisterNote(JudgeType.Miss, Degree);
+            ScoreManager.RegisterNote(new()
+            {
+                Type = JudgeType.Miss,
+                Degree = Degree
+            });
             Graphic.TriggerJudgeEffect(JudgeType.Miss);
             OnMissReported();
         }

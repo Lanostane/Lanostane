@@ -23,5 +23,6 @@ namespace GamePlay.Graphics
         void SetNoteType(LST_LongNoteType type);
         bool UpdateVisibility(float chartTime);
         void UpdateProgress(float headProgress01, float chartTime);
+        void DestroyInstance();
     }
 }

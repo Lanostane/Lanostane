@@ -16,25 +16,30 @@ namespace GamePlay.Graphics.FX.Combo
 
         public void Display(JudgeType type, Color color)
         {
+            var text = type switch
+            {
+                JudgeType.PerfectPlus => "Perfect<sup>+</sup>!",
+                JudgeType.Perfect => "Perfect!",
+                JudgeType.Good => "Good!",
+                JudgeType.Miss => "Miss...",
+                _ => throw new System.NotImplementedException(),
+            };
+
+
+            TypeText.text = text;
+            TypeText.color = color;
+            ComboText.text = ScoreManager.ComboCount.ToString();
+            ComboText.color = color;
+
+            Anim.Play(DO_DISPLAY);
+
             if (type == JudgeType.Miss)
             {
-                Anim.Play(DO_DISPLAY);
-
                 ComboText.gameObject.SetActive(false);
-                TypeText.text = "Miss...";
-                TypeText.color = color;
             }
             else
             {
-                Anim.Play(DO_DISPLAY);
-
                 ComboText.gameObject.SetActive(true);
-
-                TypeText.color = color;
-                ComboText.color = color;
-
-                TypeText.text = type == JudgeType.Perfect ? "Perfect!" : "Good!";
-                ComboText.text = ScoreManager.ComboCount.ToString();
             }
         }
     }

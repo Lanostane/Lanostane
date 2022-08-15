@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
 
-namespace GamePlay.GUI.Calibration
+namespace UI.Calibration
 {
     public class TapArea : MonoBehaviour, IPointerDownHandler
     {

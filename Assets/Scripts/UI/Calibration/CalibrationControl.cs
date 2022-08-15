@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Settings;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
-namespace GamePlay.GUI.Calibration
+namespace UI.Calibration
 {
     public struct Sample
     {
@@ -16,7 +17,7 @@ namespace GamePlay.GUI.Calibration
         public int Delta;
     }
 
-    public class CalibrationWindow : MonoBehaviour
+    public class CalibrationControl : MonoBehaviour
     {
         public const string START_TEXT = "TAP HERE\n\nTO\n\nSTART";
         public const string TAP_TEXT = "TAP HERE\n\nTO THE\n\nBEAT";
@@ -34,6 +35,15 @@ namespace GamePlay.GUI.Calibration
         void Awake()
         {
             TapArea.PointerDowned += TapArea_Pressed;    
+        }
+
+        private void ResetState()
+        {
+            _Calibrating = false;
+            _CalibratingFinished = false;
+            _Timing = 0.0f;
+            _Samples.Clear();
+            TapArea.SetText(START_TEXT);
         }
 
         private void TapArea_Pressed()
@@ -82,34 +92,47 @@ namespace GamePlay.GUI.Calibration
         {
             _CalibratingFinished = true;
 
-            var deltaSorted = _Samples.OrderBy(x=>x.Delta);
-            var lowest = deltaSorted.First().Delta;
-            var accurate = (int)_Samples.Select(x => MathfE.AbsDelta(x.Delta, lowest)).Average();
-            var avgDelta = Mathf.RoundToInt((float)_Samples.Average(x => x.Delta));
+            if (_Samples.Count > 8)
+            {
+                var deltaSorted = _Samples.OrderBy(x => x.Delta);
+                var lowest = deltaSorted.First().Delta;
+                var accurate = (int)_Samples.Select(x => MathfE.AbsDelta(x.Delta, lowest)).Average();
+                var avgDelta = Mathf.RoundToInt((float)_Samples.Average(x => x.Delta));
 
-            var text = string.Empty;
-            if (accurate < 40)
-            {
-                text = "Amazing Accuracy!";
-            }
-            else if (accurate < 80)
-            {
-                text = "Nicely done!";
-            }
-            else if (accurate < 120)
-            {
-                text = "Good Job!";
-            }
-            else if (accurate < 160)
-            {
-                text = "Good enough..?";
+                var text = string.Empty;
+                if (accurate < 40)
+                {
+                    text = "Amazing Accuracy!";
+                }
+                else if (accurate < 80)
+                {
+                    text = "Nicely done!";
+                }
+                else if (accurate < 120)
+                {
+                    text = "Good Job!";
+                }
+                else if (accurate < 160)
+                {
+                    text = "Good enough..?";
+                }
+                else
+                {
+                    text = "Try again...";
+                }
+
+                TapArea.SetText($"Your Offset: {avgDelta}ms\n\nAccuracy (Lower-Better): {accurate}\n\n{text}");
+
+                //TODO: Move this to Event later
+                UserSetting.Offset = avgDelta;
+                UserSetting.Save();
             }
             else
             {
-                text = "Try again...";
+                TapArea.SetText($"Too less Sample were input...\n\nTry again!");
             }
-
-            TapArea.SetText($"Your Offset: {avgDelta}ms\n\nAccuracy (Lower-Better): {accurate}\n\n{text}");
+            
+            Invoke(nameof(ResetState), 4.0f);
         }
     }
 }

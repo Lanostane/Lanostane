@@ -154,5 +154,10 @@ namespace GamePlay.Graphics
             var pos = -GameConst.LerpSpace(progress01);
             HeadPositionTransform.localPosition = new Vector3(0.0f, pos, 0.0f);
         }
+
+        public void DestroyInstance()
+        {
+            Destroy(this);
+        }
     }
 }

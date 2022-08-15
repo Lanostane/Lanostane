@@ -69,7 +69,7 @@ namespace GamePlay.Graphics
             {
                 case LST_SingleNoteType.Click:
                 case LST_SingleNoteType.Catch:
-                    if (type == JudgeType.Perfect)
+                    if (type == JudgeType.Perfect || type == JudgeType.PerfectPlus)
                     {
                         JudgeSFX.PlayPerfectTap();
                         GameFX.TapParticles.Trigger(transform.parent, transform.position);
@@ -83,7 +83,7 @@ namespace GamePlay.Graphics
 
                 case LST_SingleNoteType.FlickIn:
                 case LST_SingleNoteType.FlickOut:
-                    if (type == JudgeType.Perfect)
+                    if (type == JudgeType.Perfect || type == JudgeType.PerfectPlus)
                     {
                         JudgeSFX.PlayPerfectFlick();
                         GameFX.TapParticles.Trigger(transform.parent, transform.position);
@@ -131,6 +131,11 @@ namespace GamePlay.Graphics
 
             transform.localScale = Vector3.one * GameConst.LerpNoteSize(progress01);
             transform.localPosition = Vector3.Lerp(_StartPosition, _EndPosition, progress01);
+        }
+
+        public void DestroyInstance()
+        {
+            Destroy(this);
         }
     }
 }
