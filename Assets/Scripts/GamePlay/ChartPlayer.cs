@@ -40,7 +40,7 @@ namespace GamePlay
 
         void Start()
         {
-            _ChartOffset = -UserSetting.Offset * 1000.0f;
+            _ChartOffset = -UserSetting.Offset / 1000.0f;
             LoadChart(Music, Chart.text);
         }
 
@@ -69,8 +69,8 @@ namespace GamePlay
             ChartLoaded = true;
             if (StartChartOnLoaded)
             {
-                MotionManager.Instance.StartDefaultMotion(2.0f);
-                Invoke(nameof(StartChart), 2.0f);
+                MotionManager.Instance.StartDefaultMotion(3.0f);
+                Invoke(nameof(StartChart), 3.0f);
             }
         }
 

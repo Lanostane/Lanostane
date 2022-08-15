@@ -19,5 +19,12 @@ namespace Assets.Scripts
                 UIManager.Instance.ChangeMainState(UIMainState.GamePlay);
             });
         }
+
+#if !UNITY_EDITOR
+    void FixedUpdate()
+    {
+        Application.targetFrameRate = Screen.currentResolution.refreshRate;
+    }
+#endif
     }
 }
