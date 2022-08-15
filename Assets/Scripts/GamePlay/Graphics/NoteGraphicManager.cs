@@ -2,7 +2,7 @@
 using GamePlay.Graphics.Collections;
 using GamePlay.Scrolls;
 using UnityEngine;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Graphics
 {

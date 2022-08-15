@@ -4,11 +4,11 @@ using GamePlay.Judge.Inputs;
 using GamePlay.Motions;
 using System.Collections.Generic;
 using UnityEngine;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Judge.Handles
 {
-    public struct HoldJudgeTimingInfo
+    public struct HoldJudgeSubNote
     {
         public bool IsFirst;
         public bool IsLast;
@@ -34,8 +34,8 @@ namespace GamePlay.Judge.Handles
         public override float CurrentDegree => Graphic.HeadDegree;
         public bool IsDerailed => MathfE.AbsDelta(CurrentTiming, LastInputTime) > 0.4f;
 
-        private readonly Queue<HoldJudgeTimingInfo> _JudgeTimings = new();
-        private HoldJudgeTimingInfo? _CurrentJudgeTiming = null;
+        private readonly Queue<HoldJudgeSubNote> _JudgeTimings = new();
+        private HoldJudgeSubNote? _CurrentJudgeTiming = null;
         private int _TotalSubNoteCount;
         private float _BaseBPM = 0.0f;
         private float _TickInterval = 0.0f;
@@ -156,29 +156,29 @@ namespace GamePlay.Judge.Handles
                 ResetInputTime();
             }
 
-            var timingInfo = _CurrentJudgeTiming.Value;
-            var tolerance = (timingInfo.IsFirst || timingInfo.IsLast) ? _TickInterval * 7.5f : _TickInterval * 4.0f;
+            var subnote = _CurrentJudgeTiming.Value;
+            var tolerance = (subnote.IsFirst || subnote.IsLast) ? _TickInterval * 7.5f : _TickInterval * 4.0f;
 
             if (NoteJudgeManager.Instance.AutoPlay)
             {
-                if (timingInfo.Timing <= chartTime)
+                if (subnote.Timing <= chartTime)
                 {
-                    ReportJudge(JudgeType.PerfectPlus, timingInfo.IsLast);
+                    ReportJudge(JudgeType.PerfectPlus, subnote.IsLast);
                     TryDequeueTiming();
                 }
                 return;
             }
 
-            if (timingInfo.Timing <= chartTime)
+            if (subnote.Timing <= chartTime)
             {
-                if (MathfE.AbsApprox(LastInputTime, timingInfo.Timing, tolerance))
+                if (MathfE.AbsApprox(LastInputTime, subnote.Timing, tolerance))
                 {
-                    ReportJudge(JudgeType.PerfectPlus, timingInfo.IsLast);
+                    ReportJudge(JudgeType.PerfectPlus, subnote.IsLast);
                     TryDequeueTiming();
                 }
-                else
+                else if (Timing + tolerance <= chartTime)
                 {
-                    ReportJudge(JudgeType.Miss, timingInfo.IsLast);
+                    ReportJudge(JudgeType.Miss, subnote.IsLast);
                     TryDequeueTiming();
                 }
             }

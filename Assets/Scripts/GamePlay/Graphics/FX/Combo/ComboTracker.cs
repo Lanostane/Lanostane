@@ -1,7 +1,7 @@
 ﻿using GamePlay.Judge;
 using GamePlay.Scoring;
 using UnityEngine;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Graphics.FX.Combo
 {

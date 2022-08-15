@@ -13,14 +13,14 @@ namespace UI
             ScoreManager.ScoreUpdated += ScoreUpdated;
         }
 
-        void Start()
-        {
-            ScoreUpdated();
-        }
-
         void OnDestroy()
         {
             ScoreManager.ScoreUpdated -= ScoreUpdated;
+        }
+
+        void Start()
+        {
+            ScoreUpdated();
         }
 
         void ScoreUpdated()

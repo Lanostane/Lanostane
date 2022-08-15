@@ -3,7 +3,7 @@ using GamePlay.Graphics.FX;
 using GamePlay.Judge;
 using GamePlay.Scrolls;
 using UnityEngine;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Graphics
 {
@@ -11,7 +11,7 @@ namespace GamePlay.Graphics
     {
         public LST_SingleNoteType Type { get; set; }
         public float Timing { get; set; }
-        public MiliSec ScrollTiming { get; set; }
+        public Millisecond ScrollTiming { get; set; }
         public bool JudgeDone { get; set; }
 
 

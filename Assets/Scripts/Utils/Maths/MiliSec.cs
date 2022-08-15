@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Utils
+namespace Utils.Maths
 {
-    public struct MiliSec : IComparable<MiliSec>, IComparer<MiliSec>, IEqualityComparer<MiliSec>
+    public struct Millisecond : IComparable<Millisecond>, IComparer<Millisecond>, IEqualityComparer<Millisecond>
     {
         public const float TimeConversion = 1.0f / 1000.0f;
         public const double DoubleTimeConversion = 1.0 / 1000.0;
 
-        public static readonly MiliSec Zero = new(0.0f);
+        public static readonly Millisecond Zero = new(0.0f);
 
         public long Milisecond
         {
@@ -34,12 +34,12 @@ namespace Utils
 
         private long _MS;
 
-        public MiliSec(float time)
+        public Millisecond(float time)
         {
             _MS = ToMS(time);
         }
 
-        public MiliSec(long ms)
+        public Millisecond(long ms)
         {
             _MS = ms;
         }
@@ -54,12 +54,12 @@ namespace Utils
             return (long)(time * 1000.0);
         }
 
-        public static MiliSec Lerp(MiliSec a, MiliSec b, float t)
+        public static Millisecond Lerp(Millisecond a, Millisecond b, float t)
         {
             return a + (long)((double)((b - a).Milisecond) * Mathf.Clamp01(t));
         }
 
-        public static float InverseLerp(MiliSec a, MiliSec b, MiliSec p)
+        public static float InverseLerp(Millisecond a, Millisecond b, Millisecond p)
         {
             var aTime = a.Milisecond;
             var bTime = b.Milisecond;
@@ -91,38 +91,48 @@ namespace Utils
             return (float)t / max;
         }
 
-        public int Compare(MiliSec x, MiliSec y)
+        public int Compare(Millisecond x, Millisecond y)
         {
             return x.Milisecond.CompareTo(y);
         }
 
-        public bool Equals(MiliSec x, MiliSec y)
+        public bool Equals(Millisecond x, Millisecond y)
         {
             return x.Milisecond == y.Milisecond;
         }
 
-        public int GetHashCode(MiliSec obj)
+        public int GetHashCode(Millisecond obj)
         {
             return obj.Milisecond.GetHashCode();
         }
 
-        public int CompareTo(MiliSec other)
+        public int CompareTo(Millisecond other)
         {
             return _MS.CompareTo(other.Milisecond);
         }
 
-        public static MiliSec operator +(MiliSec a) => a;
-        public static MiliSec operator -(MiliSec a) => new(-a.Milisecond);
-        public static MiliSec operator +(MiliSec a, MiliSec b) => new(a.Milisecond + b.Milisecond);
-        public static MiliSec operator -(MiliSec a, MiliSec b) => new(a.Milisecond - b.Milisecond);
-        public static MiliSec operator +(MiliSec a, float time) => new(a.Time + time);
-        public static MiliSec operator -(MiliSec a, float time) => new(a.Time - time);
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
 
-        public static bool operator <(MiliSec a, MiliSec b) => a.Milisecond < b.Milisecond;
-        public static bool operator >(MiliSec a, MiliSec b) => a.Milisecond > b.Milisecond;
-        public static bool operator <=(MiliSec a, MiliSec b) => a.Milisecond <= b.Milisecond;
-        public static bool operator >=(MiliSec a, MiliSec b) => a.Milisecond >= b.Milisecond;
-        public static bool operator !=(MiliSec a, MiliSec b) => a.Milisecond != b.Milisecond;
-        public static bool operator ==(MiliSec a, MiliSec b) => a.Milisecond == b.Milisecond;
+        public override int GetHashCode()
+        {
+            return _MS.GetHashCode();
+        }
+
+        public static Millisecond operator +(Millisecond a) => a;
+        public static Millisecond operator -(Millisecond a) => new(-a.Milisecond);
+        public static Millisecond operator +(Millisecond a, Millisecond b) => new(a.Milisecond + b.Milisecond);
+        public static Millisecond operator -(Millisecond a, Millisecond b) => new(a.Milisecond - b.Milisecond);
+        public static Millisecond operator +(Millisecond a, float time) => new(a.Time + time);
+        public static Millisecond operator -(Millisecond a, float time) => new(a.Time - time);
+
+        public static bool operator <(Millisecond a, Millisecond b) => a.Milisecond < b.Milisecond;
+        public static bool operator >(Millisecond a, Millisecond b) => a.Milisecond > b.Milisecond;
+        public static bool operator <=(Millisecond a, Millisecond b) => a.Milisecond <= b.Milisecond;
+        public static bool operator >=(Millisecond a, Millisecond b) => a.Milisecond >= b.Milisecond;
+        public static bool operator !=(Millisecond a, Millisecond b) => a.Milisecond != b.Milisecond;
+        public static bool operator ==(Millisecond a, Millisecond b) => a.Milisecond == b.Milisecond;
     }
 }

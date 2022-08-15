@@ -2,7 +2,7 @@
 using GamePlay.Motions.Collections;
 using System.Collections;
 using UnityEngine;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Motions
 {

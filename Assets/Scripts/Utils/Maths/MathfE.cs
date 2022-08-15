@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Utils
+namespace Utils.Maths
 {
     public struct MathfE
     {

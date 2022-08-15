@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Settings;
 using System;
 using UnityEngine;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay
 {

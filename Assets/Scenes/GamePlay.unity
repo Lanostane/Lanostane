@@ -385,6 +385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 136950619}
   - component: {fileID: 136950620}
+  - component: {fileID: 136950622}
   m_Layer: 0
   m_Name: Canvas - BGA
   m_TagString: Untagged
@@ -436,6 +437,14 @@ Canvas:
   m_SortingLayerID: 2068002355
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!222 &136950622
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136950618}
+  m_CullTransparentMesh: 1
 --- !u!1 &196081386
 GameObject:
   m_ObjectHideFlags: 0

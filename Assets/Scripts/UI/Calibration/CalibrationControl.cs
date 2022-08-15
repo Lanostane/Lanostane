@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils;
+using Utils.Maths;
 
 namespace UI.Calibration
 {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils
+namespace Utils.Maths
 {
     public static class Ease
     {

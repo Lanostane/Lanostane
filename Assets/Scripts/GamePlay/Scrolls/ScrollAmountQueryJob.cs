@@ -3,7 +3,7 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Scrolls
 {
@@ -16,7 +16,7 @@ namespace GamePlay.Scrolls
 
     public struct ScrollAmountInfo
     {
-        public MiliSec Amount;
+        public Millisecond Amount;
         public float Progress;
         public float EasedProgress;
         public OutScrollType VisibleStatus;
@@ -31,7 +31,7 @@ namespace GamePlay.Scrolls
         [ReadOnly] public NativeArray<float> Timings;
         [ReadOnly] public NativeArray<ScrollData> Scrolls;
 
-        public NativeArray<MiliSec> TimeAmounts;
+        public NativeArray<Millisecond> TimeAmounts;
 
         public void Execute(int index)
         {
@@ -39,11 +39,11 @@ namespace GamePlay.Scrolls
             {
                 var scroll = Scrolls[i];
                 if (Timings[index] >= scroll.Timing)
-                    TimeAmounts[index] += new MiliSec(scroll.GetPassedTime(Timings[index]) * scroll.Speed);
+                    TimeAmounts[index] += new Millisecond(scroll.GetPassedTime(Timings[index]) * scroll.Speed);
             }
         }
 
-        public static ScrollAmountInfo[] Run(ScrollData[] scrolls, MiliSec fromScroll, MiliSec toScroll, float[] times)
+        public static ScrollAmountInfo[] Run(ScrollData[] scrolls, Millisecond fromScroll, Millisecond toScroll, float[] times)
         {
             if (scrolls == null || scrolls.Length <= 0)
                 throw new ArgumentNullException(nameof(scrolls));
@@ -55,7 +55,7 @@ namespace GamePlay.Scrolls
             using var timingsNative = new NativeArray<float>(times, Allocator.TempJob);
             using var scrollsNative = new NativeArray<ScrollData>(scrolls, Allocator.TempJob);
             using var ctAmountNative = new NativeArray<float>(new float[] { 0.0f }, Allocator.TempJob);
-            using var tAmountsNative = new NativeArray<MiliSec>(new MiliSec[length], Allocator.TempJob);
+            using var tAmountsNative = new NativeArray<Millisecond>(new Millisecond[length], Allocator.TempJob);
 
             using var resultNative = new NativeArray<ScrollAmountInfo>(new ScrollAmountInfo[length], Allocator.TempJob);
 

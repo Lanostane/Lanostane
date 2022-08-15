@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Linq;
 using UnityEngine;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Motions.Collections
 {

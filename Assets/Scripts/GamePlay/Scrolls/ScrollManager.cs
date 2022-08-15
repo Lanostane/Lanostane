@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Scrolls
 {
@@ -24,13 +25,13 @@ namespace GamePlay.Scrolls
 
     public interface IScrollManager : IChartUpdater
     {
-        MiliSec WatchingFrom { get; }
-        MiliSec WatchingTo { get; }
+        Millisecond WatchingFrom { get; }
+        Millisecond WatchingTo { get; }
         void AddScroll(LST_ScrollChange scrollChange);
         void UpdateAbsValue();
-        MiliSec GetScrollTimingByTime(float time);
+        Millisecond GetScrollTimingByTime(float time);
         float GetProgressionSingle(float chartTime, float timing, out bool isInScreen);
-        float GetProgressionSingleFast(MiliSec scrollTiming, out bool isInScreen);
+        float GetProgressionSingleFast(Millisecond scrollTiming, out bool isInScreen);
         ScrollAmountInfo[] GetProgressions(float chartTime, float[] timings);
     }
 
@@ -40,8 +41,8 @@ namespace GamePlay.Scrolls
 
         [Range(1.0f, 9.0f)]
         public float Speed = 7.5f;
-        public MiliSec WatchingFrom { get; private set; }
-        public MiliSec WatchingTo { get; private set; }
+        public Millisecond WatchingFrom { get; private set; }
+        public Millisecond WatchingTo { get; private set; }
 
         private readonly FastList<ScrollData> _Scrolls = new();
         public ScrollData[] ScrollDatas => _Scrolls.Items;
@@ -66,13 +67,13 @@ namespace GamePlay.Scrolls
 
         public void UpdateChart(float chartTime)
         {
-            WatchingFrom = MiliSec.Zero;
+            WatchingFrom = Millisecond.Zero;
 
             _Scrolls.ForEach(scroll =>
             {
                 if (chartTime >= scroll.Timing)
                 {
-                    WatchingFrom += new MiliSec(scroll.Speed * scroll.GetPassedTime(chartTime));
+                    WatchingFrom += new Millisecond(scroll.Speed * scroll.GetPassedTime(chartTime));
                 }
             });
 
@@ -115,20 +116,20 @@ namespace GamePlay.Scrolls
             _Scrolls.AddRange(sorted);
         }
 
-        public MiliSec GetScrollTimingByTime(float time)
+        public Millisecond GetScrollTimingByTime(float time)
         {
-            MiliSec timingScrollAmount = MiliSec.Zero;
+            Millisecond timingScrollAmount = Millisecond.Zero;
             _Scrolls.ForEach(scroll =>
             {
                 if (time >= scroll.Timing)
                 {
-                    timingScrollAmount += new MiliSec(scroll.Speed * scroll.GetPassedTime(time));
+                    timingScrollAmount += new Millisecond(scroll.Speed * scroll.GetPassedTime(time));
                 }
             });
             return timingScrollAmount;
         }
 
-        public float GetProgressionSingleFast(MiliSec scrollTiming, out bool isInScreen)
+        public float GetProgressionSingleFast(Millisecond scrollTiming, out bool isInScreen)
         {
             if (WatchingFrom <= scrollTiming && scrollTiming <= WatchingTo)
             {
@@ -139,19 +140,19 @@ namespace GamePlay.Scrolls
                 isInScreen = false;
             }
 
-            return MiliSec.InverseLerp(WatchingTo, WatchingFrom, scrollTiming);
+            return Millisecond.InverseLerp(WatchingTo, WatchingFrom, scrollTiming);
         }
 
         public float GetProgressionSingle(float chartTime, float timing, out bool isInScreen)
         {
-            var chartScrollAmount = MiliSec.Zero;
-            var timingScrollAmount = MiliSec.Zero;
+            var chartScrollAmount = Millisecond.Zero;
+            var timingScrollAmount = Millisecond.Zero;
 
             _Scrolls.ForEach(scroll =>
             {
                 if (chartTime >= scroll.Timing)
                 {
-                    chartScrollAmount += new MiliSec(scroll.Speed * scroll.GetPassedTime(chartTime));
+                    chartScrollAmount += new Millisecond(scroll.Speed * scroll.GetPassedTime(chartTime));
                 }
 
                 if (timing >= scroll.Timing)
@@ -161,10 +162,10 @@ namespace GamePlay.Scrolls
             });
 
             isInScreen = true;
-            return MiliSec.InverseLerp(chartScrollAmount + _EndAmountFactor, chartScrollAmount, timingScrollAmount);
+            return Millisecond.InverseLerp(chartScrollAmount + _EndAmountFactor, chartScrollAmount, timingScrollAmount);
         }
 
-        public static bool IsScrollRangeVisible(MiliSec minAmount, MiliSec maxAmount)
+        public static bool IsScrollRangeVisible(Millisecond minAmount, Millisecond maxAmount)
         {
             var from = Instance.WatchingFrom;
             var to = Instance.WatchingTo;
@@ -190,7 +191,7 @@ namespace GamePlay.Scrolls
 
             return false;
 
-            static bool WithIn(MiliSec min, MiliSec max, MiliSec p)
+            static bool WithIn(Millisecond min, Millisecond max, Millisecond p)
             {
                 return min <= p && p <= max;
             }
@@ -206,7 +207,7 @@ namespace GamePlay.Scrolls
             return ScrollAmountQueryJob.Run(_Scrolls.Items, from, to, timings);
         }
 
-        public static MiliSec GetScrollTiming(float time)
+        public static Millisecond GetScrollTiming(float time)
         {
             return Instance.GetScrollTimingByTime(time);
         }

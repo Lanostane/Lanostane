@@ -3,12 +3,13 @@ using System;
 using System.Linq;
 using UnityEngine;
 using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Graphics.FX.Hold
 {
     public struct JointInfo
     {
-        public MiliSec ScrollTiming;
+        public Millisecond ScrollTiming;
         public Vector3 Direction;
         public GameObject JointObject;
         public Transform JointTransform;
@@ -45,13 +46,13 @@ namespace GamePlay.Graphics.FX.Hold
         private LongNoteJointCollection _JointInfo;
         private JointInfo[] _JointNoteInfos = Array.Empty<JointInfo>();
         private LinePointInfo[] _PointInfos;
-        private MiliSec[] _ScrollAmounts;
+        private Millisecond[] _ScrollAmounts;
         private Vector3[] _VerticsBuffer;
         private Mesh _Mesh = null;
         private bool _IsPressed = false;
 
-        private MiliSec _MinAmount;
-        private MiliSec _MaxAmount;
+        private Millisecond _MinAmount;
+        private Millisecond _MaxAmount;
 
         public void Setup(LongNoteJointCollection jointInfo)
         {

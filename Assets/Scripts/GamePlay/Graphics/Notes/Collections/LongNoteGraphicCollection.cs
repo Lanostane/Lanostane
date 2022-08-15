@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Graphics.Collections
 {
@@ -12,7 +12,7 @@ namespace GamePlay.Graphics.Collections
 
         private ILongNoteGraphic[] _CachedGraphics = Array.Empty<ILongNoteGraphic>();
         private float[] _CachedTimings = Array.Empty<float>();
-        private MiliSec[] _CachedAmounts = Array.Empty<MiliSec>();
+        private Millisecond[] _CachedAmounts = Array.Empty<Millisecond>();
         private bool _IsDirty = false;
         private ScrollAmountInfo[] _CachedScrollAmountsBuffer = Array.Empty<ScrollAmountInfo>();
 
@@ -34,7 +34,7 @@ namespace GamePlay.Graphics.Collections
             }
         }
 
-        public MiliSec[] HeadScrollAmounts
+        public Millisecond[] HeadScrollAmounts
         {
             get
             {

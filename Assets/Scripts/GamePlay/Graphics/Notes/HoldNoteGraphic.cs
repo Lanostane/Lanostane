@@ -6,7 +6,7 @@ using GamePlay.Judge;
 using GamePlay.Scrolls;
 using System;
 using UnityEngine;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Graphics
 {
@@ -14,7 +14,7 @@ namespace GamePlay.Graphics
     {
         public LST_LongNoteType Type { get; set; }
         public float Timing { get; set; }
-        public MiliSec HeadScrollTiming { get; set; }
+        public Millisecond HeadScrollTiming { get; set; }
         public float Duration { get; set; }
         public bool JudgeStarted { get; set; }
         public bool JudgeDone { get; set; }

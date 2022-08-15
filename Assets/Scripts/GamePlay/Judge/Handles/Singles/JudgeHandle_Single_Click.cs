@@ -1,5 +1,5 @@
 ﻿using GamePlay.Judge.Inputs;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Judge.Handles
 {

@@ -1,6 +1,6 @@
 ﻿using Charts;
 using GamePlay.Judge;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Graphics
 {
@@ -8,7 +8,7 @@ namespace GamePlay.Graphics
     {
         LST_LongNoteType Type { get; }
         float Timing { get; }
-        MiliSec HeadScrollTiming { get; }
+        Millisecond HeadScrollTiming { get; }
         float Duration { get; }
         float HeadDegree { get; }
         bool JudgeStarted { get; set; }

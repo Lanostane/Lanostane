@@ -1,6 +1,6 @@
 ﻿using Charts;
 using GamePlay.Judge;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Graphics
 {
@@ -8,7 +8,7 @@ namespace GamePlay.Graphics
     {
         LST_SingleNoteType Type { get; }
         float Timing { get; }
-        MiliSec ScrollTiming { get; }
+        Millisecond ScrollTiming { get; }
         bool JudgeDone { get; set; }
         void Setup(LST_SingleNoteInfo info);
         void Show();

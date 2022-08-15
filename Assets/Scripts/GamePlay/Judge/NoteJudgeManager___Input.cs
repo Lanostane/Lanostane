@@ -3,7 +3,7 @@ using GamePlay.Judge.Inputs;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Judge
 {

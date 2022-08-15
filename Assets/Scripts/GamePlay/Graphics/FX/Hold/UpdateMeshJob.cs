@@ -3,7 +3,7 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
-using Utils;
+using Utils.Maths;
 
 namespace GamePlay.Graphics.FX.Hold
 {
@@ -12,11 +12,11 @@ namespace GamePlay.Graphics.FX.Hold
     {
         public const float SIZE = 4.15f;
 
-        public MiliSec FromScroll;
-        public MiliSec ToScroll;
+        public Millisecond FromScroll;
+        public Millisecond ToScroll;
 
         [NativeDisableParallelForRestriction]
-        [ReadOnly] public NativeArray<MiliSec> ScrollAmounts;
+        [ReadOnly] public NativeArray<Millisecond> ScrollAmounts;
         [NativeDisableParallelForRestriction]
         [ReadOnly] public NativeArray<LinePointInfo> Points;
         [NativeDisableParallelForRestriction]
@@ -26,7 +26,7 @@ namespace GamePlay.Graphics.FX.Hold
         {
             var amount = ScrollAmounts[index];
             var point = Points[index];
-            var progress = MiliSec.InverseLerp(ToScroll, FromScroll, amount);
+            var progress = Millisecond.InverseLerp(ToScroll, FromScroll, amount);
             if (progress > 0.0f && progress < 1.0f)
             {
                 progress = Ease.GameSpaceEase(progress);
@@ -38,12 +38,12 @@ namespace GamePlay.Graphics.FX.Hold
             Vertics[(index * 2) + 1] = point.RightDir * radius;
         }
 
-        public static void UpdateVertics(MiliSec[] amounts, LinePointInfo[] points, Vector3[] result)
+        public static void UpdateVertics(Millisecond[] amounts, LinePointInfo[] points, Vector3[] result)
         {
             var length = amounts.Length;
             var trigLength = length * 2;
 
-            using var scrollAmountsNative = new NativeArray<MiliSec>(amounts, Allocator.TempJob);
+            using var scrollAmountsNative = new NativeArray<Millisecond>(amounts, Allocator.TempJob);
             using var pointsNative = new NativeArray<LinePointInfo>(points, Allocator.TempJob);
 
             using var resultNative = new NativeArray<Vector3>(result, Allocator.TempJob);
