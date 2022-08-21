@@ -41,7 +41,6 @@ namespace GamePlay.Graphics.FX.Hold
         public static void UpdateVertics(Millisecond[] amounts, LinePointInfo[] points, Vector3[] result)
         {
             var length = amounts.Length;
-            var trigLength = length * 2;
 
             using var scrollAmountsNative = new NativeArray<Millisecond>(amounts, Allocator.TempJob);
             using var pointsNative = new NativeArray<LinePointInfo>(points, Allocator.TempJob);

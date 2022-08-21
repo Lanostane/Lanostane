@@ -12,19 +12,15 @@ namespace Assets.Scripts
         {
             UserSetting.Load();
 
-            UIManager.Instance.LoadingScreen.Show();
-            var sceneLoading = SceneManager.LoadSceneAsync("GamePlay", LoadSceneMode.Additive);
-            UIManager.Instance.LoadingScreen.HideAfter(sceneLoading, () =>
+            UIManager.Instance.LoadingScreen.Show(()=>
             {
-                UIManager.Instance.ChangeMainState(UIMainState.GamePlay);
+                var sceneLoading = SceneManager.LoadSceneAsync("GamePlay", LoadSceneMode.Additive);
+                UIManager.Instance.LoadingScreen.HideAfter(sceneLoading, () =>
+                {
+                    UIManager.Instance.ChangeMainState(UIMainState.GamePlay);
+                    UIManager.Instance.GameHeaderOverlay.OnOverlayEnabled();
+                });
             });
         }
-
-#if !UNITY_EDITOR
-    void FixedUpdate()
-    {
-        Application.targetFrameRate = Screen.currentResolution.refreshRate;
-    }
-#endif
     }
 }

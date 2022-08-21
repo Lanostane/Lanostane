@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UI.Overlays;
 using UI.Screens;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace UI
     {
         void ChangeMainState(UIMainState state);
         ILoadingScreen LoadingScreen { get; }
+        IOverlay GameHeaderOverlay { get; }
     }
 
     public enum UIMainState
@@ -21,7 +23,9 @@ namespace UI
         public static IUIManager Instance { get; private set; }
 
         [SerializeField] private LoadingScreen _LoadingScreen;
+        [SerializeField] private GameHeaderOverlay _HeaderOverlay;
         public ILoadingScreen LoadingScreen => _LoadingScreen;
+        public IOverlay GameHeaderOverlay => _HeaderOverlay;
 
         public GameObject MainScreen;
         public GameObject GamePlayScreen;

@@ -118,13 +118,6 @@ namespace GamePlay
             _ChartPlaying = true;
         }
 
-#if !UNITY_EDITOR
-    void FixedUpdate()
-    {
-        Application.targetFrameRate = Screen.currentResolution.refreshRate;
-    }
-#endif
-
         void Update()
         {
             if (_ChartPlaying && Audio.isPlaying)

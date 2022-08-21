@@ -10,7 +10,7 @@ namespace UI.Screens
     public interface ILoadingScreen
     {
         void SetText(string text);
-        void Show();
+        void Show(Action callback = null);
         void Hide();
         void HideAfter(AsyncOperation awaiter, Action callback = null);
     }
@@ -23,15 +23,21 @@ namespace UI.Screens
 
         private bool _IsVisible = false;
 
-        public void Show()
+        public void Show(Action callback = null)
         {
             if (_IsVisible)
                 return;
 
             gameObject.SetActive(true);
             transform.localScale = new Vector3(1.0f, 0.0f, 1.0f);
-            transform.DOScaleY(1.0f, 1.2f).SetEase(Ease.OutCirc);
             _IsVisible = true;
+            StartCoroutine(Do());
+
+            IEnumerator Do()
+            {
+                yield return transform.DOScaleY(1.0f, 1.2f).SetEase(Ease.OutCirc);
+                callback?.Invoke();
+            }
         }
 
         public void SetText(string text)
@@ -44,8 +50,14 @@ namespace UI.Screens
             if (!_IsVisible)
                 return;
 
-            StartCoroutine(DoHide());
+            StartCoroutine(Do());
             _IsVisible = false;
+
+            IEnumerator Do()
+            {
+                yield return transform.DOScaleY(0.0f, 1.2f).SetEase(Ease.OutCirc).WaitForCompletion();
+                gameObject.SetActive(false);
+            }
         }
 
         public void HideAfter(AsyncOperation awaiter, Action callback = null)
@@ -53,20 +65,14 @@ namespace UI.Screens
             if (!_IsVisible)
                 return;
 
-            StartCoroutine(WaitForDoneAndHide(awaiter, callback));
-        }
+            StartCoroutine(Do());
 
-        IEnumerator DoHide()
-        {
-            yield return transform.DOScaleY(0.0f, 1.2f).SetEase(Ease.OutCirc).WaitForCompletion();
-            gameObject.SetActive(false);
-        }
-
-        IEnumerator WaitForDoneAndHide(AsyncOperation operation, Action callback = null)
-        {
-            yield return operation;
-            Hide();
-            callback?.Invoke();
+            IEnumerator Do()
+            {
+                yield return awaiter;
+                Hide();
+                callback?.Invoke();
+            }
         }
     }
 }

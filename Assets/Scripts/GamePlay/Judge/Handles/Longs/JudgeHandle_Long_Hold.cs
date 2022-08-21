@@ -157,7 +157,7 @@ namespace GamePlay.Judge.Handles
             }
 
             var subnote = _CurrentJudgeTiming.Value;
-            var tolerance = (subnote.IsFirst || subnote.IsLast) ? _TickInterval * 7.5f : _TickInterval * 4.0f;
+            var tolerance = (subnote.IsFirst || subnote.IsLast) ? _TickInterval * 5.0f : _TickInterval * 2.0f;
 
             if (NoteJudgeManager.Instance.AutoPlay)
             {
@@ -176,7 +176,7 @@ namespace GamePlay.Judge.Handles
                     ReportJudge(JudgeType.PerfectPlus, subnote.IsLast);
                     TryDequeueTiming();
                 }
-                else if (Timing + tolerance <= chartTime)
+                else if (Timing + _TickInterval <= chartTime)
                 {
                     ReportJudge(JudgeType.Miss, subnote.IsLast);
                     TryDequeueTiming();
