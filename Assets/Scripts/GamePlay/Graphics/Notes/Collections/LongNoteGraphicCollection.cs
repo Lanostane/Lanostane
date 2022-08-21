@@ -1,4 +1,4 @@
-﻿using GamePlay.Scrolls;
+﻿using GamePlay.Scrolls.Jobs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

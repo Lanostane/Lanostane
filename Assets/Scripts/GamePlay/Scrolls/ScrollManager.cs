@@ -1,4 +1,5 @@
 ﻿using Charts;
+using GamePlay.Scrolls.Jobs;
 using System;
 using System.Linq;
 using System.Text;

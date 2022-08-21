@@ -1,6 +1,7 @@
 ﻿using Charts;
 using GamePlay.Graphics.Collections;
 using GamePlay.Scrolls;
+using GamePlay.Scrolls.Jobs;
 using UnityEngine;
 using Utils.Maths;
 

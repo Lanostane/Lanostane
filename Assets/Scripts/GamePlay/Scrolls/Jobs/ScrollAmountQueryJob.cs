@@ -5,7 +5,7 @@ using Unity.Jobs;
 using UnityEngine;
 using Utils.Maths;
 
-namespace GamePlay.Scrolls
+namespace GamePlay.Scrolls.Jobs
 {
     public enum OutScrollType : byte
     {
