@@ -7,7 +7,7 @@ namespace GamePlay.Motions.Collections
     public struct RotationMotion : IMotion
     {
         public float Timing { get; set; }
-        public float Duration;
+        public float Duration { get; set; }
 
         public float RotationDelta;
 
@@ -55,13 +55,6 @@ namespace GamePlay.Motions.Collections
             {
                 UpdateMotion(motion, chartTime);
             }
-        }
-
-        public override void UpdateMotion(RotationMotion currentMotion, float chartTime)
-        {
-            var rot = currentMotion;
-            var p = GetProgress(rot.Timing, rot.Duration, chartTime);
-            MotionManager.Instance.SetRotation(Mathf.Lerp(rot.StartRotation, rot.EndRotation, rot.Ease.EvalClamped(p)));
         }
     }
 }

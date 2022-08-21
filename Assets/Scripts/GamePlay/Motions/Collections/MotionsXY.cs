@@ -9,7 +9,7 @@ namespace GamePlay.Motions.Collections
     public struct XYMotion : IMotion
     {
         public float Timing { get; set; }
-        public float Duration;
+        public float Duration { get; set; }
 
         public float Degree;
         public float Radius;
@@ -95,23 +95,6 @@ namespace GamePlay.Motions.Collections
             if (TryGetLastMotion(chartTime, out var motion))
             {
                 UpdateMotion(motion, chartTime);
-            }
-        }
-
-        public override void UpdateMotion(XYMotion currentMotion, float chartTime)
-        {
-            var xy = currentMotion;
-            var p = xy.Ease.EvalClamped(GetProgress(xy.Timing, xy.Duration, chartTime));
-            if (currentMotion.IsLinear)
-            {
-                var startPos = xy.Start.ToCoord();
-                var endPos = xy.End.ToCoord();
-                MotionManager.Instance.SetCameraPos(Vector3.Lerp(startPos, endPos, p));
-            }
-            else
-            {
-                var newPos = PolarPoint.Lerp(xy.Start, xy.End, p);
-                MotionManager.Instance.SetCameraPos(newPos);
             }
         }
     }

@@ -16,7 +16,7 @@ namespace GamePlay.Scoring
         public delegate void NoteRegisteredDel(JudgeType type, float degree);
 
         public const double MaxScore = 10000000;
-        public const double GoodScoreMult = 0.25f;
+        public const double GoodScoreMult = 0.1f;
 
         public static bool IsPerfect { get; private set; }
         public static bool IsAllCombo { get; private set; }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -9,9 +10,15 @@ namespace GamePlay.Motions.Collections
         protected readonly List<M> MotionDataHolder = new();
         protected readonly List<M> TempHolder = new();
 
+        public event Action<M, float> OnUpdateMotion;
+
         public abstract void UpdateMotionAbsData();
         public abstract void UpdateChartTime(float chartTime);
-        public abstract void UpdateMotion(M currentMotion, float chartTime);
+        protected void UpdateMotion(M currentMotion, float chartTime)
+        {
+            var p = GetProgress(currentMotion.Timing, currentMotion.Duration, chartTime);
+            OnUpdateMotion?.Invoke(currentMotion, p);
+        }
 
         public float GetProgress(float timing, float duration, float time)
         {

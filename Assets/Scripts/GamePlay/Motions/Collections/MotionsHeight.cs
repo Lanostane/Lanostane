@@ -7,7 +7,7 @@ namespace GamePlay.Motions.Collections
     public struct HeightMotion : IMotion
     {
         public float Timing { get; set; }
-        public float Duration;
+        public float Duration { get; set; }
 
         public float HeightDelta;
 
@@ -55,13 +55,6 @@ namespace GamePlay.Motions.Collections
             {
                 UpdateMotion(motion, chartTime);
             }
-        }
-
-        public override void UpdateMotion(HeightMotion currentMotion, float chartTime)
-        {
-            var height = currentMotion;
-            var p = height.Ease.EvalClamped(GetProgress(height.Timing, height.Duration, chartTime));
-            MotionManager.Instance.SetCameraHeight(Mathf.Lerp(height.StartHeight, height.EndHeight, p));
         }
     }
 }

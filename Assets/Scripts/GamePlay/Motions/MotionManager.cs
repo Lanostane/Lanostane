@@ -17,42 +17,34 @@ namespace GamePlay.Motions
         PolarPoint StartingPolar { get; }
         float StartingRotation { get; }
 
+        IMotionWorker Main { get; }
+
         void AddMotions(LST_Chart chart);
         void UpdateAbsValue();
         void StartDefaultMotion(float duration);
         bool TryGetBPMByTime(float time, out float bpm);
         void SetDefaultMotion(LST_DefaultMotion defaultMotion);
-        void SetCameraTransform(Vector3 xyPos, float absHeight);
-        void SetCameraPos(Vector3 xyPos);
-        void SetCameraPos(PolarPoint polar);
-        void SetCameraHeight(float absHeight);
-        void SetRotation(float absRotation);
     }
 
     internal class MotionManager : MonoBehaviour, IMotionManager
     {
-        public const float InitialTheta = 0.0f;
-        public const float InitialRho = 0.0f;
-        public const float InitialHeight = -20.0f;
-        public const float InitialRotation = 0.0f;
-        public readonly static Vector3 InitialXY = Vector3.zero;
-
         public static IMotionManager Instance { get; private set; }
 
         public Transform RotationOrigin;
 
         public float CurrentBPM { get; private set; }
-        public float CurrentRotation { get; private set; }
+        public float CurrentRotation => _Main.CurrentRotation;
         public float StartingTheta { get; private set; }
         public float StartingRho { get; private set; }
         public float StartingHeight { get; private set; }
         public Vector3 StartingPosition { get; private set; }
-        public PolarPoint StartingPolar => new(StartingRho, StartingTheta);
+        public PolarPoint StartingPolar { get; private set; }
         public float StartingRotation { get; private set; }
 
-        private readonly MotionsRotation _Rots = new();
-        private readonly MotionsXY _XYs = new();
-        private readonly MotionsHeight _Heights = new();
+        public IMotionWorker Main => _Main;
+
+        [SerializeField] private MotionWorker _Main;
+
         private readonly MotionsBpm _BPMS = new();
 
         void Awake()
@@ -67,92 +59,45 @@ namespace GamePlay.Motions
 
         public void AddMotions(LST_Chart chart)
         {
-            foreach (var rot in chart.RotationMos)
-            {
-                _Rots.AddMotion(rot);
-            }
-
-            foreach (var xyl in chart.LinearMos)
-            {
-                _XYs.AddMotion(xyl);
-            }
-
-            foreach (var xyc in chart.CirclerMos)
-            {
-                _XYs.AddMotion(xyc);
-            }
-
-            foreach (var height in chart.HeightMos)
-            {
-                _Heights.AddMotion(height);
-            }
+            _Main.Setup(chart);
 
             foreach (var bpm in chart.BPMs)
             {
                 _BPMS.AddBpmChange(bpm);
             }
+            _BPMS.OnUpdateMotion += Update_BPM;
         }
 
         public void UpdateAbsValue()
         {
-            _Rots.UpdateMotionAbsData();
-            _XYs.UpdateMotionAbsData();
-            _Heights.UpdateMotionAbsData();
+            _Main.SortData();
             _BPMS.UpdateMotionAbsData();
         }
 
         public void StartDefaultMotion(float duration)
         {
-            StartCoroutine(DoDefaultMotion());
-
-            IEnumerator DoDefaultMotion()
-            {
-                var time = 0.0f;
-                while(time <= duration)
-                {
-                    var p = time / duration;
-                    p = Ease.Sinusoidal.In(p);
-
-                    SetRotation(Mathf.Lerp(InitialRotation, StartingRotation, p));
-                    SetCameraPos(Vector3.Lerp(InitialXY, StartingPosition, p));
-                    SetCameraHeight(Mathf.Lerp(InitialHeight, StartingHeight, p));
-
-                    time += Time.deltaTime;
-                    yield return null;
-                }
-
-                SetRotation(StartingRotation);
-                SetCameraPos(StartingPosition);
-                SetCameraHeight(StartingHeight);
-            }
+            _Main.StartDefaultMotion(duration);
         }
 
         public void UpdateChart(float chartTime)
         {
-            _Rots.UpdateChartTime(chartTime);
-            _XYs.UpdateChartTime(chartTime);
-            _Heights.UpdateChartTime(chartTime);
+            _Main.UpdateChart(chartTime);
             _BPMS.UpdateChartTime(chartTime);
+        }
 
-            if (_BPMS.CurrentBPM != CurrentBPM)
+        private void Update_BPM(BpmMotion m, float p)
+        {
+            if (m.Bpm != CurrentBPM)
             {
-                BPM.Invoke_BPMChange(_BPMS.CurrentBPM);
-                CurrentBPM = _BPMS.CurrentBPM;
+                BPM.Invoke_BPMChange(m.Bpm);
+                CurrentBPM = m.Bpm;
             }
         }
 
         public void CleanUp()
         {
-            _Rots.Clear();
-            _XYs.Clear();
-            _Heights.Clear();
+            _Main.CleanUp();
             _BPMS.Clear();
-
-            StartingTheta = InitialTheta;
-            StartingHeight = InitialHeight;
-            StartingPosition = InitialXY;
-            StartingRho = InitialRho;
-            StartingRotation = InitialRotation;
         }
 
         public bool TryGetBPMByTime(float time, out float bpm)
@@ -176,40 +121,6 @@ namespace GamePlay.Motions
             StartingPosition = new PolarPoint(StartingRho, StartingTheta).ToCoord();
             StartingHeight = defaultMotion.Height;
             StartingRotation = defaultMotion.Rotation;
-        }
-
-        public void SetCameraTransform(Vector3 xyPos, float absHeight)
-        {
-            xyPos.z = absHeight;
-            GameCamera.Transform.position = xyPos;
-        }
-
-        public void SetCameraPos(Vector3 xyPos)
-        {
-            var cameraPos = GameCamera.Transform.position;
-            xyPos.z = cameraPos.z;
-            GameCamera.Transform.position = xyPos;
-        }
-
-        public void SetCameraPos(PolarPoint polar)
-        {
-            var height = GameCamera.Transform.position.z;
-            var coord = polar.ToCoord();
-            coord.z = height;
-            GameCamera.Transform.position = coord;
-        }
-
-        public void SetCameraHeight(float absHeight)
-        {
-            var cameraPos = GameCamera.Transform.position;
-            cameraPos.z = absHeight;
-            GameCamera.Transform.position = cameraPos;
-        }
-
-        public void SetRotation(float absRotation)
-        {
-            CurrentRotation = absRotation;
-            RotationOrigin.localEulerAngles = new(0.0f, 0.0f, -absRotation);
         }
     }
 }

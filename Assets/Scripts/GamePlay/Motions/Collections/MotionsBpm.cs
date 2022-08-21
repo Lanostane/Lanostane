@@ -6,13 +6,12 @@ namespace GamePlay.Motions.Collections
     public struct BpmMotion : IMotion
     {
         public float Timing { get; set; }
+        public float Duration => 0.0f;
         public float Bpm;
     }
 
     public sealed class MotionsBpm : MotionCollection<BpmMotion>
     {
-        public float CurrentBPM { get; private set; }
-
         public void AddBpmChange(LST_BPMChange bpm)
         {
             MotionDataHolder.Add(new()
@@ -42,11 +41,6 @@ namespace GamePlay.Motions.Collections
             {
                 UpdateMotion(motion, chartTime);
             }
-        }
-
-        public override void UpdateMotion(BpmMotion currentMotion, float chartTime)
-        {
-            CurrentBPM = currentMotion.Bpm;
         }
     }
 }
