@@ -88,9 +88,9 @@ namespace GamePlay.Judge.Handles
         {
             var range = Size switch
             {
-                LST_NoteSize.Size0 => NoteJudgeManager.Size0Deg + NoteJudgeManager.JudgeAngleTolerance,
-                LST_NoteSize.Size1 => NoteJudgeManager.Size1Deg + NoteJudgeManager.JudgeAngleTolerance,
-                LST_NoteSize.Size2 => NoteJudgeManager.Size2Deg + NoteJudgeManager.JudgeAngleTolerance,
+                LST_NoteSize.Size0 => JudgeConst.Size0TolDeg,
+                LST_NoteSize.Size1 => JudgeConst.Size1TolDeg,
+                LST_NoteSize.Size2 => JudgeConst.Size2TolDeg,
                 _ => 8.5f,
             };
 

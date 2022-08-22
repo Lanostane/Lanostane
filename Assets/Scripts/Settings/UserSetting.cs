@@ -9,12 +9,6 @@ using UnityEngine;
 
 namespace Settings
 {
-    public sealed class UserSetting_DTO
-    {
-        public int Offset = 0;
-        public bool UsingHitSounds = true;
-    }
-
     public static class UserSetting
     {
         private static UserSetting_DTO _Settings = new();
@@ -24,6 +18,12 @@ namespace Settings
         {
             get => _Settings.Offset;
             set => _Settings.Offset = value;
+        }
+
+        public static bool UsingHitSound
+        {
+            get => _Settings.UsingHitSounds;
+            set => _Settings.UsingHitSounds = value;
         }
 
         public static void Load()

@@ -12,13 +12,15 @@ namespace UI.Overlays
     {
         private readonly static Vector3 _HiddenScale = new(1.2f, 1.2f, 1.2f);
         private readonly static Vector3 _VisibleScale = new(1.0f, 1.0f, 1.0f);
+        protected override bool AutoActiveObject => true;
+        protected override bool AutoDeactiveObject => false;
 
-        public override void OnOverlayDisabled()
+        protected override void OnOverlayDisabled()
         {
             transform.DOScale(1.2f, 0.75f);
         }
 
-        public override void OnOverlayEnabled()
+        protected override void OnOverlayEnabled()
         {
             transform.DOScale(1.0f, 0.75f);
         }

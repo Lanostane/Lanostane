@@ -12,15 +12,15 @@ namespace Assets.Scripts
         {
             UserSetting.Load();
 
-            UIManager.Instance.LoadingScreen.Show(()=>
-            {
-                var sceneLoading = SceneManager.LoadSceneAsync("GamePlay", LoadSceneMode.Additive);
-                UIManager.Instance.LoadingScreen.HideAfter(sceneLoading, () =>
+            UIManager.Overlays.Loading.DoLoading(
+                () => {
+                    return SceneManager.LoadSceneAsync("GamePlay", LoadSceneMode.Additive);
+                },
+                () =>
                 {
                     UIManager.Instance.ChangeMainState(UIMainState.GamePlay);
-                    UIManager.Instance.GameHeaderOverlay.OnOverlayEnabled();
+                    UIManager.Overlays.GameHeader.SetActive(true);
                 });
-            });
         }
     }
 }

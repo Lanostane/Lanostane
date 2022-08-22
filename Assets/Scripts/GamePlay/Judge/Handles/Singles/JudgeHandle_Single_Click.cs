@@ -6,14 +6,10 @@ namespace GamePlay.Judge.Handles
     public class JudgeHandle_Single_Click : SingleNoteJudgeHandle
     {
         #region Constants
-        public const float Timeout = NoteJudgeManager.Timeout;
-        public const float TapPerfectPlus = NoteJudgeManager.TapPerfectPlus;
-        public const float TapPerfect = NoteJudgeManager.TapPerfect;
-        public const float TapGood = NoteJudgeManager.TapGood;
-        public const float Size0Deg = NoteJudgeManager.Size0Deg;
-        public const float Size1Deg = NoteJudgeManager.Size1Deg;
-        public const float Size2Deg = NoteJudgeManager.Size1Deg;
-        public const float JudgeAngleTolerance = NoteJudgeManager.JudgeAngleTolerance;
+        public const float Timeout = JudgeConst.Timeout;
+        public const float TapPerfectPlus = JudgeConst.TapPerfectPlus;
+        public const float TapPerfect = JudgeConst.TapPerfect;
+        public const float TapGood = JudgeConst.TapGood;
         #endregion
 
         public override bool IsInputAllowed(float chartTime)

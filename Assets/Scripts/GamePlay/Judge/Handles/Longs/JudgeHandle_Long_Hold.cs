@@ -18,15 +18,7 @@ namespace GamePlay.Judge.Handles
     public class JudgeHandle_Long_Hold : LongNoteJudgeHandle
     {
         #region Constants
-        public const float Timeout = NoteJudgeManager.Timeout;
-        public const float TapPerfect = NoteJudgeManager.TapPerfect;
-        public const float FlickPerfect = NoteJudgeManager.FlickPerfect;
-        public const float TapGood = NoteJudgeManager.TapGood;
-        public const float FlickGood = NoteJudgeManager.FlickGood;
-        public const float Size0Deg = NoteJudgeManager.Size0Deg;
-        public const float Size1Deg = NoteJudgeManager.Size1Deg;
-        public const float Size2Deg = NoteJudgeManager.Size1Deg;
-        public const float JudgeAngleTolerance = NoteJudgeManager.JudgeAngleTolerance;
+        public const float Timeout = JudgeConst.Timeout;
         #endregion
 
         public override int TotalNoteCount => _TotalSubNoteCount;

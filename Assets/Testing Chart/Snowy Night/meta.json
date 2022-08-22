@@ -1,0 +1,26 @@
+{
+  "Title": "Snowy Night",
+  "Artist": "Mitsukiyo",
+  "MainBG": "bg_2.jpg",
+  "BG": [
+    {
+      "File": "bg_0.jpg",
+      "Weight": 1.0
+    },
+    {
+      "File": "bg_1.jpg",
+      "Weight": 1.0
+    },
+    {
+      "File": "bg_2.jpg",
+      "Weight": 1.0
+    }
+  ],
+  "Charts": [
+    {
+      "Difficulty": 13.0,
+      "Prefix": "Master",
+      "File": "chart_master.txt"
+    }
+  ]
+}

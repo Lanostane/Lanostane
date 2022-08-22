@@ -8,8 +8,6 @@ namespace UI
     public interface IUIManager
     {
         void ChangeMainState(UIMainState state);
-        ILoadingScreen LoadingScreen { get; }
-        IOverlay GameHeaderOverlay { get; }
     }
 
     public enum UIMainState
@@ -18,14 +16,11 @@ namespace UI
         GamePlay
     }
 
+    [RequireComponent(typeof(OverlayHolder))]
     public class UIManager : MonoBehaviour, IUIManager
     {
         public static IUIManager Instance { get; private set; }
-
-        [SerializeField] private LoadingScreen _LoadingScreen;
-        [SerializeField] private GameHeaderOverlay _HeaderOverlay;
-        public ILoadingScreen LoadingScreen => _LoadingScreen;
-        public IOverlay GameHeaderOverlay => _HeaderOverlay;
+        public static IOverlayHolder Overlays { get; private set; }
 
         public GameObject MainScreen;
         public GameObject GamePlayScreen;
@@ -35,11 +30,13 @@ namespace UI
         void Awake()
         {
             Instance = this;
+            Overlays = GetComponent<OverlayHolder>();
         }
 
         void OnDestroy()
         {
             Instance = null;
+            Overlays = null;
         }
 
         public void ChangeMainState(UIMainState state)

@@ -9,13 +9,42 @@ namespace UI.Overlays
 {
     public interface IOverlay
     {
-        void OnOverlayEnabled();
-        void OnOverlayDisabled();
+        void SetActive(bool wantToActive);
     }
 
     public abstract class BaseOverlay : MonoBehaviour, IOverlay
     {
-        public abstract void OnOverlayEnabled();
-        public abstract void OnOverlayDisabled();
+        protected abstract void OnOverlayEnabled();
+        protected abstract void OnOverlayDisabled();
+        protected abstract bool AutoActiveObject { get; }
+        protected abstract bool AutoDeactiveObject { get; }
+
+        private bool _Active = false;
+
+        void Awake()
+        {
+            Setup();
+        }
+
+        public virtual void Setup()
+        {
+            _Active = gameObject.activeSelf;
+        }
+        
+        public void SetActive(bool wantToActive)
+        {
+            if (_Active && !wantToActive)
+            {
+                _Active = false;
+                OnOverlayDisabled();
+                if (AutoDeactiveObject) gameObject.SetActive(false);
+            }
+            else if (!_Active && wantToActive)
+            {
+                _Active = true;
+                OnOverlayEnabled();
+                if (AutoActiveObject) gameObject.SetActive(true);
+            }
+        }
     }
 }
