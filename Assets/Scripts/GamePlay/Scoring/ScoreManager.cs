@@ -116,7 +116,7 @@ namespace GamePlay.Scoring
 
         private static void SetScoreString(int intScore)
         {
-            ScoreString = $"{intScore:00000000}";
+            ScoreString = intScore.ToString("D8");
         }
     }
 }

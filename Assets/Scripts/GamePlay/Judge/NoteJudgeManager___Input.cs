@@ -80,8 +80,10 @@ namespace GamePlay.Judge
         private void UpdateFirstPass(float time, InputHandle updatedInputHandle)
         {
             _FirstPass.Clear();
-            foreach (var handler in _LongNoteHandles)
+            var litems = _LongNoteHandles.Items;
+            for (int i = 0; i < litems.Length; i++)
             {
+                var handler = litems[i];
                 if (handler.JudgeDone)
                     continue;
 
@@ -96,8 +98,10 @@ namespace GamePlay.Judge
                     break;
             }
 
-            foreach (var handler in _SingleNoteHandles)
+            var sitems = _SingleNoteHandles.Items;
+            for (int i = 0; i < sitems.Length; i++)
             {
+                var handler = sitems[i];
                 if (handler.JudgeDone)
                     continue;
 

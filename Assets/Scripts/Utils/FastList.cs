@@ -10,6 +10,14 @@ namespace Utils
         private readonly List<T> _InternalList = new();
         private bool _HasDirty = false;
 
+        public int Length
+        {
+            get
+            {
+                return Items.Length;
+            }
+        }
+
         public T[] Items
         {
             get
@@ -54,19 +62,6 @@ namespace Utils
         {
             _InternalList.Clear();
             _HasDirty = true;
-        }
-
-        public void ForEach(Action<T> action)
-        {
-            if (action == null)
-                return;
-
-            var items = Items;
-            var length = items.Length;
-            for (int i = 0; i < length; i++)
-            {
-                action.Invoke(items[i]);
-            }
         }
     }
 }

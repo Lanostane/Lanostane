@@ -869,8 +869,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d74f92d34e978b47a7678c1e9866274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Chart: {fileID: 4900000, guid: 316d3e7f5050a6f4b8bd32138a2e322d, type: 3}
-  Music: {fileID: 8300000, guid: b19beff8f79a3f0489aea47d4a340078, type: 3}
+  Chart: {fileID: 4900000, guid: 71cd087359b62df4ea5b9bbc15a3eb7a, type: 3}
+  Music: {fileID: 8300000, guid: ae62824b39ca231408040366aae63af5, type: 3}
   Audio: {fileID: 360564699}
   StartChartOnLoaded: 1
 --- !u!4 &360564701

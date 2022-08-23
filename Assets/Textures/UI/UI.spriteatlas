@@ -38,13 +38,17 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 3aa4ed82171355345990e4b094dcb830, type: 3}
   - {fileID: 21300000, guid: f075a2632c93b2542945a183938ecf8c, type: 3}
   - {fileID: 21300000, guid: 6f8287d4d0c7a88409c9c328176f5eb1, type: 3}
   - {fileID: 21300000, guid: fef9ef5712c67ce479dbf5f7d94a3603, type: 3}
+  - {fileID: 21300000, guid: 7d2f857e8f734ef4d8a8d3a271c100bd, type: 3}
   m_PackedSpriteNamesToIndex:
+  - gradient_line0_down
   - circle_tone_selected
   - circle_tone_base
   - circle_tone_overlay
+  - gradient_line0_up
   m_RenderDataMap: {}
   m_Tag: UI
   m_IsVariant: 0

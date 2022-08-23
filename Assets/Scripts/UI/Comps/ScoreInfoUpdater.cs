@@ -65,7 +65,7 @@ namespace UI.Comps
 
             while (p <= 1.0f)
             {
-                _OldScore = to + (int)(delta * Ease.Exponential.In(p));
+                _OldScore = to + (int)(delta * Ease.Exponential.Out(p));
                 SetScoreText(_OldScore);
                 p += Time.fixedDeltaTime * deltaFactor;
                 yield return new WaitForFixedUpdate();
@@ -76,7 +76,7 @@ namespace UI.Comps
 
         private void SetScoreText(int score)
         {
-            ScoreText.text = $"{score:00000000}";
+            ScoreText.text = score.ToString("D8");
         }
     }
 }

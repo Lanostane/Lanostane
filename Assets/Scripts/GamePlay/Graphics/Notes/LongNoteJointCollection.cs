@@ -89,23 +89,38 @@ namespace GamePlay.Graphics
                 return _Joints.First().StartDeg;
             }
 
-            var index = _Joints.FindLastIndex(x => x.StartTiming <= time);
-            if (index < 0)
-            {
-                Debug.LogError("This should not happen :/");
-                return 0.0f;
-            }
-            else
+            if (TryGetLastJointIndex(time, out var index))
             {
                 var joint = _Joints[index];
                 float p = Mathf.InverseLerp(joint.StartTiming, joint.EndTiming, time);
                 return Mathf.Lerp(joint.StartDeg, joint.EndDeg, joint.Ease.EvalClamped(p));
+            }
+            else
+            {
+                Debug.LogError("This should not happen :/");
+                return 0.0f;
             }
         }
 
         public float GetProgressByTime(float time)
         {
             return Mathf.InverseLerp(_Timing, _Timing + _Duration, time);
+        }
+
+        public bool TryGetLastJointIndex(float timing, out int index)
+        {
+            index = -1;
+            var length = _Joints.Count;
+            for (int i = 0; i < length; i++)
+            {
+                var item = _Joints[i];
+                if (item.StartTiming <= timing && i > index)
+                {
+                    index = i;
+                }
+            }
+
+            return index > -1;
         }
 
         public void Clear()

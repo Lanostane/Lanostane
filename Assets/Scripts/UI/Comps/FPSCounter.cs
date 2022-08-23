@@ -21,10 +21,11 @@ namespace UI.Comps
 
         IEnumerator FPSUpdate()
         {
+            var yielder = new WaitForSeconds(0.125f);
             while (true)
             {
-                yield return new WaitForSeconds(0.125f);
-                TextField.text = $"{fps * 8}";
+                yield return yielder;
+                TextField.text = (fps * 8).ToString();
                 fps = 0;
             }
         }

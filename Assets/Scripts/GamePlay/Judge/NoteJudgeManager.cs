@@ -7,6 +7,7 @@ using Settings;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils;
 
 namespace GamePlay.Judge
 {
@@ -26,8 +27,8 @@ namespace GamePlay.Judge
 
         public bool AutoPlay { get; private set; }
 
-        private readonly List<SingleNoteJudgeHandle> _SingleNoteHandles = new();
-        private readonly List<LongNoteJudgeHandle> _LongNoteHandles = new();
+        private readonly FastList<SingleNoteJudgeHandle> _SingleNoteHandles = new();
+        private readonly FastList<LongNoteJudgeHandle> _LongNoteHandles = new();
 
         void Awake()
         {
@@ -56,8 +57,8 @@ namespace GamePlay.Judge
 
         public void InitializeScoring()
         {
-            var longNoteTotal = _LongNoteHandles.Sum(x => x.TotalNoteCount);
-            ScoreManager.Initialize(_SingleNoteHandles.Count + longNoteTotal);
+            var longNoteTotal = _LongNoteHandles.Items.Sum(x => x.TotalNoteCount);
+            ScoreManager.Initialize(_SingleNoteHandles.Length + longNoteTotal);
         }
 
         public void AddSingleJudgeHandle(LST_SingleNoteInfo info, ISingleNoteGraphic graphic)
@@ -116,8 +117,10 @@ namespace GamePlay.Judge
 
         private void UpdateSingleNoteJudge(float chartTime)
         {
-            foreach (var handler in _SingleNoteHandles)
+            var items = _SingleNoteHandles.Items;
+            for(int i = 0; i<items.Length; i++)
             {
+                var handler = items[i];
                 if (handler.JudgeDone)
                     continue;
 
@@ -142,8 +145,10 @@ namespace GamePlay.Judge
 
         private void UpdateLongNoteJudge(float chartTime)
         {
-            foreach (var handler in _LongNoteHandles)
+            var items = _LongNoteHandles.Items;
+            for (int i = 0; i < items.Length; i++)
             {
+                var handler = items[i];
                 if (AutoPlay)
                 {
                     handler.ReportAutoPlay(chartTime);

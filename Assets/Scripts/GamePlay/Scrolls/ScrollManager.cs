@@ -70,13 +70,15 @@ namespace GamePlay.Scrolls
         {
             WatchingFrom = Millisecond.Zero;
 
-            _Scrolls.ForEach(scroll =>
+            var items = _Scrolls.Items;
+            for(int i = 0; i<items.Length; i++)
             {
+                var scroll = items[i];
                 if (chartTime >= scroll.Timing)
                 {
                     WatchingFrom += new Millisecond(scroll.Speed * scroll.GetPassedTime(chartTime));
                 }
-            });
+            }
 
             WatchingTo = WatchingFrom + _EndAmountFactor;
         }
@@ -120,13 +122,16 @@ namespace GamePlay.Scrolls
         public Millisecond GetScrollTimingByTime(float time)
         {
             Millisecond timingScrollAmount = Millisecond.Zero;
-            _Scrolls.ForEach(scroll =>
+
+            var items = _Scrolls.Items;
+            for (int i = 0; i < items.Length; i++)
             {
+                var scroll = items[i];
                 if (time >= scroll.Timing)
                 {
                     timingScrollAmount += new Millisecond(scroll.Speed * scroll.GetPassedTime(time));
                 }
-            });
+            }
             return timingScrollAmount;
         }
 
@@ -149,8 +154,10 @@ namespace GamePlay.Scrolls
             var chartScrollAmount = Millisecond.Zero;
             var timingScrollAmount = Millisecond.Zero;
 
-            _Scrolls.ForEach(scroll =>
+            var items = _Scrolls.Items;
+            for (int i = 0; i < items.Length; i++)
             {
+                var scroll = items[i];
                 if (chartTime >= scroll.Timing)
                 {
                     chartScrollAmount += new Millisecond(scroll.Speed * scroll.GetPassedTime(chartTime));
@@ -160,7 +167,7 @@ namespace GamePlay.Scrolls
                 {
                     timingScrollAmount += scroll.Speed * scroll.GetPassedTime(timing);
                 }
-            });
+            }
 
             isInScreen = true;
             return Millisecond.InverseLerp(chartScrollAmount + _EndAmountFactor, chartScrollAmount, timingScrollAmount);
