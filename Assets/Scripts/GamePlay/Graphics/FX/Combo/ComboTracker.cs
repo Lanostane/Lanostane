@@ -7,6 +7,7 @@ namespace GamePlay.Graphics.FX.Combo
 {
     public sealed class ComboTracker : MonoBehaviour
     {
+        public Color PurePerfectColor;
         public Color PerfectColor;
         public Color GoodColor;
         public Color MissColor;
@@ -35,7 +36,7 @@ namespace GamePlay.Graphics.FX.Combo
         {
             var color = type switch
             {
-                JudgeType.PerfectPlus => PerfectColor,
+                JudgeType.PurePerfect => PurePerfectColor,
                 JudgeType.Perfect => PerfectColor,
                 JudgeType.Good => GoodColor,
                 JudgeType.Miss => MissColor,

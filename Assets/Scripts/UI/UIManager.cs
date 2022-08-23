@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using GamePlay;
+using System.Collections;
 using UI.Overlays;
-using UI.Screens;
 using UnityEngine;
 
 namespace UI
@@ -31,12 +31,20 @@ namespace UI
         {
             Instance = this;
             Overlays = GetComponent<OverlayHolder>();
+            ChartPlayer.ChartPlayFinished += ChartFinished;
         }
 
         void OnDestroy()
         {
             Instance = null;
             Overlays = null;
+            ChartPlayer.ChartPlayFinished -= ChartFinished;
+        }
+
+        private void ChartFinished()
+        {
+            Debug.Log("TEMP CODE, Active Result Screen");
+
         }
 
         public void ChangeMainState(UIMainState state)

@@ -6,6 +6,7 @@ namespace GamePlay
     {
         public static JudgeSFX Instance { get; private set; }
 
+        public AudioSource CatchAudio;
         public AudioSource PerfectTapAudio;
         public AudioSource PerfectFlickAudio;
         public AudioSource GoodTapAudio;
@@ -19,6 +20,11 @@ namespace GamePlay
         void OnDestroy()
         {
             Instance = null;
+        }
+
+        public static void PlayCatch()
+        {
+            Instance.CatchAudio.Play();
         }
 
         public static void PlayPerfectTap()

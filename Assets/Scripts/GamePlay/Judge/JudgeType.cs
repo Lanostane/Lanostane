@@ -2,7 +2,7 @@
 {
     public enum JudgeType
     {
-        PerfectPlus,
+        PurePerfect,
         Perfect,
         Good,
         Miss

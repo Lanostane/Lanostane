@@ -455,7 +455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5306043852062375466}
-  - component: {fileID: 7171347012844457687}
+  - component: {fileID: 5952175457719030107}
   m_Layer: 7
   m_Name: ChartItem
   m_TagString: Untagged
@@ -485,7 +485,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7171347012844457687
+--- !u!114 &5952175457719030107
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -494,13 +494,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1413428063959968943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 640c14021da8be849ac49e7fd9187b8d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7791bc98637690041b834e02c094afe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 0}
-  TitleText: {fileID: 0}
-  ArtistText: {fileID: 0}
-  CharterText: {fileID: 0}
+  Icon: {fileID: 1185664592}
+  TitleText: {fileID: 1709286862}
 --- !u!1001 &5605481377346913289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -595,6 +593,10 @@ PrefabInstance:
     - target: {fileID: 3336909494907664129, guid: b094b421bc7f0c54c9177e62a2d58340, type: 3}
       propertyPath: m_Name
       value: Difficulty Circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336909495678202333, guid: b094b421bc7f0c54c9177e62a2d58340, type: 3}
+      propertyPath: m_fontSize
+      value: 22.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b094b421bc7f0c54c9177e62a2d58340, type: 3}

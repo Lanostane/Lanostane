@@ -15,10 +15,11 @@ namespace GamePlay.Scoring
     {
         public delegate void NoteRegisteredDel(JudgeType type, float degree);
 
-        public const double MaxScore = 10000000;
-        public const double GoodScoreMult = 0.1f;
+        public const double MaxScore = ScoreConst.Max;
+        public const double GoodScoreMult = ScoreConst.GoodMult;
 
-        public static bool IsPerfect { get; private set; }
+        public static bool IsAllPurePerfect { get; private set; }
+        public static bool IsAllPerfect { get; private set; }
         public static bool IsAllCombo { get; private set; }
         public static float Score { get; private set; }
         public static int ScoreRounded { get; private set; }
@@ -46,22 +47,27 @@ namespace GamePlay.Scoring
             _NoteCount = maxNoteCount;
             _ScorePerNote = MaxScore / _NoteCount;
 
+            Reset();
+            UpdateScore();
+        }
+
+        public static void Reset()
+        {
             _PerfectCount = 0;
             _PerfectPlusCount = 0;
             _GoodCount = 0;
             _MissCount = 0;
 
-            IsPerfect = true;
+            IsAllPurePerfect = true;
+            IsAllPerfect = true;
             IsAllCombo = true;
-
-            UpdateScore();
         }
 
         public static void RegisterNote(ScoreData data)
         {
             switch (data.Type)
             {
-                case JudgeType.PerfectPlus:
+                case JudgeType.PurePerfect:
                     ComboCount++;
                     _PerfectCount++;
                     _PerfectPlusCount++;
@@ -70,19 +76,22 @@ namespace GamePlay.Scoring
                 case JudgeType.Perfect:
                     ComboCount++;
                     _PerfectCount++;
+                    IsAllPurePerfect = false;
                     break;
 
                 case JudgeType.Good:
                     ComboCount++;
                     _GoodCount++;
-                    IsPerfect = false;
+                    IsAllPerfect = false;
+                    IsAllPurePerfect = false;
                     break;
 
                 case JudgeType.Miss:
                     _MissCount++;
                     ComboCount = 0;
                     IsAllCombo = false;
-                    IsPerfect = false;
+                    IsAllPerfect = false;
+                    IsAllPurePerfect = false;
                     break;
 
                 default: //Something went wrong

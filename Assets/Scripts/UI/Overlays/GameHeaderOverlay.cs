@@ -17,11 +17,13 @@ namespace UI.Overlays
 
         protected override void OnOverlayDisabled()
         {
+            transform.localScale = _VisibleScale;
             transform.DOScale(1.2f, 0.75f);
         }
 
         protected override void OnOverlayEnabled()
         {
+            transform.localScale = _HiddenScale;
             transform.DOScale(1.0f, 0.75f);
         }
     }

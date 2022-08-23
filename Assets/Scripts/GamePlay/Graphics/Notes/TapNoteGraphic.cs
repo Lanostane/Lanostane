@@ -68,8 +68,7 @@ namespace GamePlay.Graphics
             switch (Type)
             {
                 case LST_SingleNoteType.Click:
-                case LST_SingleNoteType.Catch:
-                    if (type == JudgeType.Perfect || type == JudgeType.PerfectPlus)
+                    if (type == JudgeType.Perfect || type == JudgeType.PurePerfect)
                     {
                         JudgeSFX.PlayPerfectTap();
                         GameFX.TapParticles.Trigger(transform.parent, transform.position);
@@ -81,9 +80,17 @@ namespace GamePlay.Graphics
                     }
                     break;
 
+                case LST_SingleNoteType.Catch:
+                    if (type == JudgeType.Perfect || type == JudgeType.PurePerfect)
+                    {
+                        JudgeSFX.PlayCatch();
+                        GameFX.TapParticles.Trigger(transform.parent, transform.position);
+                    }
+                    break;
+
                 case LST_SingleNoteType.FlickIn:
                 case LST_SingleNoteType.FlickOut:
-                    if (type == JudgeType.Perfect || type == JudgeType.PerfectPlus)
+                    if (type == JudgeType.Perfect || type == JudgeType.PurePerfect)
                     {
                         JudgeSFX.PlayPerfectFlick();
                         GameFX.TapParticles.Trigger(transform.parent, transform.position);

@@ -18,7 +18,7 @@ namespace GamePlay.Graphics.FX.Combo
         {
             var text = type switch
             {
-                JudgeType.PerfectPlus => "Perfect<sup>+</sup>!",
+                JudgeType.PurePerfect => "P.Perfect!",
                 JudgeType.Perfect => "Perfect!",
                 JudgeType.Good => "Good!",
                 JudgeType.Miss => "Miss...",

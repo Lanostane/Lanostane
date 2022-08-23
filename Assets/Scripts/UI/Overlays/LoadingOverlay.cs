@@ -18,6 +18,8 @@ namespace UI.Overlays
 
     public class LoadingOverlay : BaseOverlay, ILoadingOverlay
     {
+        public const float TransitionTime = 0.45f;
+
         public RectTransform MainRect;
         public TextMeshProUGUI Text;
         public Image Background;
@@ -36,7 +38,10 @@ namespace UI.Overlays
 
             IEnumerator Do()
             {
-                yield return transform.DOScaleY(1.0f, 0.75f).SetEase(Ease.OutCirc).WaitForCompletion();
+                yield return transform
+                    .DOScaleY(1.0f, TransitionTime)
+                    .SetEase(Ease.OutCirc)
+                    .WaitForCompletion();
                 callback?.Invoke();
             }
         }
@@ -56,7 +61,10 @@ namespace UI.Overlays
 
             IEnumerator Do()
             {
-                yield return transform.DOScaleY(0.0f, 0.75f).SetEase(Ease.OutCirc).WaitForCompletion();
+                yield return transform
+                    .DOScaleY(0.0f, TransitionTime)
+                    .SetEase(Ease.OutCirc)
+                    .WaitForCompletion();
                 gameObject.SetActive(false);
             }
         }

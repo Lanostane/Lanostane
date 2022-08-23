@@ -3,6 +3,7 @@ using GamePlay.Graphics;
 using GamePlay.Judge.Handles;
 using GamePlay.Judge.Inputs;
 using GamePlay.Scoring;
+using Settings;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -23,9 +24,7 @@ namespace GamePlay.Judge
     {
         public static INoteJudgeManager Instance { get; private set; }
 
-        public bool AutoPlay => _AutoPlay;
-
-        [SerializeField] private bool _AutoPlay = false;
+        public bool AutoPlay { get; private set; }
 
         private readonly List<SingleNoteJudgeHandle> _SingleNoteHandles = new();
         private readonly List<LongNoteJudgeHandle> _LongNoteHandles = new();
@@ -33,6 +32,7 @@ namespace GamePlay.Judge
         void Awake()
         {
             Instance = this;
+            AutoPlay = PlayerSetting.Settings.AutoPlay;
             InitializeInput();
         }
 
@@ -121,7 +121,7 @@ namespace GamePlay.Judge
                 if (handler.JudgeDone)
                     continue;
 
-                if (_AutoPlay)
+                if (AutoPlay)
                 {
                     if (handler.Timing < chartTime)
                     {
@@ -144,7 +144,7 @@ namespace GamePlay.Judge
         {
             foreach (var handler in _LongNoteHandles)
             {
-                if (_AutoPlay)
+                if (AutoPlay)
                 {
                     handler.ReportAutoPlay(chartTime);
                     handler.UpdateGraphic(chartTime);

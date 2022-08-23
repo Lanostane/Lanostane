@@ -3,7 +3,7 @@
     public struct JudgeConst
     {
         public const float Timeout = 0.31f;
-        public const float TapPerfectPlus = 0.07f;
+        public const float TapPerfectPlus = 0.03f;
         public const float TapPerfect = 0.11f;
         public const float FlickPerfect = 0.1f;
         public const float TapGood = 0.175f;

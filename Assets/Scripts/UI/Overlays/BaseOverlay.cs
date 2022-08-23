@@ -21,11 +21,6 @@ namespace UI.Overlays
 
         private bool _Active = false;
 
-        void Awake()
-        {
-            Setup();
-        }
-
         public virtual void Setup()
         {
             _Active = gameObject.activeSelf;

@@ -1,12 +1,19 @@
 ﻿using GamePlay.Scoring;
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using Utils.Maths;
 
 namespace UI.Comps
 {
     public class ScoreInfoUpdater : MonoBehaviour
     {
         public TextMeshProUGUI ScoreText;
+        public Color PerfectColor;
+        public Color FullComboColor;
+        public Color RegularColor;
+
+        private int _OldScore = 0;
 
         void Awake()
         {
@@ -25,18 +32,51 @@ namespace UI.Comps
 
         void ScoreUpdated()
         {
-            if (ScoreManager.IsPerfect)
+            if (ScoreManager.IsAllPerfect)
             {
-                ScoreText.text = $"<color=orange>{ScoreManager.ScoreString}</color>";
+                ScoreText.color = PerfectColor;
             }
             else if (ScoreManager.IsAllCombo)
             {
-                ScoreText.text = $"<color=blue>{ScoreManager.ScoreString}</color>";
+                ScoreText.color = FullComboColor;
             }
             else
             {
-                ScoreText.text = $"<color=white>{ScoreManager.ScoreString}</color>";
+                ScoreText.color = RegularColor;
             }
+
+            StopAllCoroutines();
+            StartCoroutine(UpdateScore(0.45f, _OldScore, ScoreManager.ScoreRounded));
+
+            _OldScore = ScoreManager.ScoreRounded;
+        }
+
+        IEnumerator UpdateScore(float duration, int from, int to)
+        {
+            if (from == to)
+            {
+                SetScoreText(to);
+                yield break;
+            }
+
+            var p = 0.0f;
+            var deltaFactor = 1.0f / duration;
+            var delta = to - from;
+
+            while (p <= 1.0f)
+            {
+                _OldScore = to + (int)(delta * Ease.Exponential.In(p));
+                SetScoreText(_OldScore);
+                p += Time.fixedDeltaTime * deltaFactor;
+                yield return new WaitForFixedUpdate();
+            }
+
+            SetScoreText(to);
+        }
+
+        private void SetScoreText(int score)
+        {
+            ScoreText.text = $"{score:00000000}";
         }
     }
 }

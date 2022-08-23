@@ -51,11 +51,11 @@ namespace GamePlay.Judge.Handles
         protected override JudgeType GetJudgeResult(float noteTime, float clickTime)
         {
             if (NoteJudgeManager.Instance.AutoPlay)
-                return JudgeType.PerfectPlus;
+                return JudgeType.PurePerfect;
 
             var delta = MathfE.AbsDelta(noteTime, clickTime);
             if (delta <= Timeout)
-                return JudgeType.PerfectPlus;
+                return JudgeType.PurePerfect;
             else
                 return JudgeType.Miss;
         }

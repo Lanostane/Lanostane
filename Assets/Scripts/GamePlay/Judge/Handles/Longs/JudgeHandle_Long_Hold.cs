@@ -127,11 +127,11 @@ namespace GamePlay.Judge.Handles
 
             if (!IsDerailed && chartTime >= Timing && !JudgeDone) //Not Derailed
             {
-                Graphic.EnableJudgeEffect(JudgeType.PerfectPlus);
+                Graphic.EnableJudgeEffect(JudgeType.PurePerfect);
             }
             else
             {
-                Graphic.DisableJudgeEffect(JudgeType.PerfectPlus);
+                Graphic.DisableJudgeEffect(JudgeType.PurePerfect);
             }
         }
 
@@ -155,7 +155,7 @@ namespace GamePlay.Judge.Handles
             {
                 if (subnote.Timing <= chartTime)
                 {
-                    ReportJudge(JudgeType.PerfectPlus, subnote.IsLast);
+                    ReportJudge(JudgeType.PurePerfect, subnote.IsLast);
                     TryDequeueTiming();
                 }
                 return;
@@ -165,7 +165,7 @@ namespace GamePlay.Judge.Handles
             {
                 if (MathfE.AbsApprox(LastInputTime, subnote.Timing, tolerance))
                 {
-                    ReportJudge(JudgeType.PerfectPlus, subnote.IsLast);
+                    ReportJudge(JudgeType.PurePerfect, subnote.IsLast);
                     TryDequeueTiming();
                 }
                 else if (Timing + _TickInterval <= chartTime)
