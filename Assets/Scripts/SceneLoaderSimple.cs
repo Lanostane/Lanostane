@@ -1,4 +1,5 @@
-﻿using Settings;
+﻿using Loading;
+using Settings;
 using System.Collections;
 using UI;
 using UnityEngine;
@@ -12,15 +13,19 @@ namespace Assets.Scripts
         {
             UserSetting.Load();
 
-            UIManager.Overlays.Loading.DoLoading(
-                () => {
-                    return SceneManager.LoadSceneAsync("GamePlay", LoadSceneMode.Additive);
-                },
-                () =>
+            LoadingWorker.Instance.Enqueue(new LoadJob()
+            {
+                JobDescription = "Loading GamePlay Assets...",
+                Job = () =>
                 {
-                    UIManager.Instance.ChangeMainState(UIMainState.GamePlay);
-                    UIManager.Overlays.GameHeader.SetActive(true);
-                });
+                    return SceneManager.LoadSceneAsync("GamePlay", LoadSceneMode.Additive);
+                }
+            });
+
+            LoadingWorker.Instance.DoLoading(LoadingStyle.Default, () =>
+            {
+                UIManager.Instance.WantToChangeState(UIMainState.GamePlay);
+            });
         }
     }
 }

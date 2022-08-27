@@ -5,19 +5,30 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace UI.Overlays
+namespace UI.Screens
 {
-    public interface IOverlay
+    public enum ScreenType
     {
+        Intro,
+        MainMenu,
+        Game,
+        Overlay
+    }
+
+    public interface IScreen
+    {
+        ScreenType Type { get; }
         void SetActive(bool wantToActive);
     }
 
-    public abstract class BaseOverlay : MonoBehaviour, IOverlay
+    public abstract class BaseScreen : MonoBehaviour, IScreen
     {
-        protected abstract void OnOverlayEnabled();
-        protected abstract void OnOverlayDisabled();
+        protected abstract void OnScreenEnabled();
+        protected abstract void OnScreenDisabled();
         protected abstract bool AutoActiveObject { get; }
         protected abstract bool AutoDeactiveObject { get; }
+
+        public abstract ScreenType Type { get; }
 
         private bool _Active = false;
 
@@ -25,19 +36,19 @@ namespace UI.Overlays
         {
             _Active = gameObject.activeSelf;
         }
-        
+
         public void SetActive(bool wantToActive)
         {
             if (_Active && !wantToActive)
             {
                 _Active = false;
-                OnOverlayDisabled();
+                OnScreenDisabled();
                 if (AutoDeactiveObject) gameObject.SetActive(false);
             }
             else if (!_Active && wantToActive)
             {
                 _Active = true;
-                OnOverlayEnabled();
+                OnScreenEnabled();
                 if (AutoActiveObject) gameObject.SetActive(true);
             }
         }

@@ -25,7 +25,7 @@ namespace GamePlay.Scoring
         public static int ScoreRounded { get; private set; }
         public static string ScoreString { get; private set; }
         public static int TotalNotes => _NoteCount;
-        public static int RegisteredNotes => _PerfectCount + _GoodCount + _MissCount;
+        public static int RegisteredNotes => PerfectCount + GoodCount + MissCount;
         public static int ComboCount { get; private set; }
 
         public static event Action ScoreUpdated;
@@ -33,10 +33,10 @@ namespace GamePlay.Scoring
 
         private static double _ScorePerNote;
         private static int _NoteCount;
-        private static int _PerfectPlusCount;
-        private static int _PerfectCount;
-        private static int _GoodCount;
-        private static int _MissCount;
+        public static int PerfectPlusCount { get; private set; }
+        public static int PerfectCount { get; private set; }
+        public static int GoodCount { get; private set; }
+        public static int MissCount { get; private set; }
 
         public static void Initialize(int maxNoteCount)
         {
@@ -53,10 +53,10 @@ namespace GamePlay.Scoring
 
         public static void Reset()
         {
-            _PerfectCount = 0;
-            _PerfectPlusCount = 0;
-            _GoodCount = 0;
-            _MissCount = 0;
+            PerfectCount = 0;
+            PerfectPlusCount = 0;
+            GoodCount = 0;
+            MissCount = 0;
 
             IsAllPurePerfect = true;
             IsAllPerfect = true;
@@ -69,25 +69,25 @@ namespace GamePlay.Scoring
             {
                 case JudgeType.PurePerfect:
                     ComboCount++;
-                    _PerfectCount++;
-                    _PerfectPlusCount++;
+                    PerfectCount++;
+                    PerfectPlusCount++;
                     break;
 
                 case JudgeType.Perfect:
                     ComboCount++;
-                    _PerfectCount++;
+                    PerfectCount++;
                     IsAllPurePerfect = false;
                     break;
 
                 case JudgeType.Good:
                     ComboCount++;
-                    _GoodCount++;
+                    GoodCount++;
                     IsAllPerfect = false;
                     IsAllPurePerfect = false;
                     break;
 
                 case JudgeType.Miss:
-                    _MissCount++;
+                    MissCount++;
                     ComboCount = 0;
                     IsAllCombo = false;
                     IsAllPerfect = false;
@@ -104,10 +104,10 @@ namespace GamePlay.Scoring
 
         private static void UpdateScore()
         {
-            var perfectScore = _ScorePerNote * _PerfectCount;
-            var goodScore = _ScorePerNote * _GoodCount * GoodScoreMult;
+            var perfectScore = _ScorePerNote * PerfectCount;
+            var goodScore = _ScorePerNote * GoodCount * GoodScoreMult;
 
-            Score = (float)(perfectScore + goodScore + _PerfectPlusCount);
+            Score = (float)(perfectScore + goodScore + PerfectPlusCount);
             ScoreRounded = Mathf.RoundToInt(Score);
             SetScoreString(ScoreRounded);
 

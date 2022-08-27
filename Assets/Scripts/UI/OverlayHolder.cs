@@ -3,33 +3,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UI.Overlays;
+using UI.Screens;
+using UI.Screens.Overlays;
 using UnityEngine;
 
 namespace UI
 {
     public interface IOverlayHolder
     {
-        ILoadingOverlay Loading { get; }
         IOverlay GameHeader { get; }
         IOverlay GameResult { get; }
     }
 
     public class OverlayHolder : MonoBehaviour, IOverlayHolder
     {
-        [SerializeField] private LoadingOverlay _Loading;
-        [SerializeField] private GameHeaderOverlay _GameHeader;
-        [SerializeField] private GameResultOverlay _GameResult;
+        public IOverlay GameHeader { get; private set; }
+        public IOverlay GameResult { get; private set; }
 
-        public ILoadingOverlay Loading => _Loading;
-        public IOverlay GameHeader => _GameHeader;
-        public IOverlay GameResult => _GameResult;
+        private readonly Dictionary<OverlayType, IOverlay> _Overlays = new();
 
-        void Awake()
+        public void Setup(BaseScreen[] screens)
         {
-            _Loading.Setup();
-            _GameHeader.Setup();
-            _GameResult.Setup();
+            foreach (var screen in screens)
+            {
+                if (screen is not BaseOverlay overlay)
+                {
+                    continue;
+                }
+
+                var type = overlay.OverlayType;
+                if (_Overlays.TryGetValue(type, out var _))
+                {
+                    Debug.LogError($"Duplicated Overlay has added with type: {type}");
+                    continue;
+                }
+
+                _Overlays[type] = overlay;
+                overlay.Setup();
+
+                switch (type)
+                {
+                    case OverlayType.GameHeader:
+                        GameHeader = overlay;
+                        break;
+
+                    case OverlayType.GameResult:
+                        GameResult = overlay;
+                        break;
+                }
+            }
+        }
+
+        public IOverlay Get(OverlayType type)
+        {
+            return _Overlays[type];
         }
     }
 }
