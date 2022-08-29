@@ -8,28 +8,20 @@ namespace GamePlay.Graphics.FX.Combo
     public sealed class ComboSide : MonoBehaviour
     {
         public Animator Anim;
-        public Transform ResizeTransform;
+        public GameObject PerfectPlusSprite;
+        public GameObject PerfectSprite;
+        public GameObject GoodSprite;
+        public GameObject MissSprite;
         public TextMeshPro ComboText;
-        public TextMeshPro TypeText;
 
         private readonly static int DO_DISPLAY = Animator.StringToHash("DoDisplay");
 
         public void Display(JudgeType type, Color color)
         {
-            var text = type switch
-            {
-                JudgeType.PurePerfect => "P.Perfect!",
-                JudgeType.Perfect => "Perfect!",
-                JudgeType.Good => "Good!",
-                JudgeType.Miss => "Miss...",
-                _ => throw new System.NotImplementedException(),
-            };
-
-
-            TypeText.text = text;
-            TypeText.color = color;
-            ComboText.text = ScoreManager.ComboCount.ToString();
-            ComboText.color = color;
+            PerfectPlusSprite.SetActive(type == JudgeType.PurePerfect);
+            PerfectSprite.SetActive(type == JudgeType.Perfect);
+            GoodSprite.SetActive(type == JudgeType.Good);
+            MissSprite.SetActive(type == JudgeType.Miss);
 
             Anim.Play(DO_DISPLAY);
 
@@ -40,6 +32,8 @@ namespace GamePlay.Graphics.FX.Combo
             else
             {
                 ComboText.gameObject.SetActive(true);
+                ComboText.text = ScoreManager.ComboCount.ToString();
+                ComboText.color = color;
             }
         }
     }

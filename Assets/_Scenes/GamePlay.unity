@@ -940,10 +940,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2500794ec82cb24bb2089897cf18da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PurePerfectColor: {r: 1, g: 0.51042575, b: 0.4669811, a: 1}
-  PerfectColor: {r: 1, g: 0.4640381, b: 0.1372549, a: 1}
+  PurePerfectColor: {r: 0.9960785, g: 0.227451, b: 0.6627451, a: 1}
+  PerfectColor: {r: 0.07075471, g: 1, b: 0.73268276, a: 1}
   GoodColor: {r: 0.25943398, g: 0.5121078, b: 1, a: 1}
-  MissColor: {r: 0.86512405, g: 0.6462264, b: 1, a: 1}
+  MissColor: {r: 0.9803922, g: 0.56078434, b: 0.7843138, a: 1}
   Side0: {fileID: 1952475229}
   Side1: {fileID: 597718134}
   Side2: {fileID: 1106324611}

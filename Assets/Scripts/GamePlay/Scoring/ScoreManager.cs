@@ -30,6 +30,7 @@ namespace GamePlay.Scoring
 
         public static event Action ScoreUpdated;
         public static event NoteRegisteredDel NoteRegistered;
+        public static event Action LastNoteRegistered;
 
         private static double _ScorePerNote;
         private static int _NoteCount;
@@ -37,6 +38,7 @@ namespace GamePlay.Scoring
         public static int PerfectCount { get; private set; }
         public static int GoodCount { get; private set; }
         public static int MissCount { get; private set; }
+        public static int RegisteredCount => PerfectCount + GoodCount + MissCount;
 
         public static void Initialize(int maxNoteCount)
         {
@@ -65,6 +67,12 @@ namespace GamePlay.Scoring
 
         public static void RegisterNote(ScoreData data)
         {
+            var registered = RegisteredCount;
+            if (registered == _NoteCount)
+            {
+                return;
+            }
+
             switch (data.Type)
             {
                 case JudgeType.PurePerfect:
@@ -98,8 +106,13 @@ namespace GamePlay.Scoring
                     return;
             }
 
-            NoteRegistered?.Invoke(data.Type, data.Degree);
+            
             UpdateScore();
+            NoteRegistered?.Invoke(data.Type, data.Degree);
+            if (registered == _NoteCount)
+            {
+                LastNoteRegistered?.Invoke();
+            }
         }
 
         private static void UpdateScore()
