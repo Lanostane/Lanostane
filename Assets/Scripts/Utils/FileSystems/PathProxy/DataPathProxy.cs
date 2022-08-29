@@ -14,7 +14,7 @@ namespace Utils.FileSystems.PathProxy
 
         protected override string BuildBasePath()
         {
-            return Path.Combine(Application.persistentDataPath, "Data");
+            return Path.Combine(Paths.PersistentDataPath, "Data");
         }
     }
 }

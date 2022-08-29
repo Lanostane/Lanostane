@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace LanostaneTracks
+namespace Lst.Tracks
 {
     public enum LST_ChartAppearancePreset
     {
@@ -62,6 +62,7 @@ namespace LanostaneTracks
 
     public sealed class LST_TrackChartInfo
     {
+        public string Charter { get; set; }
         public string ChartFile { get; set; }
         public string StoryboardFile { get; set; }
         public float Difficulty { get; set; }

@@ -6,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Utils.FileSystems;
 
 namespace Lst.Settings
 {
     public static class UserSetting
     {
         private static UserSetting_DTO _Settings = new();
-        private readonly static string _ConfigPath = Path.Combine(Application.persistentDataPath, "config.json");
+        private readonly static string _ConfigPath = Path.Combine(Paths.PersistentDataPath, "config.json");
 
         public static int Offset
         {

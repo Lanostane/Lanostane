@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LanostaneTracks
+namespace Lst.Tracks
 {
     public sealed class LST_TrackBGAInfo
     {
