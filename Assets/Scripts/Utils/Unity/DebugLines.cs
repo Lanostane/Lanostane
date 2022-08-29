@@ -1,5 +1,5 @@
-﻿using GamePlay;
-using GamePlay.Motions;
+﻿using Lst.GamePlay;
+using Lst.GamePlay.Motions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
