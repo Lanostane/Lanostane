@@ -1,10 +1,10 @@
-using Lst.Charts.DTO;
+using Lanostane.Charts.DTO;
 using GamePlay.Graphics;
 using GamePlay.Judge;
 using GamePlay.Motions;
 using GamePlay.Scrolls;
 using Newtonsoft.Json;
-using Lst.Settings;
+using Lanostane.Settings;
 using System;
 using UnityEngine;
 using Utils.Maths;

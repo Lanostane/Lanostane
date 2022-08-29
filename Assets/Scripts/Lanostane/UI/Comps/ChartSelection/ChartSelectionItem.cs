@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Lst.UI.Comps.ChartSelection
+namespace Lanostane.UI.Comps.ChartSelection
 {
     public abstract class ChartSelectionItem : MonoBehaviour
     {

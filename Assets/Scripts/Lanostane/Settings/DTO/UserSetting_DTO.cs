@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lst.Settings
+namespace Lanostane.Settings
 {
     public sealed class UserSetting_DTO
     {

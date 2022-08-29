@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lst.UI.Screens
+namespace Lanostane.UI.Screens
 {
     public sealed class MainMenuScreen : BaseScreen
     {

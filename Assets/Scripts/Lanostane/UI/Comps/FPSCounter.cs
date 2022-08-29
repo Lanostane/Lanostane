@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Lst.UI.Comps
+namespace Lanostane.UI.Comps
 {
     public class FPSCounter : MonoBehaviour
     {

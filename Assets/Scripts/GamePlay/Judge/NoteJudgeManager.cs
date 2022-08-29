@@ -1,9 +1,9 @@
-﻿using Lst.Charts;
+﻿using Lanostane.Charts;
 using GamePlay.Graphics;
 using GamePlay.Judge.Handles;
 using GamePlay.Judge.Inputs;
 using GamePlay.Scoring;
-using Lst.Settings;
+using Lanostane.Settings;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;

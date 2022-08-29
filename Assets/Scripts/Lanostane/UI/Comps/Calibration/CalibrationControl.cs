@@ -1,4 +1,4 @@
-﻿using Lst.Settings;
+﻿using Lanostane.Settings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Utils.Maths;
 
-namespace Lst.UI.Comps.Calibration
+namespace Lanostane.UI.Comps.Calibration
 {
     public struct Sample
     {

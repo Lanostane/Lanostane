@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Utils;
 
-namespace Lst.Charts.DTO
+namespace Lanostane.Charts.DTO
 {
 #pragma warning disable 0649 //Never Assign Warning
     internal class LaChart

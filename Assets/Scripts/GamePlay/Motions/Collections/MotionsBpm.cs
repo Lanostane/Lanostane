@@ -1,4 +1,4 @@
-﻿using Lst.Charts;
+﻿using Lanostane.Charts;
 using System.Linq;
 
 namespace GamePlay.Motions.Collections

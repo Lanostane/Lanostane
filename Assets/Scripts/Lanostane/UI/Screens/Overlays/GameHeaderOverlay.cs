@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Lst.UI.Screens.Overlays
+namespace Lanostane.UI.Screens.Overlays
 {
     public class GameHeaderOverlay : BaseOverlay
     {

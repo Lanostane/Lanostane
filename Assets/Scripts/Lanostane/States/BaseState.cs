@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lst.States
+namespace Lanostane.States
 {
     public abstract class BaseState
     {

@@ -1,11 +1,11 @@
-﻿using Lst.Tracks;
+﻿using Lanostane.Tracks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lst.Packages
+namespace Lanostane.Packages
 {
     public class LST_Package
     {

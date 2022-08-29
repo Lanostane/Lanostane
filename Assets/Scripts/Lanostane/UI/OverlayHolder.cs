@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Lst.UI.Screens;
-using Lst.UI.Screens.Overlays;
+using Lanostane.UI.Screens;
+using Lanostane.UI.Screens.Overlays;
 using UnityEngine;
 
-namespace Lst.UI
+namespace Lanostane.UI
 {
     public interface IOverlayHolder
     {

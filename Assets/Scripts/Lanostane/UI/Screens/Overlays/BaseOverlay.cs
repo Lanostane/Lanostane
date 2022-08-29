@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Lst.UI.Screens.Overlays
+namespace Lanostane.UI.Screens.Overlays
 {
     public enum OverlayType
     {

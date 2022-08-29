@@ -1,5 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
-using Lst.Tracks;
+using Lanostane.Tracks;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using Utils.FileSystems;
 using Utils.FileSystems.PathProxy;
 using Utils.Jsons;
 
-namespace Lst.Packages.Readers
+namespace Lanostane.Packages.Readers
 {
     public sealed class LytPackageReader
     {

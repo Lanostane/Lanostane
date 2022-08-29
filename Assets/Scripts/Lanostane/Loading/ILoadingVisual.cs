@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Lst.Loading
+namespace Lanostane.Loading
 {
     public interface ILoadingVisual
     {

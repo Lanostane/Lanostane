@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Lst.Settings.DTO
+namespace Lanostane.Settings.DTO
 {
     public class PlayerSetting_SO : ScriptableObject
     {

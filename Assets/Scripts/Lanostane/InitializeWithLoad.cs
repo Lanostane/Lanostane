@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Lst
+namespace Lanostane
 {
     internal static class InitializeWithLoad
     {

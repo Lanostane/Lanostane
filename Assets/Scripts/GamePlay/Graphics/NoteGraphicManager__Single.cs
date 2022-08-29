@@ -1,4 +1,4 @@
-﻿using Lst.Charts;
+﻿using Lanostane.Charts;
 using GamePlay.Graphics.Collections;
 using GamePlay.Scrolls;
 using GamePlay.Scrolls.Jobs;

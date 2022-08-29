@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Utils.Maths;
 
-namespace Lst.Charts
+namespace Lanostane.Charts
 {
     public class LST_Chart
     {

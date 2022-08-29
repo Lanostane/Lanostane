@@ -1,4 +1,4 @@
-﻿using Lst.Settings.DTO;
+﻿using Lanostane.Settings.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Lst.Settings
+namespace Lanostane.Settings
 {
     public static class PlayerSetting
     {

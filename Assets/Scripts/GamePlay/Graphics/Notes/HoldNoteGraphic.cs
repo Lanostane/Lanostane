@@ -1,4 +1,4 @@
-﻿using Lst.Charts;
+﻿using Lanostane.Charts;
 using GamePlay.Graphics.FX;
 using GamePlay.Graphics.FX.Hold;
 using GamePlay.Graphics.FX.Particles;

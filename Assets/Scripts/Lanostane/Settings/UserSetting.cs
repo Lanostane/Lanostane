@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Utils.FileSystems;
 
-namespace Lst.Settings
+namespace Lanostane.Settings
 {
     public static class UserSetting
     {

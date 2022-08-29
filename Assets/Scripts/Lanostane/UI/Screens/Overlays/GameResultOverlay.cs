@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-namespace Lst.UI.Screens.Overlays
+namespace Lanostane.UI.Screens.Overlays
 {
     public class GameResultOverlay : BaseOverlay
     {

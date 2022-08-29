@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Lst.BGS
+namespace Lanostane.BGS
 {
     public sealed class ImageBG : BGBase
     {

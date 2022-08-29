@@ -1,4 +1,4 @@
-﻿using Lst.Charts;
+﻿using Lanostane.Charts;
 using GamePlay.Motions.Collections;
 using System.Collections;
 using UnityEngine;

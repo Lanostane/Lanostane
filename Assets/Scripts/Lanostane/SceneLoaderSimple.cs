@@ -1,11 +1,11 @@
-﻿using Lst.Loading;
-using Lst.Settings;
+﻿using Lanostane.Loading;
+using Lanostane.Settings;
 using System.Collections;
-using Lst.UI;
+using Lanostane.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Lst
+namespace Lanostane
 {
     public class SceneLoaderSimple : MonoBehaviour
     {

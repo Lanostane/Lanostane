@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
-namespace Lst.UI.Screens
+namespace Lanostane.UI.Screens
 {
     public sealed class GameScreen : BaseScreen
     {

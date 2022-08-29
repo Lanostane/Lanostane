@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Lst.States
+namespace Lanostane.States
 {
     public interface IStateManager
     {

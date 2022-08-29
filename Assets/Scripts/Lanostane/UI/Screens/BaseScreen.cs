@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Lst.UI.Screens
+namespace Lanostane.UI.Screens
 {
     public enum ScreenType
     {

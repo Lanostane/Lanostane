@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils.Maths;
 
-namespace Lst.UI.Comps.Calibration
+namespace Lanostane.UI.Comps.Calibration
 {
     public class TapArea : MonoBehaviour, IPointerDownHandler
     {

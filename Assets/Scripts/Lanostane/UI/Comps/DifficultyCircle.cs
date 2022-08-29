@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Lst.UI.Comps
+namespace Lanostane.UI.Comps
 {
     public sealed class DifficultyCircle : MonoBehaviour
     {
@@ -23,8 +23,14 @@ namespace Lst.UI.Comps
 
         public void SetDifficulty(float diff)
         {
+            if (float.IsNaN(diff))
+            {
+                Text.SetText("?");
+                return;
+            }
+
             var intDiff = Mathf.FloorToInt(diff);
-            var detailDiff = Mathf.RoundToInt((diff % (float)intDiff) * 100.0f);
+            var detailDiff = Mathf.RoundToInt((diff % (float)intDiff) * 10.0f);
 
             if (detailDiff > 0)
             {

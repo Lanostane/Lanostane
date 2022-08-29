@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Lst.Tracks
+namespace Lanostane.Tracks
 {
     public enum LST_ChartAppearancePreset
     {

@@ -1,9 +1,9 @@
 ﻿using GamePlay;
 using System.Collections;
-using Lst.UI.Screens;
+using Lanostane.UI.Screens;
 using UnityEngine;
 
-namespace Lst.UI
+namespace Lanostane.UI
 {
     public interface IUIManager
     {

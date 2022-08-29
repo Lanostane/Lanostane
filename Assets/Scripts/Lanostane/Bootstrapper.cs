@@ -1,5 +1,5 @@
-﻿using Lst.Loading;
-using Lst.Packages.Readers;
+﻿using Lanostane.Loading;
+using Lanostane.Packages.Readers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,23 +10,26 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public sealed class Bootstrapper : MonoBehaviour
+namespace Lanostane
 {
-    void Start()
+    public sealed class Bootstrapper : MonoBehaviour
     {
-        _ = LytPackageReader.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test.layesta"));
-        _ = LytPackageReader.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test1.layesta"));
-        _ = LytPackageReader.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test2.layesta"));
-        _ = LytPackageReader.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test3.layesta"));
-
-        LoadingWorker.Instance.Enqueue(new LoadJob()
+        void Start()
         {
-            JobDescription = "Loading Main UI",
-            Job = () =>
+            _ = LytPackageReader.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test.layesta"));
+            _ = LytPackageReader.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test1.layesta"));
+            _ = LytPackageReader.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test2.layesta"));
+            _ = LytPackageReader.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test3.layesta"));
+
+            LoadingWorker.Instance.Enqueue(new LoadJob()
             {
-                return SceneManager.LoadSceneAsync("MainUI", LoadSceneMode.Single);
-            }
-        });
-        LoadingWorker.Instance.DoLoading(LoadingStyle.Default);
+                JobDescription = "Loading Main UI",
+                Job = () =>
+                {
+                    return SceneManager.LoadSceneAsync("MainUI", LoadSceneMode.Single);
+                }
+            });
+            LoadingWorker.Instance.DoLoading(LoadingStyle.Default);
+        }
     }
 }
