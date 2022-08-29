@@ -1,5 +1,5 @@
 ﻿using DG.Tweening;
-using Lst.GamePlay.Scoring;
+using GamePlay.Scoring;
 using System;
 using System.Collections.Generic;
 using System.Linq;

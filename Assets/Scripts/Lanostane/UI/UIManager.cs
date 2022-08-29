@@ -1,4 +1,4 @@
-﻿using Lst.GamePlay;
+﻿using GamePlay;
 using System.Collections;
 using Lst.UI.Screens;
 using UnityEngine;

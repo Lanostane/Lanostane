@@ -1,4 +1,4 @@
-﻿using Lst.GamePlay.Scoring;
+﻿using GamePlay.Scoring;
 using System.Collections;
 using UnityEngine;
 
