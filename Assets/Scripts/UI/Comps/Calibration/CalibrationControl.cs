@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Utils.Maths;
 
-namespace Lanostane.UI.Comps.Calibration
+namespace UI.Comps.Calibration
 {
     public struct Sample
     {

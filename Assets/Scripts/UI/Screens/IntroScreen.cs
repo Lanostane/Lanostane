@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lanostane.UI.Screens
+namespace UI.Screens
 {
     public sealed class IntroScreen : BaseScreen
     {

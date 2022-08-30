@@ -8,7 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Lanostane.UI.Comps
+namespace UI.Comps
 {
     [ExecuteInEditMode]
     public class GradientButton : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler

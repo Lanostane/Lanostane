@@ -1,7 +1,7 @@
 ﻿using Lanostane.Loading;
 using Lanostane.Settings;
 using System.Collections;
-using Lanostane.UI;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

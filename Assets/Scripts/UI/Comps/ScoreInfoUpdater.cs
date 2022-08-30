@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using Utils.Maths;
 
-namespace Lanostane.UI.Comps
+namespace UI.Comps
 {
     public class ScoreInfoUpdater : MonoBehaviour
     {

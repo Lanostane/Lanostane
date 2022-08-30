@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Lanostane.UI.Comps
+namespace UI.Comps
 {
     public sealed class DifficultyCircle : MonoBehaviour
     {

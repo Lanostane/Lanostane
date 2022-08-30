@@ -138,7 +138,7 @@ namespace Lanostane.Charts.DTO
 
             foreach (var b in bpm)
             {
-                if ((int)b.Type == 6)
+                if (b.Type == LaEventType.DefaultBPM)
                 {
                     chart.StartBPM = b.Bpm;
                 }
@@ -201,7 +201,8 @@ namespace Lanostane.Charts.DTO
         VerticalMotion = 10,
         RotationMotion = 13,
 
-        DefaultMotion = 12
+        DefaultMotion = 12,
+        DefaultBPM = 6
     }
 
     internal class LaJointCollection

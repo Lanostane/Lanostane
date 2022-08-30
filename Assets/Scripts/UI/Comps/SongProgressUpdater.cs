@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Lanostane.UI.Comps
+namespace UI.Comps
 {
     public class SongProgressUpdater : MonoBehaviour
     {
