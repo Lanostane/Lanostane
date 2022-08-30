@@ -18,6 +18,11 @@ namespace UI.Loading
 
         public LoadingStyles Type => LoadingStyles.BlackShutter;
 
+        public void Setup()
+        {
+
+        }
+
         public Coroutine HideScreen(bool animation = true)
         {
             if (animation)

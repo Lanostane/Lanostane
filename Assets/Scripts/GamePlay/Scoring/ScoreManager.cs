@@ -39,6 +39,7 @@ namespace GamePlay.Scoring
         public static int GoodCount { get; private set; }
         public static int MissCount { get; private set; }
         public static int RegisteredCount => PerfectCount + GoodCount + MissCount;
+        public static RankType CurrentRank { get; private set; }
 
         public static void Initialize(int maxNoteCount)
         {
@@ -59,6 +60,7 @@ namespace GamePlay.Scoring
             PerfectPlusCount = 0;
             GoodCount = 0;
             MissCount = 0;
+            CurrentRank = RankType.Failed;
 
             IsAllPurePerfect = true;
             IsAllPerfect = true;
@@ -122,6 +124,8 @@ namespace GamePlay.Scoring
 
             Score = (float)(perfectScore + goodScore + PerfectPlusCount);
             ScoreRounded = Mathf.RoundToInt(Score);
+
+            SetRank(ScoreRounded);
             SetScoreString(ScoreRounded);
 
             ScoreUpdated?.Invoke();
@@ -130,6 +134,38 @@ namespace GamePlay.Scoring
         private static void SetScoreString(int intScore)
         {
             ScoreString = intScore.ToString("D8");
+        }
+
+        private static void SetRank(int intScore)
+        {
+            if (intScore >= ScoreConst.Rank1Cap)
+            {
+                CurrentRank = RankType.R1_X;
+            }
+            else if (intScore >= ScoreConst.Rank2Cap)
+            {
+                CurrentRank = RankType.R2_S;
+            }
+            else if (intScore >= ScoreConst.Rank3Cap)
+            {
+                CurrentRank = RankType.R3_A;
+            }
+            else if (intScore >= ScoreConst.Rank4Cap)
+            {
+                CurrentRank = RankType.R4_B;
+            }
+            else if (intScore >= ScoreConst.Rank5Cap)
+            {
+                CurrentRank = RankType.R5_C;
+            }
+            else if (intScore >= ScoreConst.Rank6Cap)
+            {
+                CurrentRank = RankType.R6_D;
+            }
+            else
+            {
+                CurrentRank = RankType.Failed;
+            }
         }
     }
 }

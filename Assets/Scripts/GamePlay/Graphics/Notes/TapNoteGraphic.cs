@@ -27,7 +27,7 @@ namespace GamePlay.Graphics
         public void Setup(LST_SingleNoteInfo info)
         {
             Timing = info.Timing;
-            ScrollTiming = ScrollManager.GetScrollTiming(Timing);
+            ScrollTiming = ScrollUpdater.GetScrollTiming(Timing);
 
             SetNoteType(info.Type);
             HighlightObject.SetActive(info.Highlight);

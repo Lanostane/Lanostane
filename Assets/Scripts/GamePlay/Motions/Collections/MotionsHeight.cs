@@ -33,7 +33,7 @@ namespace GamePlay.Motions.Collections
         {
             TempHolder.Clear();
 
-            var currentHeight = MotionManager.Instance.StartingHeight;
+            var currentHeight = MotionUpdater.Instance.StartingHeight;
             foreach (var height in MotionDataHolder.OrderBy(x => x.Timing))
             {
                 var newHeight = height;

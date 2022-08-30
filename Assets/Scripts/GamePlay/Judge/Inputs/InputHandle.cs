@@ -27,7 +27,7 @@ namespace GamePlay.Judge.Inputs
         public readonly int ID;
         public InputEvent EventType;
         public float Angle;
-        public float GameAngle => Angle + MotionManager.Instance.CurrentRotation;
+        public float GameAngle => Angle + MotionUpdater.Instance.CurrentRotation;
         public float Timing;
 
         public bool Holding;
@@ -38,7 +38,7 @@ namespace GamePlay.Judge.Inputs
         public Vector3 PreviousFlickPosition;
         public float FlickAmount;
         public float FlickAngle;
-        public float GameFlickAngle => FlickAngle + MotionManager.Instance.CurrentRotation;
+        public float GameFlickAngle => FlickAngle + MotionUpdater.Instance.CurrentRotation;
         public LST_FlickDir LastFlickDir;
         public bool HasHandledFlick;
 

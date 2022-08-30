@@ -26,7 +26,7 @@ namespace GamePlay.Judge.Handles
 
         public override bool IsJudgeReportAllowed(float chartTime)
         {
-            return FlickDone || NoteJudgeManager.Instance.AutoPlay;
+            return FlickDone || NoteJudgeUpdater.Instance.AutoPlay;
         }
 
         public override JudgeRoutine ProcessInput(float chartTime, InputHandle handle)
@@ -66,7 +66,7 @@ namespace GamePlay.Judge.Handles
 
         protected override JudgeType GetJudgeResult(float noteTime, float clickTime)
         {
-            if (NoteJudgeManager.Instance.AutoPlay)
+            if (NoteJudgeUpdater.Instance.AutoPlay)
                 return JudgeType.PurePerfect;
 
             var delta = MathfE.AbsDelta(noteTime, clickTime);

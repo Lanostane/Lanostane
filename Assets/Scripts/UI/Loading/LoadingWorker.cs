@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,7 @@ namespace UI.Loading
         private readonly Queue<LoadJob> _Jobs = new();
 
         [ChildTypeEnumValue((int)LoadingStyles.BlackShutter)]
+        [SuppressMessage("Style", "IDE0044:Add readonly modifier")]
         private ILoadingVisual _ShutterVisual;
 
 
@@ -47,8 +49,13 @@ namespace UI.Loading
             Instance = this;
             DontDestroyOnLoad(this);
 
-            ChildTypeComponents<LoadingStyles>
-                .FindAndMatchTo<ILoadingVisual>(transform, this, x => x.Type);
+            var results = ChildTypeComponents<LoadingStyles>
+                .FindAndMatchTo<ILoadingVisual>(this, x => x.Type);
+
+            foreach (var result in results)
+            {
+                result.Setup();
+            }
         }
 
         public void Enqueue(LoadJob job)

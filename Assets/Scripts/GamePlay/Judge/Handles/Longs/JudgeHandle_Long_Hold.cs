@@ -43,7 +43,7 @@ namespace GamePlay.Judge.Handles
                 Timing = info.Timing
             });
 
-            if (!MotionManager.Instance.TryGetBPMByTime(info.Timing, out _BaseBPM))
+            if (!MotionUpdater.Instance.TryGetBPMByTime(info.Timing, out _BaseBPM))
             {
                 _BaseBPM = 100.0f;
                 Debug.LogError("BPM Info was none! Falling back to 100.0...");
@@ -83,7 +83,7 @@ namespace GamePlay.Judge.Handles
 
         public override bool IsInputAllowed(float chartTime)
         {
-            if (NoteJudgeManager.Instance.AutoPlay)
+            if (NoteJudgeUpdater.Instance.AutoPlay)
                 return true;
 
             var min = Timing - Timeout;
@@ -151,7 +151,7 @@ namespace GamePlay.Judge.Handles
             var subnote = _CurrentJudgeTiming.Value;
             var tolerance = (subnote.IsFirst || subnote.IsLast) ? _TickInterval * 5.0f : _TickInterval * 2.0f;
 
-            if (NoteJudgeManager.Instance.AutoPlay)
+            if (NoteJudgeUpdater.Instance.AutoPlay)
             {
                 if (subnote.Timing <= chartTime)
                 {

@@ -11,7 +11,7 @@ using Utils;
 
 namespace GamePlay.Judge
 {
-    public interface INoteJudgeManager : IChartUpdater
+    public interface INoteJudgeUpdater : IChartUpdater
     {
         bool AutoPlay { get; }
         void InitializeScoring();
@@ -21,9 +21,9 @@ namespace GamePlay.Judge
         void InputHandleUpdated(InputHandle updatedInputHandle);
     }
 
-    public partial class NoteJudgeManager : MonoBehaviour, INoteJudgeManager
+    public partial class NoteJudgeUpdater : MonoBehaviour, INoteJudgeUpdater
     {
-        public static INoteJudgeManager Instance { get; private set; }
+        public static INoteJudgeUpdater Instance { get; private set; }
 
         public bool AutoPlay { get; private set; }
 

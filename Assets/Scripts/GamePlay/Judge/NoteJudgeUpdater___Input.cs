@@ -7,7 +7,7 @@ using Utils.Maths;
 
 namespace GamePlay.Judge
 {
-    public partial class NoteJudgeManager : MonoBehaviour, IChartUpdater
+    public partial class NoteJudgeUpdater : MonoBehaviour, IChartUpdater
     {
         public const int AllowedInputCount = 9; //Who would use more than 9 fingers?
         private readonly InputHandle[] _InputHandles = new InputHandle[AllowedInputCount];

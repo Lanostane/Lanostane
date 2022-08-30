@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3519227f5b294224fad4658722b6d8a2, type: 3}
   m_Name: PlayerSetting
   m_EditorClassIdentifier: 
-  AutoPlay: 0
+  AutoPlay: 1
   PlaySpeed: 1

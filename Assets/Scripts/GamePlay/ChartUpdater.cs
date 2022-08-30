@@ -12,61 +12,61 @@ namespace GamePlay
     {
         public void Setup(LST_Chart chart)
         {
-            MotionManager.Instance.SetDefaultMotion(chart.Default);
-            MotionManager.Instance.AddMotions(chart);
-            MotionManager.Instance.UpdateAbsValue();
+            MotionUpdater.Instance.SetDefaultMotion(chart.Default);
+            MotionUpdater.Instance.AddMotions(chart);
+            MotionUpdater.Instance.UpdateAbsValue();
 
             foreach (var scroll in chart.Scrolls)
             {
-                ScrollManager.Instance.AddScroll(scroll);
+                ScrollUpdater.Instance.AddScroll(scroll);
             }
-            ScrollManager.Instance.UpdateAbsValue();
+            ScrollUpdater.Instance.UpdateAbsValue();
 
             foreach (var note in chart.TapNotes)
             {
-                var graphic = NoteGraphicManager.Instance.AddSingleNote(note.NoteInfo);
+                var graphic = NoteGraphicUpdater.Instance.AddSingleNote(note.NoteInfo);
                 if (note.Timing <= chart.SongLength)
-                    NoteJudgeManager.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
+                    NoteJudgeUpdater.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
             }
 
             foreach (var note in chart.CatchNotes)
             {
-                var graphic = NoteGraphicManager.Instance.AddSingleNote(note.NoteInfo);
+                var graphic = NoteGraphicUpdater.Instance.AddSingleNote(note.NoteInfo);
                 if (note.Timing <= chart.SongLength)
-                    NoteJudgeManager.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
+                    NoteJudgeUpdater.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
             }
 
             foreach (var note in chart.FlickNotes)
             {
-                var graphic = NoteGraphicManager.Instance.AddSingleNote(note.NoteInfo);
+                var graphic = NoteGraphicUpdater.Instance.AddSingleNote(note.NoteInfo);
                 if (note.Timing <= chart.SongLength)
-                    NoteJudgeManager.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
+                    NoteJudgeUpdater.Instance.AddSingleJudgeHandle(note.NoteInfo, graphic);
             }
 
             foreach (var note in chart.HoldNotes)
             {
-                var graphic = NoteGraphicManager.Instance.AddLongNote(note.NoteInfo);
+                var graphic = NoteGraphicUpdater.Instance.AddLongNote(note.NoteInfo);
                 if (note.Timing <= chart.SongLength)
-                    NoteJudgeManager.Instance.AddLongJudgeHandle(note.NoteInfo, graphic);
+                    NoteJudgeUpdater.Instance.AddLongJudgeHandle(note.NoteInfo, graphic);
             }
 
-            NoteJudgeManager.Instance.InitializeScoring();
+            NoteJudgeUpdater.Instance.InitializeScoring();
         }
 
         public void UpdateChart(float chartTime)
         {
-            ScrollManager.Instance.UpdateChart(chartTime);
-            NoteJudgeManager.Instance.UpdateChart(chartTime);
-            MotionManager.Instance.UpdateChart(chartTime);
-            NoteGraphicManager.Instance.UpdateChart(chartTime);
+            ScrollUpdater.Instance.UpdateChart(chartTime);
+            NoteJudgeUpdater.Instance.UpdateChart(chartTime);
+            MotionUpdater.Instance.UpdateChart(chartTime);
+            NoteGraphicUpdater.Instance.UpdateChart(chartTime);
         }
 
         public void CleanUp()
         {
-            ScrollManager.Instance.CleanUp();
-            NoteJudgeManager.Instance.CleanUp();
-            MotionManager.Instance.CleanUp();
-            NoteGraphicManager.Instance.CleanUp();
+            ScrollUpdater.Instance.CleanUp();
+            NoteJudgeUpdater.Instance.CleanUp();
+            MotionUpdater.Instance.CleanUp();
+            NoteGraphicUpdater.Instance.CleanUp();
         }
     }
 }

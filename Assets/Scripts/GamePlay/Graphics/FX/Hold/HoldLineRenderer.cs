@@ -69,7 +69,7 @@ namespace GamePlay.Graphics.FX.Hold
                     jointNote.transform.localEulerAngles = new Vector3(0.0f, 0.0f, joint.StartDeg);
                     jointNoteList.Add(new()
                     {
-                        ScrollTiming = ScrollManager.GetScrollTiming(joint.StartTiming),
+                        ScrollTiming = ScrollUpdater.GetScrollTiming(joint.StartTiming),
                         JointObject = jointNote,
                         JointTransform = jointNote.transform,
                         Direction = LinePointInfo.DegreeToDir(joint.StartDeg)
@@ -109,7 +109,7 @@ namespace GamePlay.Graphics.FX.Hold
             }
 
             var timings = _PointInfos.Select(point => point.Timing).ToArray();
-            var amountInfos = ScrollManager.GetProgressBulk(0.0f, timings);
+            var amountInfos = ScrollUpdater.GetProgressBulk(0.0f, timings);
             var sorted = amountInfos.OrderBy(x => x.Amount);
             _ScrollAmounts = amountInfos.Select(x => x.Amount).ToArray();
             _MinAmount = sorted.First().Amount;
@@ -151,7 +151,7 @@ namespace GamePlay.Graphics.FX.Hold
             for (int i = 0; i < length; i++)
             {
                 var jointNote = _JointNoteInfos[i];
-                var p = ScrollManager.Instance.GetProgressionSingleFast(jointNote.ScrollTiming, out var visible);
+                var p = ScrollUpdater.Instance.GetProgressionSingleFast(jointNote.ScrollTiming, out var visible);
                 if (visible)
                 {
                     p = Ease.GameSpaceEase(p);
@@ -168,7 +168,7 @@ namespace GamePlay.Graphics.FX.Hold
 
         public bool IsInsideScreen()
         {
-            return ScrollManager.IsScrollRangeVisible(_MinAmount, _MaxAmount);
+            return ScrollUpdater.IsScrollRangeVisible(_MinAmount, _MaxAmount);
         }
     }
 }

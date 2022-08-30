@@ -7,7 +7,7 @@ using Utils.Maths;
 
 namespace GamePlay.Graphics
 {
-    public sealed partial class NoteGraphicManager : MonoBehaviour, INoteGraphicManager
+    public sealed partial class NoteGraphicUpdater : MonoBehaviour, INoteGraphicUpdater
     {
         public GameObject Size0SinglePrefab;
         public GameObject Size1SinglePrefab;
@@ -29,8 +29,8 @@ namespace GamePlay.Graphics
         private void UpdateSingleNotes(float chartTime)
         {
             ScrollAmountInfoBuildJob.Run_NoAlloc(
-                ScrollManager.Instance.WatchingFrom,
-                ScrollManager.Instance.WatchingTo,
+                ScrollUpdater.Instance.WatchingFrom,
+                ScrollUpdater.Instance.WatchingTo,
                 _Singles.ScrollAmounts,
                 _Singles.ScrollAmountsBuffer);
 

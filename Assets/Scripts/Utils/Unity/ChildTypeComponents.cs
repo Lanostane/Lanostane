@@ -21,16 +21,24 @@ namespace Utils.Unity
 
     public static class ChildTypeComponents<E> where E : struct, Enum
     {
-        public static void FindAndMatchTo<C>(Transform parent, object holder, Func<C, E> enumIDSelector)
+        public static IEnumerable<C> FindAndMatchTo<C>(Component holder, Func<C, E> enumIDSelector)
+        {
+            if (holder == null)
+                return Enumerable.Empty<C>();
+
+            return FindAndMatchTo<C>(holder.transform, holder, enumIDSelector);
+        }
+
+        public static IEnumerable<C> FindAndMatchTo<C>(Transform parent, object holder, Func<C, E> enumIDSelector)
         {
             if (enumIDSelector == null)
-                return;
+                return Enumerable.Empty<C>();
 
             if (parent == null)
-                return;
+                return Enumerable.Empty<C>();
 
             if (holder == null)
-                return;
+                return Enumerable.Empty<C>();
 
             var holderFields = holder.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                 .Where(x => typeof(C).IsAssignableFrom(x.FieldType))
@@ -45,11 +53,11 @@ namespace Utils.Unity
             if (holderFields.Count() <= 0)
             {
                 Debug.Log("Holder Fields count were 0");
-                return;
+                return Enumerable.Empty<C>();
             }
-                
 
-            foreach (var comp in parent.GetComponentsInChildren<C>(includeInactive: true))
+            var comps = parent.GetComponentsInChildren<C>(includeInactive: true);
+            foreach (var comp in comps)
             {
                 var id = (int)(object)enumIDSelector.Invoke(comp);
                 var item = holderFields
@@ -59,6 +67,8 @@ namespace Utils.Unity
                     item.Item1.SetValue(holder, comp);
                 }
             }
+
+            return comps;
         }
     }
 }

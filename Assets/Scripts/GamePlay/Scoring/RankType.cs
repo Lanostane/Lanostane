@@ -8,11 +8,12 @@ namespace GamePlay.Scoring
 {
     public enum RankType
     {
-        Rank1_X,
-        Rank2_S,
-        Rank3_A,
-        Rank4_B,
-        Rank5_C,
-        Rank6_D,
+        R1_X,
+        R2_S,
+        R3_A,
+        R4_B,
+        R5_C,
+        R6_D,
+        Failed
     }
 }

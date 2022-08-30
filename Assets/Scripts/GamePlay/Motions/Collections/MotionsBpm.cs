@@ -25,7 +25,7 @@ namespace GamePlay.Motions.Collections
         {
             TempHolder.Clear();
 
-            var currentRotation = MotionManager.Instance.StartingRotation;
+            var currentRotation = MotionUpdater.Instance.StartingRotation;
             foreach (var bpm in MotionDataHolder.OrderBy(x => x.Timing))
             {
                 TempHolder.Add(bpm);

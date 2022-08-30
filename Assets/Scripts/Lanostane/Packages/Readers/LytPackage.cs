@@ -15,7 +15,7 @@ using Utils.Jsons;
 
 namespace Lanostane.Packages.Readers
 {
-    public sealed class LytPackageReader
+    public sealed class LytPackage
     {
         public static async UniTask ConvertToLSTAsync(string file)
         {
@@ -133,32 +133,35 @@ namespace Lanostane.Packages.Readers
                 TryUnzipToPath(zip, basePath, "music.mp3", "music.mp3");
 
                 var bgaList = new List<LST_TrackBGAInfo>();
-                var flag = TryUnzipToPath(zip, basePath, "background_linear.jpg", "bga_0.jpg");
+                var flag = TryUnzipToPath(zip, basePath, "background_linear.jpg", "bg_0.jpg");
                 if (flag)
                 {
                     bgaList.Add(new()
                     {
-                        File = "bga_0.jpg",
+                        File = "bg_0.jpg",
                         Weight = 1.0f
                     });
+                    meta.MainBG = "bg_0.jpg";
                 }
-                flag = TryUnzipToPath(zip, basePath, "background_gray.jpg", "bga_1.jpg");
+                flag = TryUnzipToPath(zip, basePath, "background_gray.jpg", "bg_1.jpg");
                 if (flag)
                 {
                     bgaList.Add(new()
                     {
-                        File = "bga_1.jpg",
+                        File = "bg_1.jpg",
                         Weight = 1.0f
                     });
+                    meta.MainBG = "bg_1.jpg";
                 }
-                flag = TryUnzipToPath(zip, basePath, "background.jpg", "bga.jpg");
+                flag = TryUnzipToPath(zip, basePath, "background.jpg", "bg.jpg");
                 if (flag)
                 {
                     bgaList.Add(new()
                     {
-                        File = "bga.jpg",
+                        File = "bg.jpg",
                         Weight = 1.0f
                     });
+                    meta.MainBG = "bg.jpg";
                 }
 
                 meta.BG = bgaList.ToArray();

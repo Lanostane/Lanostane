@@ -6,7 +6,7 @@ using Utils.Maths;
 
 namespace GamePlay.Motions
 {
-    public interface IMotionManager : IChartUpdater
+    public interface IMotionUpdater : IChartUpdater
     {
         float CurrentBPM { get; }
         float CurrentRotation { get; }
@@ -26,9 +26,9 @@ namespace GamePlay.Motions
         void SetDefaultMotion(LST_DefaultMotion defaultMotion);
     }
 
-    internal class MotionManager : MonoBehaviour, IMotionManager
+    internal class MotionUpdater : MonoBehaviour, IMotionUpdater
     {
-        public static IMotionManager Instance { get; private set; }
+        public static IMotionUpdater Instance { get; private set; }
 
         public Transform RotationOrigin;
 

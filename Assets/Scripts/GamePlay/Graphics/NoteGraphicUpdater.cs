@@ -7,15 +7,15 @@ using Utils.Maths;
 
 namespace GamePlay.Graphics
 {
-    public interface INoteGraphicManager : IChartUpdater
+    public interface INoteGraphicUpdater : IChartUpdater
     {
         ISingleNoteGraphic AddSingleNote(LST_SingleNoteInfo info);
         ILongNoteGraphic AddLongNote(LST_LongNoteInfo info);
     }
 
-    public sealed partial class NoteGraphicManager : MonoBehaviour, INoteGraphicManager
+    public sealed partial class NoteGraphicUpdater : MonoBehaviour, INoteGraphicUpdater
     {
-        public static INoteGraphicManager Instance { get; private set; }
+        public static INoteGraphicUpdater Instance { get; private set; }
 
         public Transform NoteOrigin;
 

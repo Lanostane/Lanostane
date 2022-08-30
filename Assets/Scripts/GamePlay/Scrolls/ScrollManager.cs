@@ -24,7 +24,7 @@ namespace GamePlay.Scrolls
         }
     }
 
-    public interface IScrollManager : IChartUpdater
+    public interface IScrollUpdater : IChartUpdater
     {
         Millisecond WatchingFrom { get; }
         Millisecond WatchingTo { get; }
@@ -36,9 +36,9 @@ namespace GamePlay.Scrolls
         ScrollAmountInfo[] GetProgressions(float chartTime, float[] timings);
     }
 
-    public class ScrollManager : MonoBehaviour, IScrollManager
+    public class ScrollUpdater : MonoBehaviour, IScrollUpdater
     {
-        public static IScrollManager Instance { get; private set; }
+        public static IScrollUpdater Instance { get; private set; }
 
         [Range(1.0f, 9.0f)]
         public float Speed = 7.5f;

@@ -16,10 +16,10 @@ namespace Lanostane
     {
         void Start()
         {
-            _ = LytPackageReader.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test.layesta"));
-            _ = LytPackageReader.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test1.layesta"));
-            _ = LytPackageReader.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test2.layesta"));
-            _ = LytPackageReader.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test3.layesta"));
+            _ = LytPackage.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test.layesta"));
+            _ = LytPackage.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test1.layesta"));
+            _ = LytPackage.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test2.layesta"));
+            _ = LytPackage.ConvertToLSTAsync(Path.Combine(Application.streamingAssetsPath, "test3.layesta"));
 
             LoadingWorker.Instance.Enqueue(new LoadJob()
             {

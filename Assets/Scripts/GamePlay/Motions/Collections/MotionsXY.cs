@@ -53,7 +53,7 @@ namespace GamePlay.Motions.Collections
         {
             TempHolder.Clear();
 
-            var currentPoint = new PolarPoint(MotionManager.Instance.StartingRho, MotionManager.Instance.StartingTheta);
+            var currentPoint = new PolarPoint(MotionUpdater.Instance.StartingRho, MotionUpdater.Instance.StartingTheta);
             foreach (var xy in MotionDataHolder.OrderBy(x => x.Timing))
             {
                 var newXy = xy;

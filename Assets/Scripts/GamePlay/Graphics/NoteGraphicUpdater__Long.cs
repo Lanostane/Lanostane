@@ -7,7 +7,7 @@ using Utils.Maths;
 
 namespace GamePlay.Graphics
 {
-    public sealed partial class NoteGraphicManager : MonoBehaviour, INoteGraphicManager
+    public sealed partial class NoteGraphicUpdater : MonoBehaviour, INoteGraphicUpdater
     {
         public GameObject Size0HoldPrefab;
         public GameObject Size1HoldPrefab;
@@ -28,8 +28,8 @@ namespace GamePlay.Graphics
         private void UpdateLongNotes(float chartTime)
         {
             ScrollAmountInfoBuildJob.Run_NoAlloc(
-                ScrollManager.Instance.WatchingFrom,
-                ScrollManager.Instance.WatchingTo,
+                ScrollUpdater.Instance.WatchingFrom,
+                ScrollUpdater.Instance.WatchingTo,
                 _Longs.HeadScrollAmounts,
                 _Longs.HeadScrollAmountsBuffer);
 

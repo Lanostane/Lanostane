@@ -23,13 +23,13 @@ namespace GamePlay.Judge.Inputs
             GetWorldPosition(eventData.position, out var worldPos, out var canSendEvent);
             Debug.DrawLine(Vector3.zero, worldPos, Color.white, 0.5f);
 
-            if (NoteJudgeManager.Instance.TryGetInputHandle(eventData.pointerId, out var handle))
+            if (NoteJudgeUpdater.Instance.TryGetInputHandle(eventData.pointerId, out var handle))
             {
                 handle.InValidPosition = canSendEvent;
                 handle.EventType = InputEvent.StartDrag;
                 handle.SetDegreeByWorldPosition(worldPos);
                 handle.Dragging = true;
-                NoteJudgeManager.Instance.InputHandleUpdated(handle);
+                NoteJudgeUpdater.Instance.InputHandleUpdated(handle);
             }
         }
 
@@ -41,17 +41,17 @@ namespace GamePlay.Judge.Inputs
             GetWorldPosition(eventData.position, out var worldPos, out var canSendEvent);
             Debug.DrawLine(Vector3.zero, worldPos, Color.red * 0.5f, 0.5f);
 
-            if (NoteJudgeManager.Instance.TryGetInputHandle(eventData.pointerId, out var handle))
+            if (NoteJudgeUpdater.Instance.TryGetInputHandle(eventData.pointerId, out var handle))
             {
                 handle.InValidPosition = canSendEvent;
                 handle.EventType = InputEvent.Drag;
                 handle.SetDegreeByWorldPosition(worldPos);
-                NoteJudgeManager.Instance.InputHandleUpdated(handle);
+                NoteJudgeUpdater.Instance.InputHandleUpdated(handle);
 
                 if (handle.TryUpdateFlick(worldPos))
                 {
                     handle.EventType = InputEvent.Flick;
-                    NoteJudgeManager.Instance.InputHandleUpdated(handle);
+                    NoteJudgeUpdater.Instance.InputHandleUpdated(handle);
                 }
             }
         }
@@ -64,13 +64,13 @@ namespace GamePlay.Judge.Inputs
             GetWorldPosition(eventData.position, out var worldPos, out var canSendEvent);
             Debug.DrawLine(Vector3.zero, worldPos, Color.yellow, 0.5f);
 
-            if (NoteJudgeManager.Instance.TryGetInputHandle(eventData.pointerId, out var handle))
+            if (NoteJudgeUpdater.Instance.TryGetInputHandle(eventData.pointerId, out var handle))
             {
                 handle.InValidPosition = canSendEvent;
                 handle.EventType = InputEvent.EndDrag;
                 handle.SetDegreeByWorldPosition(worldPos);
                 handle.Dragging = false;
-                NoteJudgeManager.Instance.InputHandleUpdated(handle);
+                NoteJudgeUpdater.Instance.InputHandleUpdated(handle);
             }
         }
 
@@ -81,14 +81,14 @@ namespace GamePlay.Judge.Inputs
 
             GetWorldPosition(eventData.position, out var worldPos, out var canSendEvent);
 
-            if (NoteJudgeManager.Instance.TryGetInputHandle(eventData.pointerId, out var handle))
+            if (NoteJudgeUpdater.Instance.TryGetInputHandle(eventData.pointerId, out var handle))
             {
                 handle.InValidPosition = canSendEvent;
                 handle.EventType = InputEvent.PointerDown;
                 handle.SetDegreeByWorldPosition(worldPos);
                 handle.Holding = true;
                 handle.PreviousFlickPosition = worldPos;
-                NoteJudgeManager.Instance.InputHandleUpdated(handle);
+                NoteJudgeUpdater.Instance.InputHandleUpdated(handle);
             }
         }
 
@@ -100,13 +100,13 @@ namespace GamePlay.Judge.Inputs
             GetWorldPosition(eventData.position, out var worldPos, out var canSendEvent);
             Debug.DrawLine(Vector3.zero, worldPos, Color.cyan * 0.5f, 0.5f);
 
-            if (NoteJudgeManager.Instance.TryGetInputHandle(eventData.pointerId, out var handle))
+            if (NoteJudgeUpdater.Instance.TryGetInputHandle(eventData.pointerId, out var handle))
             {
                 handle.InValidPosition = canSendEvent;
                 handle.EventType = InputEvent.PointerUp;
                 handle.SetDegreeByWorldPosition(worldPos);
                 handle.Holding = false;
-                NoteJudgeManager.Instance.InputHandleUpdated(handle);
+                NoteJudgeUpdater.Instance.InputHandleUpdated(handle);
 
                 handle.Reset(); //Reset the Handle
             }
@@ -130,7 +130,7 @@ namespace GamePlay.Judge.Inputs
 
         private bool IsReadyForInput()
         {
-            if (NoteJudgeManager.Instance == null)
+            if (NoteJudgeUpdater.Instance == null)
                 return false;
 
             if (GameCamera.Cam == null)

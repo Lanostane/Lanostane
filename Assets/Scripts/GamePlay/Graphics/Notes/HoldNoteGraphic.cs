@@ -37,7 +37,7 @@ namespace GamePlay.Graphics
         public void Setup(LST_LongNoteInfo info)
         {
             Timing = info.Timing;
-            HeadScrollTiming = ScrollManager.GetScrollTiming(Timing);
+            HeadScrollTiming = ScrollUpdater.GetScrollTiming(Timing);
             Duration = info.Duration;
             SetNoteType(info.Type);
             HighlightObject.SetActive(info.Highlight);

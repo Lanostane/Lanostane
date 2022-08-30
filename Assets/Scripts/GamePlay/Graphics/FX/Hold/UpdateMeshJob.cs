@@ -49,8 +49,8 @@ namespace GamePlay.Graphics.FX.Hold
 
             var job = new UpdateMeshJob()
             {
-                FromScroll = ScrollManager.Instance.WatchingFrom,
-                ToScroll = ScrollManager.Instance.WatchingTo,
+                FromScroll = ScrollUpdater.Instance.WatchingFrom,
+                ToScroll = ScrollUpdater.Instance.WatchingTo,
                 ScrollAmounts = scrollAmountsNative,
                 Points = pointsNative,
                 Vertics = resultNative

@@ -33,7 +33,7 @@ namespace GamePlay.Motions.Collections
         {
             TempHolder.Clear();
 
-            var currentRotation = MotionManager.Instance.StartingRotation;
+            var currentRotation = MotionUpdater.Instance.StartingRotation;
             foreach (var rot in MotionDataHolder.OrderBy(x => x.Timing))
             {
                 var endRotation = currentRotation + rot.RotationDelta;

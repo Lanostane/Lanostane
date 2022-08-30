@@ -72,7 +72,7 @@ namespace GamePlay
             ChartLoaded = true;
             if (StartChartOnLoaded)
             {
-                MotionManager.Instance.StartDefaultMotion(1.75f);
+                MotionUpdater.Instance.StartDefaultMotion(1.75f);
                 Invoke(nameof(StartChart), 1.75f);
             }
         }

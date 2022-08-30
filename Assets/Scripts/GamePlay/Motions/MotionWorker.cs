@@ -181,17 +181,17 @@ namespace GamePlay.Motions
                     var p = time / duration;
                     p = Ease.Sinusoidal.In(p);
 
-                    SetRotation(Mathf.Lerp(InitialRotation, MotionManager.Instance.StartingRotation, p));
-                    SetCameraPos(Vector3.Lerp(InitialXY, MotionManager.Instance.StartingPosition, p));
-                    SetCameraHeight(Mathf.Lerp(InitialHeight, MotionManager.Instance.StartingHeight, p));
+                    SetRotation(Mathf.Lerp(InitialRotation, MotionUpdater.Instance.StartingRotation, p));
+                    SetCameraPos(Vector3.Lerp(InitialXY, MotionUpdater.Instance.StartingPosition, p));
+                    SetCameraHeight(Mathf.Lerp(InitialHeight, MotionUpdater.Instance.StartingHeight, p));
 
                     time += Time.deltaTime;
                     yield return null;
                 }
 
-                SetRotation(MotionManager.Instance.StartingRotation);
-                SetCameraPos(MotionManager.Instance.StartingPosition);
-                SetCameraHeight(MotionManager.Instance.StartingHeight);
+                SetRotation(MotionUpdater.Instance.StartingRotation);
+                SetCameraPos(MotionUpdater.Instance.StartingPosition);
+                SetCameraHeight(MotionUpdater.Instance.StartingHeight);
             }
         }
     }
