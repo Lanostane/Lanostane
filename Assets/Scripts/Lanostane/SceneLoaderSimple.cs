@@ -1,4 +1,4 @@
-﻿using Lanostane.Loading;
+﻿using UI.Loading;
 using Lanostane.Settings;
 using System.Collections;
 using UI;

@@ -1,4 +1,4 @@
-﻿using Lanostane.Loading;
+﻿using UI.Loading;
 using Lanostane.Packages.Readers;
 using System;
 using System.Collections;

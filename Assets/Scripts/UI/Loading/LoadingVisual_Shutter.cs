@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-namespace Lanostane.Loading
+namespace UI.Loading
 {
     public sealed class LoadingVisual_Shutter : MonoBehaviour, ILoadingVisual
     {

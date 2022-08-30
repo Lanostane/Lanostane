@@ -9,7 +9,7 @@ using TMPro;
 using UnityEngine;
 using Utils.Unity;
 
-namespace Lanostane.Loading
+namespace UI.Loading
 {
     public interface ILoadingWorker
     {
