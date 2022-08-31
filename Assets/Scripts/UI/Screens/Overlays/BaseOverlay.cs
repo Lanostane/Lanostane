@@ -5,6 +5,7 @@ namespace UI.Screens.Overlays
     public enum OverlayType
     {
         GameHeader,
+        GamePause,
         GameResult
     }
 

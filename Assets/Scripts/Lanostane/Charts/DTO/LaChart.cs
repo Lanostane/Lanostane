@@ -4,7 +4,7 @@ using Utils;
 namespace Lanostane.Charts.DTO
 {
 #pragma warning disable 0649 //Never Assign Warning
-    internal class LaChart
+    public class LaChart
     {
         public LaEvent[] events;
         public LaEvent[] bpm;
@@ -163,7 +163,7 @@ namespace Lanostane.Charts.DTO
         }
     }
 
-    internal class LaEvent
+    public class LaEvent
     {
         public int Id;
         public LaEventType Type;
@@ -181,13 +181,13 @@ namespace Lanostane.Charts.DTO
         public LaJointCollection joints;
     }
 
-    internal class LaScroll
+    public class LaScroll
     {
         public float Timing;
         public float speed;
     }
 
-    internal enum LaEventType
+    public enum LaEventType
     {
         Click = 0,
         Catch = 4,
@@ -205,13 +205,13 @@ namespace Lanostane.Charts.DTO
         DefaultBPM = 6
     }
 
-    internal class LaJointCollection
+    public class LaJointCollection
     {
         public int j_count;
         public LaJoint[] j;
     }
 
-    internal class LaJoint
+    public class LaJoint
     {
         public int idx;
         public float d_deg;

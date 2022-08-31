@@ -1,0 +1,22 @@
+{
+    "name": "GameState",
+    "rootNamespace": "GameStates",
+    "references": [
+        "GamePlay",
+        "UI",
+        "Utils",
+        "Lanostane",
+        "UniTask",
+        "Unity.TextMeshPro",
+        "Unity.Burst"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

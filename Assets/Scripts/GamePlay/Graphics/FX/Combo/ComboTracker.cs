@@ -29,7 +29,7 @@ namespace GamePlay.Graphics.FX.Combo
 
         void OnDestroy()
         {
-            ScoreManager.NoteRegistered += NoteRegistered;
+            ScoreManager.NoteRegistered -= NoteRegistered;
         }
 
         void NoteRegistered(JudgeType type, float degree)

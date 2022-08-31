@@ -1,6 +1,4 @@
-﻿using GamePlay;
-using GamePlay.Motions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -18,8 +16,8 @@ namespace Utils.Unity
         {
             var x = FastTrig.Sin(worlddegree);
             var y = FastTrig.Cos(worlddegree);
-            var start = new Vector3(x, y, 0.0f) * GameConst.SpaceEnd;
-            var end = new Vector3(x, y, 0.0f) * (GameConst.SpaceEnd + 1.5f);
+            var start = new Vector3(x, y, 0.0f) * 10.0f;
+            var end = new Vector3(x, y, 0.0f) * 11.5f;
             UnityEngine.Debug.DrawLine(start, end, color, time);
         }
     }

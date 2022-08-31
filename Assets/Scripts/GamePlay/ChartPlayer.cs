@@ -13,7 +13,10 @@ namespace GamePlay
 {
     public interface IChartPlayer
     {
+        void Pause();
+        void Resume();
         void LoadChart(AudioClip music, string json);
+        void StartChart();
     }
 
     public sealed class ChartPlayer : MonoBehaviour, IChartPlayer
@@ -36,11 +39,14 @@ namespace GamePlay
 
         private readonly ChartUpdater _Updater = new();
         private bool _ChartPlaying = false;
+        private bool _ChartPaused = false;
         private float _ChartOffset = 0.0f;
         private float _ChartPlaytime = 0.0f;
 
         void Start()
         {
+            GamePlayManager.Player = this;
+
             _ChartOffset = -UserSetting.Offset / 1000.0f;
             PlaySpeed = PlayerSetting.Settings.PlaySpeed;
             LoadChart(Music, Chart.text);
@@ -48,6 +54,8 @@ namespace GamePlay
 
         void OnDestroy()
         {
+            GamePlayManager.Player = null;
+
             ResetValues();
         }
 
@@ -100,19 +108,21 @@ namespace GamePlay
         {
             if (ChartLoaded && _ChartPlaying)
             {
+                _ChartPaused = true;
                 Audio.Pause();
             }
         }
 
         public void Resume()
         {
-            if (ChartLoaded && !_ChartPlaying)
+            if (ChartLoaded && _ChartPlaying)
             {
+                _ChartPaused = false;
                 Audio.UnPause();
             }
         }
 
-        void StartChart()
+        public void StartChart()
         {
             Audio.Play();
             Audio.pitch = PlaySpeed;
@@ -124,6 +134,9 @@ namespace GamePlay
         void Update()
         {
             if (!_ChartPlaying)
+                return;
+
+            if (_ChartPaused)
                 return;
 
             var playing = ChartTime <= _ChartPlaytime || Audio.isPlaying;

@@ -5,15 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Lanostane.States
+namespace GamePlay
 {
-    public interface IStateManager
+    public static class GamePlayManager
     {
-
-    }
-
-    public class StateManager : MonoBehaviour, IStateManager
-    {
-
+        public static IChartPlayer Player { get; internal set; }
     }
 }

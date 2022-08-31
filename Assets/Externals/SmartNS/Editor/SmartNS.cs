@@ -17,9 +17,6 @@ namespace GraviaSoftware.SmartNS.SmartNS.Editor
     {
         public const string SmartNSVersionNumber = "2.0.2";
 
-
-
-        // TODO: Do we need something else for Mac?
         private static string PathSeparator = "/";
 
         private static string ByteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());

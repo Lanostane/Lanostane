@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Lanostane;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,9 @@ namespace UI.Loading
 {
     public interface ILoadingWorker
     {
-        void Enqueue(LoadJob job);
+        void AddJob(LoadJob job);
+        void AddSceneLoadJob(SceneName scene);
+        void AddSceneUnloadJob(SceneName scene);
         void DoLoading(LoadingStyle style, Action onDone = null);
     }
 
@@ -47,6 +50,7 @@ namespace UI.Loading
             }
 
             Instance = this;
+            transform.SetParent(null);
             DontDestroyOnLoad(this);
 
             var results = ChildTypeComponents<LoadingStyles>
@@ -58,7 +62,7 @@ namespace UI.Loading
             }
         }
 
-        public void Enqueue(LoadJob job)
+        public void AddJob(LoadJob job)
         {
             if (job == null)
                 return;
@@ -69,9 +73,39 @@ namespace UI.Loading
             _Jobs.Enqueue(job);
         }
 
+        public void AddSceneLoadJob(SceneName scene)
+        {
+            AddJob(new LoadJob()
+            {
+                JobDescription = "Loading Scenes...",
+                Job = () =>
+                {
+                    return Scenes.Load(scene);
+                }
+            });
+        }
+
+        public void AddSceneUnloadJob(SceneName scene)
+        {
+            AddJob(new LoadJob()
+            {
+                JobDescription = "Loading Scenes...",
+                Job = () =>
+                {
+                    return Scenes.Unload(scene);
+                }
+            });
+        }
+
         public void DoLoading(LoadingStyle style, Action onDone = null)
         {
-            if (_Jobs.Count > 0 && !_LoadingInProgress)
+            if (_Jobs.Count <= 0)
+            {
+                onDone?.Invoke();
+                return;
+            }
+
+            if (!_LoadingInProgress)
             {
                 StartCoroutine(LoadingJob(style, onDone));
             }
@@ -93,6 +127,9 @@ namespace UI.Loading
             while (_Jobs.TryDequeue(out var job))
             {
                 var operation = job.Job.Invoke();
+                if (operation == null)
+                    continue;
+
                 visual.SetTaskText(job.JobDescription);
                 while (!operation.isDone)
                 {

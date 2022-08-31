@@ -13,12 +13,14 @@ namespace UI
     {
         IOverlay GameHeader { get; }
         IOverlay GameResult { get; }
+        IOverlay GamePause { get; }
     }
 
     public class OverlayHolder : MonoBehaviour, IOverlayHolder
     {
         public IOverlay GameHeader { get; private set; }
         public IOverlay GameResult { get; private set; }
+        public IOverlay GamePause { get; private set; }
 
         private readonly Dictionary<OverlayType, IOverlay> _Overlays = new();
 
@@ -49,6 +51,10 @@ namespace UI
 
                     case OverlayType.GameResult:
                         GameResult = overlay;
+                        break;
+
+                    case OverlayType.GamePause:
+                        GamePause = overlay;
                         break;
                 }
             }
