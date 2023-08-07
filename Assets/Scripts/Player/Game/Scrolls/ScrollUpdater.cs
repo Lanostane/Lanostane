@@ -1,0 +1,206 @@
+﻿using Lanostane.Charts;
+using System;
+using System.Linq;
+using System.Text;
+using UnityEngine;
+using Utils;
+using Utils.Maths;
+
+namespace LST.Player.Scrolls
+{
+    public struct ScrollData
+    {
+        public float Timing;
+        public float Speed;
+        public float Duration;
+
+        public float GetPassedTime(float time)
+        {
+            if (time <= Timing)
+                return 0.0f;
+
+            return Mathf.Min(time - Timing, Duration);
+        }
+    }
+
+    public class ScrollUpdater : MonoBehaviour, IScrollUpdater
+    {
+        [Range(1.0f, 9.0f)]
+        public float Speed = 7.5f;
+
+        public float ScrollingSpeed { get; set; }
+        public Millisecond WatchingFrom { get; private set; }
+        public Millisecond WatchingTo { get; private set; }
+
+        private readonly FastList<ScrollData> _Scrolls = new();
+        public ScrollData[] ScrollDatas => _Scrolls.Items;
+
+        private float _EndAmountFactor = 1.35f;
+
+        void Awake()
+        {
+            GamePlayManager.ScrollUpdater = this;
+        }
+
+        void OnDestroy()
+        {
+            GamePlayManager.ScrollUpdater = null;
+        }
+
+        void OnValidate()
+        {
+            var speedP = Mathf.InverseLerp(1.0f, 9.0f, Speed);
+            ScrollingSpeed = Speed;
+            _EndAmountFactor = Mathf.Lerp(4.5f, 0.6f, speedP);
+        }
+
+        public void TimeUpdate(float chartTime)
+        {
+            WatchingFrom = Millisecond.Zero;
+
+            var items = _Scrolls.Items;
+            for(int i = 0; i<items.Length; i++)
+            {
+                var scroll = items[i];
+                if (chartTime >= scroll.Timing)
+                {
+                    WatchingFrom += new Millisecond(scroll.Speed * scroll.GetPassedTime(chartTime));
+                }
+            }
+
+            WatchingTo = WatchingFrom + _EndAmountFactor;
+        }
+
+        public void CleanUp()
+        {
+            _Scrolls.Clear();
+        }
+
+        public void AddScroll(LST_ScrollChange scrollChange)
+        {
+            _Scrolls.Add(new()
+            {
+                Timing = scrollChange.Timing,
+                Speed = scrollChange.Speed
+            });
+        }
+
+        public void UpdateAbsValue()
+        {
+            var sorted = _Scrolls.Items.OrderBy(x => x.Timing).ToArray();
+            for (int i = 0; i < sorted.Length; i++)
+            {
+                var scroll = sorted[i];
+                scroll.Duration = float.MaxValue;
+
+                if (i > 0)
+                {
+                    var prevScroll = sorted[i - 1];
+                    prevScroll.Duration = scroll.Timing - prevScroll.Timing;
+                    sorted[i - 1] = prevScroll;
+                }
+
+                sorted[i] = scroll;
+            }
+
+            _Scrolls.Clear();
+            _Scrolls.AddRange(sorted);
+        }
+
+        public Millisecond GetScrollTimingByTime(float time)
+        {
+            Millisecond timingScrollAmount = Millisecond.Zero;
+
+            var items = _Scrolls.Items;
+            for (int i = 0; i < items.Length; i++)
+            {
+                var scroll = items[i];
+                if (time >= scroll.Timing)
+                {
+                    timingScrollAmount += new Millisecond(scroll.Speed * scroll.GetPassedTime(time));
+                }
+            }
+            return timingScrollAmount;
+        }
+
+        public float GetProgressionSingleFast(Millisecond scrollTiming, out bool isInScreen)
+        {
+            if (WatchingFrom <= scrollTiming && scrollTiming <= WatchingTo)
+            {
+                isInScreen = true;
+            }
+            else
+            {
+                isInScreen = false;
+            }
+
+            return Millisecond.InverseLerp(WatchingTo, WatchingFrom, scrollTiming);
+        }
+
+        public float GetProgressionSingle(float chartTime, float timing, out bool isInScreen)
+        {
+            var chartScrollAmount = Millisecond.Zero;
+            var timingScrollAmount = Millisecond.Zero;
+
+            var items = _Scrolls.Items;
+            for (int i = 0; i < items.Length; i++)
+            {
+                var scroll = items[i];
+                if (chartTime >= scroll.Timing)
+                {
+                    chartScrollAmount += new Millisecond(scroll.Speed * scroll.GetPassedTime(chartTime));
+                }
+
+                if (timing >= scroll.Timing)
+                {
+                    timingScrollAmount += scroll.Speed * scroll.GetPassedTime(timing);
+                }
+            }
+
+            isInScreen = true;
+            return Millisecond.InverseLerp(chartScrollAmount + _EndAmountFactor, chartScrollAmount, timingScrollAmount);
+        }
+
+        public bool IsScrollRangeVisible(Millisecond minAmount, Millisecond maxAmount)
+        {
+            var from = WatchingFrom;
+            var to = WatchingTo;
+            if (WithIn(from, to, minAmount))
+            {
+                return true;
+            }
+            else if (WithIn(from, to, maxAmount))
+            {
+                return true;
+            }
+            else
+            {
+                if (maxAmount < from) //Fully Outside of Border (Left)
+                    return false;
+
+                if (minAmount > to) //Fully Outside of Border (Right)
+                    return false;
+
+                if (minAmount <= from && to <= maxAmount) //Min max is both larger than from to
+                    return true;
+            }
+
+            return false;
+
+            static bool WithIn(Millisecond min, Millisecond max, Millisecond p)
+            {
+                return min <= p && p <= max;
+            }
+        }
+
+        public ScrollAmountInfo[] GetProgressions(float chartTime, float[] timings)
+        {
+            if (timings == null)
+                return Array.Empty<ScrollAmountInfo>();
+
+            var from = GetScrollTimingByTime(chartTime);
+            var to = from + _EndAmountFactor;
+            return ScrollAmountQueryJob.Run(_Scrolls.Items, from, to, timings);
+        }
+    }
+}

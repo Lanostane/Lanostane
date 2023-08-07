@@ -1,4 +1,5 @@
-﻿using Lanostane.Tracks;
+﻿using Cysharp.Threading.Tasks;
+using Lanostane.Tracks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,34 +19,49 @@ namespace Lanostane.Packages
         public LST_TrackMetadata Metadata;
         public ChartFolderProxy PathHandle;
 
-        public void LoadSelectionAssets()
+        public Texture2D MainBG;
+
+        public async UniTask LoadSelectionAssets(Action onDone)
         {
-            
+            MainBG = await LoadImage(Metadata.MainBG);
         }
 
-        private bool TryLoadMP3Audio(string fileName, out AudioClip clip)
+        public void UnloadSelectionAssets()
         {
-            clip = null;
-            return true;
+
         }
 
-        private bool TryLoadImage(string fileName, out Texture2D texture)
+        private async UniTask<Texture2D> LoadImage(string fileName)
         {
             try
             {
-                var bytes = PathHandle.ReadBinFile(fileName);
-                texture = new Texture2D(1, 1);
+                var bytes = await PathHandle.ReadBinFileAsync(fileName);
+                var texture = new Texture2D(1, 1);
                 if (!texture.LoadImage(bytes, false))
                 {
                     UnityEngine.Object.Destroy(texture);
-                    return false;
+                    return null;
                 }
-                return true;
+                return texture;
             }
             catch
             {
-                texture = null;
-                return false;
+                return null;
+            }
+        }
+
+        //TODO: Mp3 Reading
+        private async UniTask<AudioClip> LoadMp3Audio(string fileName)
+        {
+            try
+            {
+                var bytes = await PathHandle.ReadBinFileAsync(fileName);
+                var audio = AudioClip.Create("", 1, 1, 1, false);
+                return audio;
+            }
+            catch
+            {
+                return null;
             }
         }
     }

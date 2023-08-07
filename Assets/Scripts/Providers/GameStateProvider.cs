@@ -1,11 +1,9 @@
-﻿using GamePlay;
-using GameStates;
+﻿using LST.Player.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UI;
 using UnityEngine;
 
 
@@ -25,17 +23,12 @@ namespace Providers
 
         public static void WantToSetIntroState()
         {
-            GameStateManager.StateUpdater.WantToChangeState(GameStateType.Intro);
+            GameStateManager.StateUpdater.WantToChangeState(GameStateType.InitialLoading);
         }
 
         public static void WantToSetMainUIState()
         {
             GameStateManager.StateUpdater.WantToChangeState(GameStateType.MainUI);
-        }
-
-        public static void WantToSetSongSelectionState()
-        {
-            GameStateManager.StateUpdater.WantToChangeState(GameStateType.SongSelection);
         }
 
         public static void WantToSetGamePlayState()

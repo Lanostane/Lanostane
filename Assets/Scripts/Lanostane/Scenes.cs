@@ -10,8 +10,7 @@ namespace Lanostane
 {
     public enum SceneName
     {
-        Bootup,
-        MainUI,
+        Main,
         GamePlay
     }
 
@@ -30,17 +29,10 @@ namespace Lanostane
 
         static Scenes()
         {
-            _Lookup.Add(SceneName.Bootup, new()
+            _Lookup.Add(SceneName.Main, new()
             {
-                Type = SceneName.Bootup,
-                SceneToLoad = "_Bootup",
-                LoadMode = LoadSceneMode.Single
-            });
-
-            _Lookup.Add(SceneName.MainUI, new()
-            {
-                Type = SceneName.MainUI,
-                SceneToLoad = "MainUI",
+                Type = SceneName.Main,
+                SceneToLoad = "_Main",
                 LoadMode = LoadSceneMode.Single
             });
 

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerSetting
   m_EditorClassIdentifier: 
   AutoPlay: 1
-  PlaySpeed: 9
+  PlaySpeed: 1

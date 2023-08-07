@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -43,10 +44,22 @@ namespace Utils.FileSystems.PathProxy
             return File.ReadAllText(path);
         }
 
+        public async UniTask<string> ReadTextFileAsync(string fileName)
+        {
+            var path = GetFullFilePath(fileName);
+            return await File.ReadAllTextAsync(path);
+        }
+
         public byte[] ReadBinFile(string fileName)
         {
             var path = GetFullFilePath(fileName);
             return File.ReadAllBytes(path);
+        }
+
+        public async UniTask<byte[]> ReadBinFileAsync(string fileName)
+        {
+            var path = GetFullFilePath(fileName);
+            return await File.ReadAllBytesAsync(path);
         }
 
         public void WriteBinFile(string fileName, byte[] bytes)
