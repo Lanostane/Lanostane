@@ -1,14 +1,17 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using UnityEngine.Scripting;
 using Utils;
 
 namespace Lanostane.Charts.DTO
 {
 #pragma warning disable 0649 //Never Assign Warning
+    [Preserve]
     public class LaChart
     {
-        public LaEvent[] events;
-        public LaEvent[] bpm;
-        public LaScroll[] scroll;
+        public LaEvent[] events = Array.Empty<LaEvent>();
+        public LaEvent[] bpm = Array.Empty<LaEvent>();
+        public LaScroll[] scroll = Array.Empty<LaScroll>();
         public float eos;
 
         public LST_Chart CreateLanostaneChart()
@@ -163,6 +166,7 @@ namespace Lanostane.Charts.DTO
         }
     }
 
+    [Preserve]
     public class LaEvent
     {
         public int Id;
@@ -179,12 +183,17 @@ namespace Lanostane.Charts.DTO
         public bool Combination;
         public float Bpm;
         public LaJointCollection joints;
+
+        public LaEvent() { }
     }
 
+    [Preserve]
     public class LaScroll
     {
         public float Timing;
         public float speed;
+
+        public LaScroll() { }
     }
 
     public enum LaEventType
@@ -205,18 +214,24 @@ namespace Lanostane.Charts.DTO
         DefaultBPM = 6
     }
 
+    [Preserve]
     public class LaJointCollection
     {
         public int j_count;
         public LaJoint[] j;
+
+        public LaJointCollection() { }
     }
 
+    [Preserve]
     public class LaJoint
     {
         public int idx;
         public float d_deg;
         public float d_time;
         public int d_e;
+
+        public LaJoint() { }
     }
 #pragma warning restore 0649
 }

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using UnityEngine.Scripting;
 using Utils.Maths;
 
 namespace Lanostane.Charts
 {
+    [Preserve]
     public class LST_Chart
     {
         public float SongLength;
@@ -26,6 +28,7 @@ namespace Lanostane.Charts
         public readonly List<LST_Event> Events = new();
     }
 
+    [Preserve]
     public class LST_Event
     {
         public string EventName;

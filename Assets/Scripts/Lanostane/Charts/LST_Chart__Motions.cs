@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine.Scripting;
 
 namespace Lanostane.Charts
 {
@@ -23,6 +24,7 @@ namespace Lanostane.Charts
         Sub_16
     }
 
+    [Preserve]
     public class LST_DefaultMotion
     {
         public float Degree = 0.0f;
@@ -31,6 +33,7 @@ namespace Lanostane.Charts
         public float Height = -20.0f;
     }
 
+    [Preserve]
     public class LST_RotationMotion
     {
         public float Timing;
@@ -39,6 +42,7 @@ namespace Lanostane.Charts
         public LST_Ease Ease;
     }
 
+    [Preserve]
     public class LST_XYLinearMotion
     {
         public float Timing;
@@ -48,6 +52,7 @@ namespace Lanostane.Charts
         public LST_Ease Ease;
     }
 
+    [Preserve]
     public class LST_XYCirclerMotion
     {
         public float Timing;
@@ -57,6 +62,7 @@ namespace Lanostane.Charts
         public LST_Ease Ease;
     }
 
+    [Preserve]
     public class LST_HeightMotion
     {
         public float Timing;
@@ -65,12 +71,14 @@ namespace Lanostane.Charts
         public LST_Ease Ease;
     }
 
+    [Preserve]
     public class LST_BPMChange
     {
         public float Timing;
         public float BPM;
     }
 
+    [Preserve]
     public class LST_ScrollChange
     {
         public ushort Group = 0;
@@ -78,6 +86,7 @@ namespace Lanostane.Charts
         public float Speed;
     }
 
+    [Preserve]
     public class LST_SubCameraAlphaChange
     {
         public float Timing;
@@ -85,6 +94,7 @@ namespace Lanostane.Charts
         public LST_Ease Ease;
     }
 
+    [Preserve]
     public class LST_SubCameraMotions
     {
         public LST_CameraIndex CameraIndex;

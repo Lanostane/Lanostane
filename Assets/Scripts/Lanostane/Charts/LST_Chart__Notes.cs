@@ -1,9 +1,11 @@
 ﻿using System;
 using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 using UnityEditor;
+using UnityEngine.Scripting;
 
 namespace Lanostane.Charts
 {
+    [Preserve]
     public class LST_Tap : ILST_SingleNote
     {
         public LST_NoteSize Size;
@@ -25,6 +27,7 @@ namespace Lanostane.Charts
         };
     }
 
+    [Preserve]
     public class LST_Catch : ILST_SingleNote
     {
         public LST_NoteSize Size;
@@ -46,6 +49,7 @@ namespace Lanostane.Charts
         };
     }
 
+    [Preserve]
     public class LST_Flick : ILST_SingleNote
     {
         public LST_NoteSize Size;
@@ -68,6 +72,7 @@ namespace Lanostane.Charts
         };
     }
 
+    [Preserve]
     public class LST_Hold : ILST_LongNote
     {
         public LST_NoteSize Size;
@@ -99,6 +104,7 @@ namespace Lanostane.Charts
         }
     }
 
+    [Preserve]
     public class LST_TraceLine : ILST_LongNote
     {
         public float Timing;
@@ -126,6 +132,7 @@ namespace Lanostane.Charts
         }
     }
 
+    [Preserve]
     public class LST_Joint
     {
         public float Duration;
