@@ -28,10 +28,8 @@ namespace LST.Player.Graphics
         public void Setup(LST_SingleNoteInfo info)
         {
             Timing = info.Timing;
-            //TODO: Debug Scroll Speed Group Code.
-            ushort group = (ushort)((_Rand.Next(0, 2) == 0) ? 0u : 1u);
-            var scrollTiming = GamePlayManager.ScrollUpdater.GetScrollTimingByTime(group, Timing);
-            ScrollTiming = new(group, scrollTiming);
+            var scrollTiming = GamePlayManager.ScrollUpdater.GetScrollTimingByTime(info.ScrollGroup, Timing);
+            ScrollTiming = new(info.ScrollGroup, scrollTiming);
 
             SetNoteType(info.Type);
             HighlightObject.SetActive(info.Highlight);

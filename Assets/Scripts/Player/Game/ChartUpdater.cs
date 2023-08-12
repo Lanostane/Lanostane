@@ -16,13 +16,6 @@ namespace LST.Player
             {
                 GamePlayManager.ScrollUpdater.AddScroll(scroll);
             }
-            //TODO: Debug Scroll Speed Group Code!
-            GamePlayManager.ScrollUpdater.AddScroll(new LST_ScrollChange()
-            {
-                Group = 1,
-                Speed = 0.25f,
-                Timing = 0.0f
-            });
             GamePlayManager.ScrollUpdater.Prepare();
 
             foreach (var note in chart.TapNotes)
