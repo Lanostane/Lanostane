@@ -145,8 +145,7 @@ namespace LST.Player.Graphics
 
         public void DoUpdate()
         {
-            //TODO: Migrate to Groupped ScrollSystem
-            //UpdateMeshJob.UpdateVertics(_ScrollAmounts, _PointInfos, _VerticsBuffer);
+            UpdateMeshJob.UpdateVertics(_ScrollGroupID, _ScrollAmounts, _PointInfos, _VerticsBuffer);
             _Mesh.SetVertices(_VerticsBuffer);
             _Mesh.RecalculateBounds();
 
