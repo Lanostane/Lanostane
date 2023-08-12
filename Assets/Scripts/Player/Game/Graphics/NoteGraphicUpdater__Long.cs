@@ -25,14 +25,10 @@ namespace LST.Player.Graphics
 
         private void UpdateLongNotes(float chartTime)
         {
-            ScrollAmountInfoBuildJob.Run_NoAlloc(
-                GamePlayManager.ScrollUpdater.WatchingFrom,
-                GamePlayManager.ScrollUpdater.WatchingTo,
-                _Longs.HeadScrollAmounts,
-                _Longs.HeadScrollAmountsBuffer);
+            ScrollProgressUpdateJob.Update(_Longs.HeadScrollTimings, _Longs.HeadScrollProgressBuffer);
 
             var graphics = _Longs.Graphics;
-            var amounts = _Longs.HeadScrollAmountsBuffer;
+            var amounts = _Longs.HeadScrollProgressBuffer;
             for (int i = 0; i < graphics.Length; i++)
             {
                 var note = graphics[i];

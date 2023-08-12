@@ -12,9 +12,9 @@ namespace LST.Player.Graphics
 
         private ILongNoteGraphic[] _CachedGraphics = Array.Empty<ILongNoteGraphic>();
         private float[] _CachedTimings = Array.Empty<float>();
-        private Millisecond[] _CachedAmounts = Array.Empty<Millisecond>();
+        private ScrollTiming[] _CachedScrollTimings = Array.Empty<ScrollTiming>();
         private bool _IsDirty = false;
-        private ScrollAmountInfo[] _CachedScrollAmountsBuffer = Array.Empty<ScrollAmountInfo>();
+        private ScrollProgress[] _ScrollProgressBuffer = Array.Empty<ScrollProgress>();
 
         public ILongNoteGraphic[] Graphics
         {
@@ -34,21 +34,21 @@ namespace LST.Player.Graphics
             }
         }
 
-        public Millisecond[] HeadScrollAmounts
+        public ScrollTiming[] HeadScrollTimings
         {
             get
             {
                 TryUpdateArrays();
-                return _CachedAmounts;
+                return _CachedScrollTimings;
             }
         }
 
-        public ScrollAmountInfo[] HeadScrollAmountsBuffer
+        public ScrollProgress[] HeadScrollProgressBuffer
         {
             get
             {
                 TryUpdateArrays();
-                return _CachedScrollAmountsBuffer;
+                return _ScrollProgressBuffer;
             }
         }
 
@@ -59,8 +59,8 @@ namespace LST.Player.Graphics
 
             _CachedGraphics = _List.ToArray();
             _CachedTimings = _List.Select(x => x.Timing).ToArray();
-            _CachedAmounts = _List.Select(x => x.HeadScrollTiming).ToArray();
-            _CachedScrollAmountsBuffer = new ScrollAmountInfo[_List.Count];
+            _CachedScrollTimings = _List.Select(x => x.HeadScrollTiming).ToArray();
+            _ScrollProgressBuffer = new ScrollProgress[_List.Count];
             _IsDirty = false;
         }
 

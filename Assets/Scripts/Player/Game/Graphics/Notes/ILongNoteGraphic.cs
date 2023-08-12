@@ -1,6 +1,7 @@
 ﻿using Lanostane.Charts;
 using Utils.Maths;
 using LST.Player.Judge;
+using LST.Player.Scrolls;
 
 namespace LST.Player.Graphics
 {
@@ -8,7 +9,7 @@ namespace LST.Player.Graphics
     {
         LST_LongNoteType Type { get; }
         float Timing { get; }
-        Millisecond HeadScrollTiming { get; }
+        ScrollTiming HeadScrollTiming { get; }
         float Duration { get; }
         float HeadDegree { get; }
         bool JudgeStarted { get; set; }

@@ -26,14 +26,10 @@ namespace LST.Player.Graphics
 
         private void UpdateSingleNotes(float chartTime)
         {
-            ScrollAmountInfoBuildJob.Run_NoAlloc(
-                GamePlayManager.ScrollUpdater.WatchingFrom,
-                GamePlayManager.ScrollUpdater.WatchingTo,
-                _Singles.ScrollAmounts,
-                _Singles.ScrollAmountsBuffer);
+            ScrollProgressUpdateJob.Update(_Singles.ScrollTimings, _Singles.ScrollProgressBuffer);
 
             var graphics = _Singles.Graphics;
-            var amounts = _Singles.ScrollAmountsBuffer;
+            var amounts = _Singles.ScrollProgressBuffer;
             for (int i = 0; i < graphics.Length; i++)
             {
                 var note = graphics[i];
@@ -45,11 +41,12 @@ namespace LST.Player.Graphics
                     continue;
                 }
 
-                if (!info.IsVisible && !MathfE.AbsApprox(chartTime, note.Timing, 0.2f))
+                if (!info.IsVisible && !MathfE.AbsApprox(chartTime, note.Timing, JudgeConst.Timeout))
                 {
                     note.Hide();
                     continue;
                 }
+
                 note.UpdateProgress(info.EasedProgress);
             }
         }

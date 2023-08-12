@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.Collections;
 using UnityEngine;
 using Utils.Maths;
 
@@ -28,6 +29,7 @@ namespace LST.Player
     {
         ISingleNoteGraphic AddSingleNote(LST_SingleNoteInfo info);
         ILongNoteGraphic AddLongNote(LST_LongNoteInfo info);
+        void Prepare();
     }
 
     public interface INoteJudgeUpdater : IChartUpdater
@@ -54,7 +56,7 @@ namespace LST.Player
         IMotionWorker Main { get; }
 
         void AddMotions(LST_Chart chart);
-        void UpdateAbsValue();
+        void Prepare();
         void StartDefaultMotion(float duration);
         bool TryGetBPMByTime(float time, out float bpm);
         void SetDefaultMotion(LST_DefaultMotion defaultMotion);
@@ -63,14 +65,14 @@ namespace LST.Player
     public interface IScrollUpdater : IChartUpdater
     {
         float ScrollingSpeed { get; set; }
-        Millisecond WatchingFrom { get; }
-        Millisecond WatchingTo { get; }
         void AddScroll(LST_ScrollChange scrollChange);
-        void UpdateAbsValue();
-        Millisecond GetScrollTimingByTime(float time);
-        float GetProgressionSingle(float chartTime, float timing, out bool isInScreen);
-        float GetProgressionSingleFast(Millisecond scrollTiming, out bool isInScreen);
-        bool IsScrollRangeVisible(Millisecond minAmount, Millisecond maxAmount);
-        ScrollAmountInfo[] GetProgressions(float chartTime, float[] timings);
+        void Prepare();
+        bool TryGetGroup(ushort scrollGroupID, out ScrollGroup group);
+        Millisecond GetScrollTimingByTime(ushort scrollGroupID, float time);
+        float GetProgressionSingle(ushort scrollGroupID, float chartTime, float timing, out bool isInScreen);
+        float GetProgressionSingleFast(ushort scrollGroupID, Millisecond scrollTiming, out bool isInScreen);
+        bool IsScrollRangeVisible(ushort scrollGroupID, Millisecond minAmount, Millisecond maxAmount);
+        ScrollProgress[] GetProgressions(ushort scrollGroupID, float chartTime, float[] timings);
+        void GetNativeScrollRangeData(ref NativeHashMap<ushort, ScrollRangeData> hashMap);
     }
 }

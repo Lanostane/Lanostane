@@ -10,13 +10,20 @@ namespace LST.Player
         {
             GamePlayManager.MotionUpdater.SetDefaultMotion(chart.Default);
             GamePlayManager.MotionUpdater.AddMotions(chart);
-            GamePlayManager.MotionUpdater.UpdateAbsValue();
+            GamePlayManager.MotionUpdater.Prepare();
 
             foreach (var scroll in chart.Scrolls)
             {
                 GamePlayManager.ScrollUpdater.AddScroll(scroll);
             }
-            GamePlayManager.ScrollUpdater.UpdateAbsValue();
+            //TODO: Debug Scroll Speed Group Code!
+            GamePlayManager.ScrollUpdater.AddScroll(new LST_ScrollChange()
+            {
+                Group = 1,
+                Speed = 0.25f,
+                Timing = 0.0f
+            });
+            GamePlayManager.ScrollUpdater.Prepare();
 
             foreach (var note in chart.TapNotes)
             {
@@ -46,6 +53,7 @@ namespace LST.Player
                     GamePlayManager.NoteJudgeUpdater.AddLongJudgeHandle(note.NoteInfo, graphic);
             }
 
+            GamePlayManager.GraphicUpdater.Prepare();
             GamePlayManager.NoteJudgeUpdater.InitializeScoring();
         }
 

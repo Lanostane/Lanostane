@@ -121,6 +121,11 @@ namespace Utils.Maths
             return _MS.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            return $"{Milisecond}ms";
+        }
+
         public static Millisecond operator +(Millisecond a) => a;
         public static Millisecond operator -(Millisecond a) => new(-a.Milisecond);
         public static Millisecond operator +(Millisecond a, Millisecond b) => new(a.Milisecond + b.Milisecond);

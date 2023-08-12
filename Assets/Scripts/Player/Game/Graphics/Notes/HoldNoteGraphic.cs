@@ -11,7 +11,7 @@ namespace LST.Player.Graphics
     {
         public LST_LongNoteType Type { get; set; }
         public float Timing { get; set; }
-        public Millisecond HeadScrollTiming { get; set; }
+        public ScrollTiming HeadScrollTiming { get; set; }
         public float Duration { get; set; }
         public bool JudgeStarted { get; set; }
         public bool JudgeDone { get; set; }
@@ -34,7 +34,8 @@ namespace LST.Player.Graphics
         public void Setup(LST_LongNoteInfo info)
         {
             Timing = info.Timing;
-            HeadScrollTiming = GamePlayManager.ScrollUpdater.GetScrollTimingByTime(Timing);
+            var scrollTiming = GamePlayManager.ScrollUpdater.GetScrollTimingByTime(info.ScrollGroup, Timing);
+            HeadScrollTiming = new(info.ScrollGroup, scrollTiming);
             Duration = info.Duration;
             SetNoteType(info.Type);
             HighlightObject.SetActive(info.Highlight);
@@ -43,7 +44,7 @@ namespace LST.Player.Graphics
             UpdateHeadRotation(info.Degree);
             UpdateHead(0.0f);
 
-            LineRenderer.Setup(JointInfo);
+            LineRenderer.Setup(info.ScrollGroup, JointInfo);
 
             gameObject.SetActive(false);
             _IsHidden = true;

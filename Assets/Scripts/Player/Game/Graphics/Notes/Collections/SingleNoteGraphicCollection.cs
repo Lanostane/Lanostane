@@ -12,9 +12,9 @@ namespace LST.Player.Graphics
 
         private ISingleNoteGraphic[] _CachedGraphics = Array.Empty<ISingleNoteGraphic>();
         private float[] _CachedTimings = Array.Empty<float>();
-        private Millisecond[] _CachedAmounts = Array.Empty<Millisecond>();
+        private ScrollTiming[] _CachedAmounts = Array.Empty<ScrollTiming>();
         private bool _IsDirty = false;
-        private ScrollAmountInfo[] _CachedScrollAmountsBuffer = Array.Empty<ScrollAmountInfo>();
+        private ScrollProgress[] _ScrollProgressBuffer = Array.Empty<ScrollProgress>();
 
         public ISingleNoteGraphic[] Graphics
         {
@@ -34,7 +34,7 @@ namespace LST.Player.Graphics
             }
         }
 
-        public Millisecond[] ScrollAmounts
+        public ScrollTiming[] ScrollTimings
         {
             get
             {
@@ -43,12 +43,12 @@ namespace LST.Player.Graphics
             }
         }
 
-        public ScrollAmountInfo[] ScrollAmountsBuffer
+        public ScrollProgress[] ScrollProgressBuffer
         {
             get
             {
                 TryUpdateArrays();
-                return _CachedScrollAmountsBuffer;
+                return _ScrollProgressBuffer;
             }
         }
 
@@ -60,7 +60,7 @@ namespace LST.Player.Graphics
             _CachedGraphics = _List.ToArray();
             _CachedTimings = _List.Select(x => x.Timing).ToArray();
             _CachedAmounts = _List.Select(x => x.ScrollTiming).ToArray();
-            _CachedScrollAmountsBuffer = new ScrollAmountInfo[_List.Count];
+            _ScrollProgressBuffer = new ScrollProgress[_List.Count];
             _IsDirty = false;
         }
 

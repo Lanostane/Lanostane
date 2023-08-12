@@ -1,4 +1,6 @@
 ﻿using Lanostane.Charts;
+using LST.Player.Scrolls;
+using System.Collections.Generic;
 using UnityEngine;
 using Utils.Maths;
 
@@ -16,6 +18,11 @@ namespace LST.Player.Graphics
         void OnDestroy()
         {
             GamePlayManager.GraphicUpdater = null;
+        }
+
+        public void Prepare()
+        {
+            
         }
 
         public void TimeUpdate(float chartTime)

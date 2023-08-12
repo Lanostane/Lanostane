@@ -27,9 +27,6 @@ namespace LST.Player
         public static event Action<float> ChartTimeUpdated;
         public static event Action ChartPlayFinished;
 
-        public TextAsset Chart;
-        public AudioClip Music;
-
         public AudioSource Audio;
         public float PlaySpeed { get; private set; }
         public bool StartChartOnLoaded;
@@ -40,19 +37,18 @@ namespace LST.Player
         private float _ChartOffset = 0.0f;
         private float _ChartPlaytime = 0.0f;
 
-        void Start()
+        void Awake()
         {
-            GamePlayManager.Player = this;
+            GamePlayManager.ChartPlayer = this;
 
-            _ChartOffset = -UserSetting.Offset / 1000.0f;
+            _ChartOffset = -PlayerSettings.Setting.Offset / 1000.0f;
+            Debug.Log($"Play Offset: {_ChartOffset}");
             PlaySpeed = PlayerSetting.Settings.PlaySpeed;
-            LoadChart(Music, Chart.text);
         }
 
         void OnDestroy()
         {
-            GamePlayManager.Player = null;
-
+            GamePlayManager.ChartPlayer = null;
             ResetValues();
         }
 
@@ -121,6 +117,15 @@ namespace LST.Player
 
         public void StartChart()
         {
+            if (ChartLoaded)
+            {
+                GamePlayManager.MotionUpdater.StartDefaultMotion(1.5f);
+                Invoke(nameof(StartChart_Internal), 1.75f);
+            }
+        }
+
+        private void StartChart_Internal()
+        {
             Audio.Play();
             Audio.pitch = PlaySpeed;
             ChartTime = 0.0f;
@@ -144,17 +149,22 @@ namespace LST.Player
             }
             else
             {
-                ChartTime += (Time.deltaTime * PlaySpeed);
-
-                var audioTime = Audio.time;
-                if (!MathfE.AbsApprox(ChartTime, audioTime, 0.05f))
+                ChartTime += Time.deltaTime * PlaySpeed;
+                var audioTime = GetAudioTime();
+                if (!MathfE.AbsApprox(ChartTime, audioTime, 0.03f))
                 {
                     ChartTime = audioTime;
+                    Debug.Log("Time Calibrated!");
                 }
 
                 OffsetChartTime = ChartTime + _ChartOffset;
                 _Updater.TimeUpdate(OffsetChartTime);
             }
+        }
+
+        float GetAudioTime()
+        {
+            return Audio.timeSamples / (float)Audio.clip.frequency;
         }
     }
 }

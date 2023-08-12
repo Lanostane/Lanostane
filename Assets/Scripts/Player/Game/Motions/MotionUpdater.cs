@@ -45,7 +45,7 @@ namespace LST.Player.Motions
             _BPMS.OnUpdateMotion += Update_BPM;
         }
 
-        public void UpdateAbsValue()
+        public void Prepare()
         {
             _Main.SortData();
             _BPMS.UpdateMotionAbsData();

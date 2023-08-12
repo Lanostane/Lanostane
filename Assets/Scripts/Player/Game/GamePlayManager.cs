@@ -11,7 +11,8 @@ namespace LST.Player
 {
     public static class GamePlayManager
     {
-        public static IChartPlayer Player { get; internal set; }
+        public static IGamePlayLoader GamePlayLoader { get; internal set; }
+        public static IChartPlayer ChartPlayer { get; internal set; }
 
         public static IBGUpdater BGUpdater { get; internal set; }
         public static INoteGraphicUpdater GraphicUpdater { get; internal set; }

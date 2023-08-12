@@ -1,6 +1,7 @@
 ﻿using Lanostane.Charts;
 using Utils.Maths;
 using LST.Player.Judge;
+using LST.Player.Scrolls;
 
 namespace LST.Player.Graphics
 {
@@ -8,7 +9,7 @@ namespace LST.Player.Graphics
     {
         LST_SingleNoteType Type { get; }
         float Timing { get; }
-        Millisecond ScrollTiming { get; }
+        ScrollTiming ScrollTiming { get; }
         bool JudgeDone { get; set; }
         void Setup(LST_SingleNoteInfo info);
         void Show();

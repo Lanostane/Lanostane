@@ -10,7 +10,7 @@ namespace LST.Player.Graphics
     {
         public LST_SingleNoteType Type { get; set; }
         public float Timing { get; set; }
-        public Millisecond ScrollTiming { get; set; }
+        public ScrollTiming ScrollTiming { get; set; }
         public bool JudgeDone { get; set; }
 
 
@@ -23,10 +23,15 @@ namespace LST.Player.Graphics
         private Vector3 _EndPosition;
         private bool _IsHidden = false;
 
+        private readonly System.Random _Rand = new();
+
         public void Setup(LST_SingleNoteInfo info)
         {
             Timing = info.Timing;
-            ScrollTiming = GamePlayManager.ScrollUpdater.GetScrollTimingByTime(Timing);
+            //TODO: Debug Scroll Speed Group Code.
+            ushort group = (ushort)((_Rand.Next(0, 2) == 0) ? 0u : 1u);
+            var scrollTiming = GamePlayManager.ScrollUpdater.GetScrollTimingByTime(group, Timing);
+            ScrollTiming = new(group, scrollTiming);
 
             SetNoteType(info.Type);
             HighlightObject.SetActive(info.Highlight);

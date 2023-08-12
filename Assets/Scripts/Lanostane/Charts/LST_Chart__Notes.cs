@@ -1,19 +1,27 @@
-﻿namespace Lanostane.Charts
+﻿using System;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
+using UnityEditor;
+
+namespace Lanostane.Charts
 {
     public class LST_Tap : ILST_SingleNote
     {
         public LST_NoteSize Size;
         public float Timing;
         public float Degree;
+        public ushort ScrollGroup;
         public bool Highlight;
+        public LST_NoteSpecialFlags Flags;
 
         public LST_SingleNoteInfo NoteInfo => new()
         {
             Timing = Timing,
             Degree = Degree,
+            ScrollGroup = ScrollGroup,
             Size = Size,
             Highlight = Highlight,
-            Type = LST_SingleNoteType.Click
+            Type = LST_SingleNoteType.Click,
+            Flags = Flags
         };
     }
 
@@ -22,15 +30,19 @@
         public LST_NoteSize Size;
         public float Timing;
         public float Degree;
+        public ushort ScrollGroup;
         public bool Highlight;
+        public LST_NoteSpecialFlags Flags;
 
         public LST_SingleNoteInfo NoteInfo => new()
         {
             Timing = Timing,
             Degree = Degree,
+            ScrollGroup = ScrollGroup,
             Size = Size,
             Highlight = Highlight,
-            Type = LST_SingleNoteType.Catch
+            Type = LST_SingleNoteType.Catch,
+            Flags = Flags
         };
     }
 
@@ -39,26 +51,32 @@
         public LST_NoteSize Size;
         public float Timing;
         public float Degree;
+        public ushort ScrollGroup;
         public bool Highlight;
         public LST_FlickDir Direction;
+        public LST_NoteSpecialFlags Flags;
 
         public LST_SingleNoteInfo NoteInfo => new()
         {
             Timing = Timing,
             Degree = Degree,
+            ScrollGroup = ScrollGroup,
             Size = Size,
             Highlight = Highlight,
-            Type = Direction == LST_FlickDir.In ? LST_SingleNoteType.FlickIn : LST_SingleNoteType.FlickOut
+            Type = Direction == LST_FlickDir.In ? LST_SingleNoteType.FlickIn : LST_SingleNoteType.FlickOut,
+            Flags = Flags
         };
     }
 
-    public class LST_Hold
+    public class LST_Hold : ILST_LongNote
     {
         public LST_NoteSize Size;
         public float Timing;
         public float Duration;
         public float Degree;
+        public ushort ScrollGroup;
         public bool Highlight;
+        public LST_NoteSpecialFlags Flags;
 
         public LST_Joint[] Joints;
 
@@ -70,9 +88,38 @@
                 Timing = Timing,
                 Duration = Duration,
                 Degree = Degree,
+                ScrollGroup = ScrollGroup,
                 Size = Size,
                 Highlight = Highlight,
                 Type = LST_LongNoteType.Hold,
+                Flags = Flags
+            };
+            info.SetJoints(Joints);
+            return info;
+        }
+    }
+
+    public class LST_TraceLine : ILST_LongNote
+    {
+        public float Timing;
+        public float Duration;
+        public float Degree;
+        public ushort ScrollGroup;
+        public LST_Joint[] Joints;
+
+        public LST_LongNoteInfo NoteInfo => CreateNoteInfo();
+        public LST_LongNoteInfo CreateNoteInfo()
+        {
+            var info = new LST_LongNoteInfo()
+            {
+                Timing = Timing,
+                Duration = Duration,
+                Degree = Degree,
+                ScrollGroup = ScrollGroup,
+                Size = LST_NoteSize.Size0,
+                Highlight = false,
+                Type = LST_LongNoteType.Hold,
+                Flags = LST_NoteSpecialFlags.None
             };
             info.SetJoints(Joints);
             return info;
@@ -86,7 +133,7 @@
         public LST_Ease Ease;
     }
 
-    public enum LST_NoteSize
+    public enum LST_NoteSize : byte
     {
         Size0,
         Size1,
@@ -107,7 +154,7 @@
         }
     }
 
-    public enum LST_SingleNoteType
+    public enum LST_SingleNoteType : byte
     {
         Click,
         Catch,
@@ -115,14 +162,23 @@
         FlickOut
     }
 
-    public enum LST_LongNoteType
+    public enum LST_LongNoteType : byte
     {
-        Hold
+        Hold,
+        Trace
     }
 
-    public enum LST_FlickDir
+    public enum LST_FlickDir : byte
     {
         In,
         Out
+    }
+
+    [Flags]
+    public enum LST_NoteSpecialFlags : byte
+    {
+        None = 0,
+        NoJudgement = 1,
+        NoGraphic = 2
     }
 }

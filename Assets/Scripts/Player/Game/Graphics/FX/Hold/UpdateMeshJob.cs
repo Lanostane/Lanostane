@@ -38,25 +38,26 @@ namespace LST.Player.Graphics
             Vertics[(index * 2) + 1] = point.RightDir * radius;
         }
 
-        public static void UpdateVertics(Millisecond[] amounts, LinePointInfo[] points, Vector3[] result)
-        {
-            var length = amounts.Length;
+        //TODO: Migrate to Groupped ScrollSystem
+        //public static void UpdateVertics(Millisecond[] amounts, LinePointInfo[] points, Vector3[] result)
+        //{
+        //    var length = amounts.Length;
 
-            using var scrollAmountsNative = new NativeArray<Millisecond>(amounts, Allocator.TempJob);
-            using var pointsNative = new NativeArray<LinePointInfo>(points, Allocator.TempJob);
+        //    using var scrollAmountsNative = new NativeArray<Millisecond>(amounts, Allocator.TempJob);
+        //    using var pointsNative = new NativeArray<LinePointInfo>(points, Allocator.TempJob);
 
-            using var resultNative = new NativeArray<Vector3>(result, Allocator.TempJob);
+        //    using var resultNative = new NativeArray<Vector3>(result, Allocator.TempJob);
 
-            var job = new UpdateMeshJob()
-            {
-                FromScroll = GamePlayManager.ScrollUpdater.WatchingFrom,
-                ToScroll = GamePlayManager.ScrollUpdater.WatchingTo,
-                ScrollAmounts = scrollAmountsNative,
-                Points = pointsNative,
-                Vertics = resultNative
-            };
-            job.Schedule(length, 8).Complete();
-            resultNative.CopyTo(result);
-        }
+        //    var job = new UpdateMeshJob()
+        //    {
+        //        FromScroll = GamePlayManager.ScrollUpdater.WatchingFrom,
+        //        ToScroll = GamePlayManager.ScrollUpdater.WatchingTo,
+        //        ScrollAmounts = scrollAmountsNative,
+        //        Points = pointsNative,
+        //        Vertics = resultNative
+        //    };
+        //    job.Schedule(length, 8).Complete();
+        //    resultNative.CopyTo(result);
+        //}
     }
 }

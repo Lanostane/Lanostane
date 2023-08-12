@@ -50,11 +50,12 @@ namespace LST.Player.Graphics
         private Vector3[] _VerticsBuffer;
         private Mesh _Mesh = null;
         private bool _IsPressed = false;
+        private ushort _ScrollGroupID = 0;
 
         private Millisecond _MinAmount;
         private Millisecond _MaxAmount;
 
-        public void Setup(LongNoteJointCollection jointInfo)
+        public void Setup(ushort scrollGroupID, LongNoteJointCollection jointInfo)
         {
             _JointInfo = jointInfo;
 
@@ -69,7 +70,7 @@ namespace LST.Player.Graphics
                     jointNote.transform.localEulerAngles = new Vector3(0.0f, 0.0f, joint.StartDeg);
                     jointNoteList.Add(new()
                     {
-                        ScrollTiming = GamePlayManager.ScrollUpdater.GetScrollTimingByTime(joint.StartTiming),
+                        ScrollTiming = GamePlayManager.ScrollUpdater.GetScrollTimingByTime(scrollGroupID, joint.StartTiming),
                         JointObject = jointNote,
                         JointTransform = jointNote.transform,
                         Direction = LinePointInfo.DegreeToDir(joint.StartDeg)
@@ -109,17 +110,18 @@ namespace LST.Player.Graphics
             }
 
             var timings = _PointInfos.Select(point => point.Timing).ToArray();
-            var amountInfos = GamePlayManager.ScrollUpdater.GetProgressions(0.0f, timings);
-            var sorted = amountInfos.OrderBy(x => x.Amount);
-            _ScrollAmounts = amountInfos.Select(x => x.Amount).ToArray();
-            _MinAmount = sorted.First().Amount;
-            _MaxAmount = sorted.Last().Amount;
+            var amountInfos = GamePlayManager.ScrollUpdater.GetProgressions(scrollGroupID, 0.0f, timings);
+            var sorted = amountInfos.OrderBy(x => x.Timing);
+            _ScrollAmounts = amountInfos.Select(x => x.Timing).ToArray();
+            _MinAmount = sorted.First().Timing;
+            _MaxAmount = sorted.Last().Timing;
 
             _Mesh = new Mesh();
             Filter.mesh = _Mesh;
             CreateMeshJob.Create(_JointInfo.StartTiming, _PointInfos, _Mesh);
 
             _VerticsBuffer = new Vector3[_Mesh.vertices.Length];
+            _ScrollGroupID = scrollGroupID;
         }
 
         void OnDestroy()
@@ -143,7 +145,8 @@ namespace LST.Player.Graphics
 
         public void DoUpdate()
         {
-            UpdateMeshJob.UpdateVertics(_ScrollAmounts, _PointInfos, _VerticsBuffer);
+            //TODO: Migrate to Groupped ScrollSystem
+            //UpdateMeshJob.UpdateVertics(_ScrollAmounts, _PointInfos, _VerticsBuffer);
             _Mesh.SetVertices(_VerticsBuffer);
             _Mesh.RecalculateBounds();
 
@@ -151,7 +154,7 @@ namespace LST.Player.Graphics
             for (int i = 0; i < length; i++)
             {
                 var jointNote = _JointNoteInfos[i];
-                var p = GamePlayManager.ScrollUpdater.GetProgressionSingleFast(jointNote.ScrollTiming, out var visible);
+                var p = GamePlayManager.ScrollUpdater.GetProgressionSingleFast(_ScrollGroupID, jointNote.ScrollTiming, out var visible);
                 if (visible)
                 {
                     p = Ease.GameSpaceEase(p);
@@ -168,7 +171,7 @@ namespace LST.Player.Graphics
 
         public bool IsInsideScreen()
         {
-            return GamePlayManager.ScrollUpdater.IsScrollRangeVisible(_MinAmount, _MaxAmount);
+            return GamePlayManager.ScrollUpdater.IsScrollRangeVisible(_ScrollGroupID, _MinAmount, _MaxAmount);
         }
     }
 }

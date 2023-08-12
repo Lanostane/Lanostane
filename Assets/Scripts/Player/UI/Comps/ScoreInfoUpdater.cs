@@ -65,7 +65,7 @@ namespace LST.Player.UI
 
             while (p <= 1.0f)
             {
-                _OldScore = to + (int)(delta * Ease.Exponential.Out(p));
+                _OldScore = from + (int)(delta * Ease.Exponential.Out(p));
                 SetScoreText(_OldScore);
                 p += Time.fixedDeltaTime * deltaFactor;
                 yield return new WaitForFixedUpdate();

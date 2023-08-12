@@ -9,10 +9,12 @@ namespace Lanostane.Charts
         public float Timing;
         public float Duration;
         public float Degree;
+        public ushort ScrollGroup;
         public LST_LongNoteType Type;
         public LST_NoteSize Size;
         public bool Highlight;
         public LST_JointInfo[] Joints;
+        public LST_NoteSpecialFlags Flags;
 
         public void SetJoints(params LST_Joint[] joints)
         {

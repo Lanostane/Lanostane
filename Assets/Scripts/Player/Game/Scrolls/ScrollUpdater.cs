@@ -1,7 +1,11 @@
-﻿using Lanostane.Charts;
+﻿using Codice.Client.Common;
+using Lanostane.Charts;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using Unity.Collections;
 using UnityEngine;
 using Utils;
 using Utils.Maths;
@@ -23,19 +27,21 @@ namespace LST.Player.Scrolls
         }
     }
 
+    public struct ScrollRangeData
+    {
+        public Millisecond From;
+        public Millisecond To;
+    }
+
     public class ScrollUpdater : MonoBehaviour, IScrollUpdater
     {
-        [Range(1.0f, 9.0f)]
-        public float Speed = 7.5f;
+        [field: SerializeField]
+        [field: Range(1.0f, 9.0f)]
+        public float ScrollingSpeed { get; set; } = 7.5f;
 
-        public float ScrollingSpeed { get; set; }
-        public Millisecond WatchingFrom { get; private set; }
-        public Millisecond WatchingTo { get; private set; }
-
-        private readonly FastList<ScrollData> _Scrolls = new();
-        public ScrollData[] ScrollDatas => _Scrolls.Items;
-
-        private float _EndAmountFactor = 1.35f;
+        private readonly ScrollGroup _MainScrolls = new(groupID: 0);
+        private readonly Dictionary<ushort, ScrollGroup> _ScrollGroups = new();
+        private NativeHashMap<ushort, ScrollRangeData> _ScrollRangesNativeData;
 
         void Awake()
         {
@@ -45,162 +51,146 @@ namespace LST.Player.Scrolls
         void OnDestroy()
         {
             GamePlayManager.ScrollUpdater = null;
-        }
-
-        void OnValidate()
-        {
-            var speedP = Mathf.InverseLerp(1.0f, 9.0f, Speed);
-            ScrollingSpeed = Speed;
-            _EndAmountFactor = Mathf.Lerp(4.5f, 0.6f, speedP);
+            if (_ScrollRangesNativeData.IsCreated)
+            {
+                _ScrollRangesNativeData.Dispose();
+            }
         }
 
         public void TimeUpdate(float chartTime)
         {
-            WatchingFrom = Millisecond.Zero;
-
-            var items = _Scrolls.Items;
-            for(int i = 0; i<items.Length; i++)
+            var speed = ScrollingSpeed;
+            _MainScrolls.UpdateByChartTime(speed, chartTime);
+            _ScrollRangesNativeData[_MainScrolls.GroupID] = _MainScrolls.RangeData;
+            foreach (var group in _ScrollGroups.Values)
             {
-                var scroll = items[i];
-                if (chartTime >= scroll.Timing)
-                {
-                    WatchingFrom += new Millisecond(scroll.Speed * scroll.GetPassedTime(chartTime));
-                }
+                group.UpdateByChartTime(speed, chartTime);
+                _ScrollRangesNativeData[group.GroupID] = group.RangeData;
             }
-
-            WatchingTo = WatchingFrom + _EndAmountFactor;
         }
 
         public void CleanUp()
         {
-            _Scrolls.Clear();
+            _MainScrolls.Scrolls.Clear();
+            foreach (var group in _ScrollGroups.Values)
+            {
+                group.Scrolls.Clear();
+            }
+            _ScrollGroups.Clear();
+            if (_ScrollRangesNativeData.IsCreated)
+            {
+                _ScrollRangesNativeData.Dispose();
+            }
         }
 
         public void AddScroll(LST_ScrollChange scrollChange)
         {
-            _Scrolls.Add(new()
+            if (scrollChange.Group == 0)
             {
-                Timing = scrollChange.Timing,
-                Speed = scrollChange.Speed
-            });
-        }
-
-        public void UpdateAbsValue()
-        {
-            var sorted = _Scrolls.Items.OrderBy(x => x.Timing).ToArray();
-            for (int i = 0; i < sorted.Length; i++)
-            {
-                var scroll = sorted[i];
-                scroll.Duration = float.MaxValue;
-
-                if (i > 0)
+                _MainScrolls.Scrolls.Add(new()
                 {
-                    var prevScroll = sorted[i - 1];
-                    prevScroll.Duration = scroll.Timing - prevScroll.Timing;
-                    sorted[i - 1] = prevScroll;
-                }
-
-                sorted[i] = scroll;
+                    Timing = scrollChange.Timing,
+                    Speed = scrollChange.Speed
+                });
             }
-
-            _Scrolls.Clear();
-            _Scrolls.AddRange(sorted);
-        }
-
-        public Millisecond GetScrollTimingByTime(float time)
-        {
-            Millisecond timingScrollAmount = Millisecond.Zero;
-
-            var items = _Scrolls.Items;
-            for (int i = 0; i < items.Length; i++)
+            else if (_ScrollGroups.TryGetValue(scrollChange.Group, out var scrollGroup))
             {
-                var scroll = items[i];
-                if (time >= scroll.Timing)
+                scrollGroup.Scrolls.Add(new()
                 {
-                    timingScrollAmount += new Millisecond(scroll.Speed * scroll.GetPassedTime(time));
-                }
-            }
-            return timingScrollAmount;
-        }
-
-        public float GetProgressionSingleFast(Millisecond scrollTiming, out bool isInScreen)
-        {
-            if (WatchingFrom <= scrollTiming && scrollTiming <= WatchingTo)
-            {
-                isInScreen = true;
+                    Timing = scrollChange.Timing,
+                    Speed = scrollChange.Speed
+                });
             }
             else
             {
-                isInScreen = false;
+                var group = _ScrollGroups[scrollChange.Group] = new(scrollChange.Group);
+                group.Scrolls.Add(new()
+                {
+                    Timing = scrollChange.Timing,
+                    Speed = scrollChange.Speed
+                });
             }
-
-            return Millisecond.InverseLerp(WatchingTo, WatchingFrom, scrollTiming);
         }
 
-        public float GetProgressionSingle(float chartTime, float timing, out bool isInScreen)
+        public void Prepare()
         {
-            var chartScrollAmount = Millisecond.Zero;
-            var timingScrollAmount = Millisecond.Zero;
-
-            var items = _Scrolls.Items;
-            for (int i = 0; i < items.Length; i++)
+            _MainScrolls.SortItems();
+            foreach (var group in _ScrollGroups.Values)
             {
-                var scroll = items[i];
-                if (chartTime >= scroll.Timing)
-                {
-                    chartScrollAmount += new Millisecond(scroll.Speed * scroll.GetPassedTime(chartTime));
-                }
-
-                if (timing >= scroll.Timing)
-                {
-                    timingScrollAmount += scroll.Speed * scroll.GetPassedTime(timing);
-                }
+                group.SortItems();
             }
 
-            isInScreen = true;
-            return Millisecond.InverseLerp(chartScrollAmount + _EndAmountFactor, chartScrollAmount, timingScrollAmount);
+            if (_ScrollRangesNativeData.IsCreated)
+            {
+                _ScrollRangesNativeData.Dispose();
+            }
+            _ScrollRangesNativeData = new(1 + _ScrollGroups.Count, Allocator.Persistent);
         }
 
-        public bool IsScrollRangeVisible(Millisecond minAmount, Millisecond maxAmount)
+        public bool TryGetGroup(ushort groupID, out ScrollGroup group)
         {
-            var from = WatchingFrom;
-            var to = WatchingTo;
-            if (WithIn(from, to, minAmount))
+            if (groupID == 0)
             {
+                group = _MainScrolls;
                 return true;
             }
-            else if (WithIn(from, to, maxAmount))
-            {
-                return true;
-            }
-            else
-            {
-                if (maxAmount < from) //Fully Outside of Border (Left)
-                    return false;
 
-                if (minAmount > to) //Fully Outside of Border (Right)
-                    return false;
-
-                if (minAmount <= from && to <= maxAmount) //Min max is both larger than from to
-                    return true;
-            }
-
-            return false;
-
-            static bool WithIn(Millisecond min, Millisecond max, Millisecond p)
-            {
-                return min <= p && p <= max;
-            }
+            return _ScrollGroups.TryGetValue(groupID, out group);
         }
 
-        public ScrollAmountInfo[] GetProgressions(float chartTime, float[] timings)
+        public Millisecond GetScrollTimingByTime(ushort scrollGroupID, float time)
         {
-            if (timings == null)
-                return Array.Empty<ScrollAmountInfo>();
+            if (TryGetGroup(scrollGroupID, out var group))
+            {
+                return group.GetScrollTimingByTime(time);
+            }
 
-            var from = GetScrollTimingByTime(chartTime);
-            var to = from + _EndAmountFactor;
-            return ScrollAmountQueryJob.Run(_Scrolls.Items, from, to, timings);
+            throw new KeyNotFoundException($"{scrollGroupID} is not a valid scroll group ID");
+        }
+
+        public float GetProgressionSingle(ushort scrollGroupID, float chartTime, float timing, out bool isInScreen)
+        {
+            if (TryGetGroup(scrollGroupID, out var group))
+            {
+                return group.GetProgressionSingle(chartTime, timing, out isInScreen);
+            }
+
+            throw new KeyNotFoundException($"{scrollGroupID} is not a valid scroll group ID");
+        }
+
+        public float GetProgressionSingleFast(ushort scrollGroupID, Millisecond scrollTiming, out bool isInScreen)
+        {
+            if (TryGetGroup(scrollGroupID, out var group))
+            {
+                return group.GetProgressionSingleFast(scrollTiming, out isInScreen);
+            }
+
+            throw new KeyNotFoundException($"{scrollGroupID} is not a valid scroll group ID");
+        }
+
+        public bool IsScrollRangeVisible(ushort scrollGroupID, Millisecond minAmount, Millisecond maxAmount)
+        {
+            if (TryGetGroup(scrollGroupID, out var group))
+            {
+                return group.IsScrollRangeVisible(minAmount, maxAmount);
+            }
+
+            throw new KeyNotFoundException($"{scrollGroupID} is not a valid scroll group ID");
+        }
+
+        public ScrollProgress[] GetProgressions(ushort scrollGroupID, float chartTime, float[] timings)
+        {
+            if (TryGetGroup(scrollGroupID, out var group))
+            {
+                return group.GetProgressions(chartTime, timings);
+            }
+
+            throw new KeyNotFoundException($"{scrollGroupID} is not a valid scroll group ID");
+        }
+
+        public void GetNativeScrollRangeData(ref NativeHashMap<ushort, ScrollRangeData> hashMap)
+        {
+            hashMap = _ScrollRangesNativeData;
         }
     }
 }

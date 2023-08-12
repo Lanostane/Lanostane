@@ -1,5 +1,28 @@
-﻿namespace Lanostane.Charts
+﻿using System.Collections.Generic;
+
+namespace Lanostane.Charts
 {
+    public enum LST_CameraIndex : byte
+    {
+        Main,
+        Sub_1,
+        Sub_2,
+        Sub_3,
+        Sub_4,
+        Sub_5,
+        Sub_6,
+        Sub_7,
+        Sub_8,
+        Sub_9,
+        Sub_10,
+        Sub_11,
+        Sub_12,
+        Sub_13,
+        Sub_14,
+        Sub_15,
+        Sub_16
+    }
+
     public class LST_DefaultMotion
     {
         public float Degree = 0.0f;
@@ -50,7 +73,24 @@
 
     public class LST_ScrollChange
     {
+        public ushort Group = 0;
         public float Timing;
         public float Speed;
+    }
+
+    public class LST_SubCameraAlphaChange
+    {
+        public float Timing;
+        public float Duration;
+        public LST_Ease Ease;
+    }
+
+    public class LST_SubCameraMotions
+    {
+        public LST_CameraIndex CameraIndex;
+        public readonly List<LST_XYLinearMotion> LinearMos = new();
+        public readonly List<LST_XYCirclerMotion> CirclerMos = new();
+        public readonly List<LST_HeightMotion> HeightMos = new();
+        public readonly List<LST_SubCameraAlphaChange> AlphaChanges = new();
     }
 }
