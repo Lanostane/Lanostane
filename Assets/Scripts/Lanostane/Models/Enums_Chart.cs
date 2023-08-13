@@ -1,42 +1,10 @@
-﻿using System.Collections.Generic;
-using UnityEngine.Scripting;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using Utils.Maths;
 
-namespace Lanostane.Charts
+namespace Lanostane.Models
 {
-    [Preserve]
-    public class LST_Chart
-    {
-        public float SongLength;
-        public float StartBPM;
-
-        public LST_DefaultMotion Default = new();
-        public readonly List<LST_Tap> TapNotes = new();
-        public readonly List<LST_Catch> CatchNotes = new();
-        public readonly List<LST_Flick> FlickNotes = new();
-        public readonly List<LST_Hold> HoldNotes = new();
-        public readonly List<LST_TraceLine> TraceLines = new();
-
-        public readonly List<LST_RotationMotion> RotationMos = new();
-        public readonly List<LST_XYLinearMotion> LinearMos = new();
-        public readonly List<LST_XYCirclerMotion> CirclerMos = new();
-        public readonly List<LST_HeightMotion> HeightMos = new();
-        public readonly List<LST_SubCameraMotions> SubCamMos = new();
-
-        public readonly List<LST_BPMChange> BPMs = new();
-        public readonly List<LST_ScrollChange> Scrolls = new();
-        public readonly List<LST_Event> Events = new();
-    }
-
-    [Preserve]
-    public class LST_Event
-    {
-        public string EventName;
-        public string EventParams;
-        public float Timing;
-        public float Duration;
-    }
-
     public enum LST_Ease
     {
         Linear = 0,

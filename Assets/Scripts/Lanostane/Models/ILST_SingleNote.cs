@@ -1,4 +1,4 @@
-﻿namespace Lanostane.Charts
+﻿namespace Lanostane.Models
 {
     public interface ILST_SingleNote
     {

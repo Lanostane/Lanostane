@@ -1,4 +1,4 @@
-﻿namespace Lanostane.Charts
+﻿namespace Lanostane.Models
 {
     public struct LST_SingleNoteInfo
     {

@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine.Scripting;
 using Utils;
 
-namespace Lanostane.Charts.DTO
+namespace Lanostane.Models.ThirdParty
 {
 #pragma warning disable 0649 //Never Assign Warning
     [Preserve]
@@ -69,30 +69,28 @@ namespace Lanostane.Charts.DTO
                                 {
                                     Duration = j.d_time,
                                     DeltaDegree = j.d_deg,
-                                    Ease = (LST_Ease)j.d_e
+                                    Ease = j.d_e.ToLSTEase()
                                 });
                             }
                         }
 
-                        chart.HoldNotes.Add(new()
+                        var holdNote = new LST_Hold()
                         {
                             Timing = e.Timing,
                             Duration = e.Duration,
                             Degree = e.Degree,
                             Highlight = e.Combination,
-                            Size = e.Size.ToValidSize(),
-                            Joints = joints.ToArray()
-                        });
+                            Size = e.Size.ToValidSize()
+                        };
+                        holdNote.Joints.AddRange(joints);
+                        chart.HoldNotes.Add(holdNote);
                         break;
 
                     case LaEventType.DefaultMotion:
-                        chart.Default = new()
-                        {
-                            Rotation = e.Degree,
-                            Height = e.ctp2,
-                            Degree = e.ctp1,
-                            Radius = e.ctp
-                        };
+                        chart.Default.Rotation = e.Degree;
+                        chart.Default.Height = e.ctp2;
+                        chart.Default.Degree = e.ctp1;
+                        chart.Default.Radius = e.ctp;
                         break;
 
                     case LaEventType.RotationMotion:
@@ -100,7 +98,7 @@ namespace Lanostane.Charts.DTO
                         {
                             Timing = e.Timing,
                             Duration = e.Duration,
-                            Ease = (LST_Ease)e.cfmi,
+                            Ease = e.cfmi.ToLSTEase(),
                             DeltaRotation = e.ctp
                         });
                         break;
@@ -110,7 +108,7 @@ namespace Lanostane.Charts.DTO
                         {
                             Timing = e.Timing,
                             Duration = e.Duration,
-                            Ease = (LST_Ease)e.cfmi,
+                            Ease = e.cfmi.ToLSTEase(),
                             DeltaHeight = e.ctp
                         });
                         break;
@@ -120,7 +118,7 @@ namespace Lanostane.Charts.DTO
                         {
                             Timing = e.Timing,
                             Duration = e.Duration,
-                            Ease = (LST_Ease)e.cfmi,
+                            Ease = e.cfmi.ToLSTEase(),
                             NewDegree = e.ctp,
                             NewRadius = e.ctp1
                         });
@@ -131,7 +129,7 @@ namespace Lanostane.Charts.DTO
                         {
                             Timing = e.Timing,
                             Duration = e.Duration,
-                            Ease = (LST_Ease)e.cfmi,
+                            Ease = e.cfmi.ToLSTEase(),
                             DeltaDegree = e.ctp,
                             DeltaRadius = e.ctp1
                         });
@@ -176,7 +174,7 @@ namespace Lanostane.Charts.DTO
         public float ctp;
         public float ctp1;
         public float ctp2;
-        public int cfmi;
+        public LaEaseType cfmi;
         public bool cflg;
         public float Degree;
         public LST_NoteSize Size;
@@ -196,6 +194,7 @@ namespace Lanostane.Charts.DTO
         public LaScroll() { }
     }
 
+    [Preserve]
     public enum LaEventType
     {
         Click = 0,
@@ -215,6 +214,28 @@ namespace Lanostane.Charts.DTO
     }
 
     [Preserve]
+    public enum LaEaseType
+    {
+        Linear = 0,
+
+        InQuart = 1,
+        OutQuart = 2,
+        InOutQuart = 3,
+
+        InCubic = 4,
+        OutCubic = 5,
+        InOutCubic = 6,
+
+        InExpo = 7,
+        OutExpo = 8,
+        InOutExpo = 9,
+
+        InSine = 10,
+        OutSine = 11,
+        InOutSine = 12
+    }
+
+    [Preserve]
     public class LaJointCollection
     {
         public int j_count;
@@ -229,9 +250,33 @@ namespace Lanostane.Charts.DTO
         public int idx;
         public float d_deg;
         public float d_time;
-        public int d_e;
+        public LaEaseType d_e;
 
         public LaJoint() { }
+    }
+
+    public static class LaEaseConverter
+    {
+        public static LST_Ease ToLSTEase(this LaEaseType laEase)
+        {
+            return laEase switch
+            {
+                LaEaseType.Linear => LST_Ease.Linear,
+                LaEaseType.InQuart => LST_Ease.InQuart,
+                LaEaseType.OutQuart => LST_Ease.OutQuart,
+                LaEaseType.InOutQuart => LST_Ease.InOutQuart,
+                LaEaseType.InCubic => LST_Ease.InCubic,
+                LaEaseType.OutCubic => LST_Ease.OutCubic,
+                LaEaseType.InOutCubic => LST_Ease.InOutCubic,
+                LaEaseType.InExpo => LST_Ease.InExpo,
+                LaEaseType.OutExpo => LST_Ease.OutExpo,
+                LaEaseType.InOutExpo => LST_Ease.InOutExpo,
+                LaEaseType.InSine => LST_Ease.InSine,
+                LaEaseType.OutSine => LST_Ease.OutSine,
+                LaEaseType.InOutSine => LST_Ease.InOutSine,
+                _ => LST_Ease.Linear,
+            };
+        }
     }
 #pragma warning restore 0649
 }

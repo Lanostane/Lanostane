@@ -1,8 +1,8 @@
-﻿using Lanostane.Charts;
+﻿using Lanostane.Models;
 using System.Collections;
 using UnityEngine;
 
-namespace Lanostane.Charts
+namespace Lanostane.Models
 {
     public interface ILST_LongNote
     {
