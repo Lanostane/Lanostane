@@ -60,3 +60,6 @@ TagManager:
   - name: Particle
     uniqueID: 3095712133
     locked: 0
+  - name: DEBUG
+    uniqueID: 319865129
+    locked: 0
