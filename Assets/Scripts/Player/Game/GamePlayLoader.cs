@@ -54,6 +54,11 @@ namespace LST.Player
         public void UnloadGamePlay()
         {
             LoadingWorker.Instance.AddSceneUnloadJob(Lanostane.SceneName.GamePlay);
+            LoadingWorker.Instance.AddJob(new()
+            {
+                Job = Resources.UnloadUnusedAssets,
+                JobDescription = "Unloading Unused Assets..."
+            });
             LoadingWorker.Instance.DoLoading(new LoadingStyle()
             {
                 HideScreenOnFinished = true,

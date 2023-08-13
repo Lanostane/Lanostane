@@ -32,7 +32,7 @@ namespace LST.Player.Graphics
             else
             {
                 ComboText.gameObject.SetActive(true);
-                ComboText.text = ScoreManager.ComboCount.ToString();
+                ComboText.SetText(ScoreManager.ComboCountString);
                 ComboText.color = color;
             }
         }
