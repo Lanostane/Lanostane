@@ -49,6 +49,16 @@ namespace LST.Player
             });
         }
 
+        public void LoadGamePlay()
+        {
+
+        }
+
+        public void UnloadGamePlay()
+        {
+            
+        }
+
         void OnDestroy()
         {
             GamePlayManager.GamePlayLoader = null;

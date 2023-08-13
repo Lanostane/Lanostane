@@ -1,4 +1,4 @@
-﻿using Lanostane.Charts;
+﻿using Lanostane.Models;
 using LST.Player.Graphics;
 using LST.Player.Judge;
 using LST.Player.Motions;
@@ -27,6 +27,8 @@ namespace LST.Player
 
     public interface INoteGraphicUpdater : IChartUpdater
     {
+        event Action<float, ISingleNoteGraphic> OnSingleNoteProgressUpdate;
+        event Action<float, ILongNoteGraphic> OnLongNoteProgressUpdate;
         ISingleNoteGraphic AddSingleNote(LST_SingleNoteInfo info);
         ILongNoteGraphic AddLongNote(LST_LongNoteInfo info);
         void Prepare();

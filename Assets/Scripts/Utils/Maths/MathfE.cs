@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.Burst;
 using UnityEngine;
 
 namespace Utils.Maths

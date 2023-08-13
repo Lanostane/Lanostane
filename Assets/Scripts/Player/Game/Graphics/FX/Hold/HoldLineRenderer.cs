@@ -157,8 +157,8 @@ namespace LST.Player.Graphics
                 if (visible)
                 {
                     p = Ease.GameSpaceEase(p);
-                    jointNote.JointTransform.localPosition = jointNote.Direction * GameConst.LerpSpace(p);
-                    jointNote.JointTransform.localScale = Vector3.one * GameConst.LerpNoteSize(p);
+                    jointNote.JointTransform.localPosition = jointNote.Direction * GameConst.LerpSpaceFactor(p);
+                    jointNote.JointTransform.localScale = GameConst.LerpNoteSize(p);
                     jointNote.JointObject.SetActive(true);
                 }
                 else

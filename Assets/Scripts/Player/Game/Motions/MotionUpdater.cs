@@ -1,4 +1,4 @@
-﻿using Lanostane.Charts;
+﻿using Lanostane.Models;
 using System.Collections;
 using UnityEngine;
 using Utils.Maths;

@@ -838,7 +838,7 @@ RectTransform:
   m_GameObject: {fileID: 498536887}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1590488014}
@@ -890,7 +890,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d1d75236768a484c9ab87cacdf00be4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 67774c25495184142bb458f861b37b61, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7944,8 +7944,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d753f780a841d174191a2333072a7cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ChartToLoad>k__BackingField: {fileID: 4900000, guid: 316d3e7f5050a6f4b8bd32138a2e322d, type: 3}
-  <MusicToPlay>k__BackingField: {fileID: 8300000, guid: b19beff8f79a3f0489aea47d4a340078, type: 3}
+  <ChartToLoad>k__BackingField: {fileID: 4900000, guid: 31a0188b18ee72349ac4e569f58e58eb, type: 3}
+  <MusicToPlay>k__BackingField: {fileID: 8300000, guid: 5cc5929e889e9c347896368e7c05bc6d, type: 3}
   <ScrollSpeedOverride>k__BackingField: -1
 --- !u!4 &1216265983
 Transform:
@@ -9062,7 +9062,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: We Like Girls
+  m_text: Chronoexplorers
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6d626a7471fcf474b80041d0d66b0764, type: 2}
   m_sharedMaterial: {fileID: 8273955647481854205, guid: 6d626a7471fcf474b80041d0d66b0764, type: 2}
@@ -9429,12 +9429,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data:
-    Offset: 0
-    ScrollSpeed: 7.5
+    Offset: 20
+    ScrollSpeed: 9
     MasterVolume: 1
     SFXVolume: 1
     MusicVolume: 1
-    FrameRate: 120
+    FrameRate: -1
   _Mixer: {fileID: 0}
 --- !u!4 &1672311988
 Transform:
@@ -9637,6 +9637,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778367696}
   m_CullTransparentMesh: 1
+--- !u!1 &1784346843
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1784346845}
+  - component: {fileID: 1784346844}
+  - component: {fileID: 1784346846}
+  m_Layer: 0
+  m_Name: '[GameModifier]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1784346844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784346843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2187d0f966c4ba846be6ae684149a6dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1784346845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784346843}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.368523, y: 20.778992, z: 29.978186}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1784346846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784346843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14d3c7e41a11f84ab6ac1c9705ace3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1818729544
 GameObject:
   m_ObjectHideFlags: 0
@@ -10819,3 +10876,4 @@ SceneRoots:
   - {fileID: 1049174561}
   - {fileID: 1216265983}
   - {fileID: 1672311988}
+  - {fileID: 1784346845}

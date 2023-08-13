@@ -1,4 +1,4 @@
-﻿using Lanostane.Charts;
+﻿using Lanostane.Models;
 using Lanostane.Settings;
 using System.Collections.Generic;
 using System.Linq;

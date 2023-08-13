@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Burst;
+using UnityEngine;
 
 namespace LST.Player
 {
@@ -10,12 +11,17 @@ namespace LST.Player
         public const float MinNoteSize = 0.112f;
         public const float MaxNoteSize = 1.0f;
 
-        public static float LerpNoteSize(float t)
+        public static float LerpNoteSizeFactor(float t)
         {
             return Mathf.Lerp(MinNoteSize, MaxNoteSize, t);
         }
 
-        public static float LerpSpace(float t)
+        public static Vector3 LerpNoteSize(float t)
+        {
+            return Mathf.Lerp(MinNoteSize, MaxNoteSize, t) * Vector3.one;
+        }
+
+        public static float LerpSpaceFactor(float t)
         {
             return Mathf.Lerp(SpaceStart, SpaceEnd, t);
         }

@@ -1,4 +1,4 @@
-﻿using Lanostane.Charts;
+﻿using Lanostane.Models;
 using System.Collections;
 using UnityEngine;
 
@@ -21,28 +21,28 @@ namespace LST.Player
             foreach (var note in chart.TapNotes)
             {
                 var graphic = GamePlayManager.GraphicUpdater.AddSingleNote(note.NoteInfo);
-                if (note.Timing <= chart.SongLength)
+                if (note.Timing <= chart.SongLength && !note.Flags.HasFlag(LST_NoteSpecialFlags.NoJudgement))
                     GamePlayManager.NoteJudgeUpdater.AddSingleJudgeHandle(note.NoteInfo, graphic);
             }
 
             foreach (var note in chart.CatchNotes)
             {
                 var graphic = GamePlayManager.GraphicUpdater.AddSingleNote(note.NoteInfo);
-                if (note.Timing <= chart.SongLength)
+                if (note.Timing <= chart.SongLength && !note.Flags.HasFlag(LST_NoteSpecialFlags.NoJudgement))
                     GamePlayManager.NoteJudgeUpdater.AddSingleJudgeHandle(note.NoteInfo, graphic);
             }
 
             foreach (var note in chart.FlickNotes)
             {
                 var graphic = GamePlayManager.GraphicUpdater.AddSingleNote(note.NoteInfo);
-                if (note.Timing <= chart.SongLength)
+                if (note.Timing <= chart.SongLength && !note.Flags.HasFlag(LST_NoteSpecialFlags.NoJudgement))
                     GamePlayManager.NoteJudgeUpdater.AddSingleJudgeHandle(note.NoteInfo, graphic);
             }
 
             foreach (var note in chart.HoldNotes)
             {
                 var graphic = GamePlayManager.GraphicUpdater.AddLongNote(note.NoteInfo);
-                if (note.Timing <= chart.SongLength)
+                if (note.Timing <= chart.SongLength && !note.Flags.HasFlag(LST_NoteSpecialFlags.NoJudgement))
                     GamePlayManager.NoteJudgeUpdater.AddLongJudgeHandle(note.NoteInfo, graphic);
             }
 

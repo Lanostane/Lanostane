@@ -32,7 +32,7 @@ namespace LST.Player.Graphics
                 progress = Ease.GameSpaceEase(progress);
             }
 
-            var radius = GameConst.LerpSpace(progress);
+            var radius = GameConst.LerpSpaceFactor(progress);
 
             Vertics[index * 2] = point.LeftDir * radius;
             Vertics[(index * 2) + 1] = point.RightDir * radius;

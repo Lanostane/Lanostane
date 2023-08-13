@@ -1,4 +1,4 @@
-﻿using Lanostane.Charts;
+﻿using Lanostane.Models;
 using LST.Player.Scrolls;
 using UnityEngine;
 using Utils.Maths;
@@ -28,11 +28,11 @@ namespace LST.Player.Graphics
             ScrollProgressUpdateJob.Update(_Longs.HeadScrollTimings, _Longs.HeadScrollProgressBuffer);
 
             var graphics = _Longs.Graphics;
-            var amounts = _Longs.HeadScrollProgressBuffer;
+            var scrollPs = _Longs.HeadScrollProgressBuffer;
             for (int i = 0; i < graphics.Length; i++)
             {
                 var note = graphics[i];
-                var info = amounts[i];
+                var scrollP = scrollPs[i];
 
                 if (note.JudgeDone)
                 {
@@ -42,7 +42,8 @@ namespace LST.Player.Graphics
 
                 if (note.UpdateVisibility(chartTime))
                 {
-                    note.UpdateProgress(info.EasedProgress, chartTime);
+                    note.UpdateProgress(scrollP.EasedProgress, chartTime);
+                    OnLongNoteProgressUpdate?.Invoke(scrollP.EasedProgress, note);
                 }
             }
         }

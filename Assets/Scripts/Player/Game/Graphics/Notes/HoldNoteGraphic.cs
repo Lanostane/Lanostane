@@ -1,15 +1,17 @@
-﻿using Lanostane.Charts;
+﻿using Lanostane.Models;
 using LST.Player.Judge;
 using LST.Player.Scrolls;
 using System;
 using UnityEngine;
 using Utils.Maths;
+using Utils.Unity;
 
 namespace LST.Player.Graphics
 {
     internal sealed class HoldNoteGraphic : MonoBehaviour, ILongNoteGraphic
     {
         public LST_LongNoteType Type { get; set; }
+        public LST_NoteSpecialFlags Flags { get; set; }
         public float Timing { get; set; }
         public ScrollTiming HeadScrollTiming { get; set; }
         public float Duration { get; set; }
@@ -30,6 +32,7 @@ namespace LST.Player.Graphics
 
         private ILoopParticleFX _HeadParticle;
         private bool _IsHidden = false;
+        private bool _HasNoGraphicFlag = false;
 
         public void Setup(LST_LongNoteInfo info)
         {
@@ -48,28 +51,40 @@ namespace LST.Player.Graphics
 
             gameObject.SetActive(false);
             _IsHidden = true;
+
+            Flags = info.Flags;
+            _HasNoGraphicFlag = info.Flags.HasFlag(LST_NoteSpecialFlags.NoGraphic);
         }
 
         public void Show()
         {
-            if (_IsHidden)
-            {
-                gameObject.SetActive(true);
-                _IsHidden = false;
-            }
+            if (_HasNoGraphicFlag)
+                return;
+
+            if (!_IsHidden)
+                return;
+
+            gameObject.SetActive(true);
+            _IsHidden = false;
         }
 
         public void Hide()
         {
-            if (!_IsHidden)
-            {
-                gameObject.SetActive(false);
-                _IsHidden = true;
-            }
+            if (_HasNoGraphicFlag)
+                return;
+
+            if (_IsHidden)
+                return;
+
+            gameObject.SetActive(false);
+            _IsHidden = true;
         }
 
         public void EnableJudgeEffect(JudgeType type)
         {
+            if (_HasNoGraphicFlag)
+                return;
+
             if (_HeadParticle == null)
             {
                 if (GameFX.HoldParticles.TryAllocate(out _HeadParticle))
@@ -148,8 +163,8 @@ namespace LST.Player.Graphics
 
         private void UpdateHead(float progress01)
         {
-            HeadPositionTransform.localScale = GameConst.LerpNoteSize(progress01) * Vector3.one;
-            var pos = -GameConst.LerpSpace(progress01);
+            HeadPositionTransform.localScale = GameConst.LerpNoteSize(progress01);
+            var pos = -GameConst.LerpSpaceFactor(progress01);
             HeadPositionTransform.localPosition = new Vector3(0.0f, pos, 0.0f);
         }
 

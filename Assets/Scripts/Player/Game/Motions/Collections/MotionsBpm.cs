@@ -1,4 +1,4 @@
-﻿using Lanostane.Charts;
+﻿using Lanostane.Models;
 using System.Linq;
 
 namespace LST.Player.Motions

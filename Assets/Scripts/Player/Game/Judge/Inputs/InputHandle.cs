@@ -1,4 +1,4 @@
-﻿using Lanostane.Charts;
+﻿using Lanostane.Models;
 using LST.Player.Motions;
 using UnityEngine;
 using Utils;

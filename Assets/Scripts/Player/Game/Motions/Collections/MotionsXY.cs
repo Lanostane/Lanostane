@@ -1,4 +1,4 @@
-﻿using Lanostane.Charts;
+﻿using Lanostane.Models;
 using Newtonsoft.Json;
 using System.Linq;
 using UnityEngine;

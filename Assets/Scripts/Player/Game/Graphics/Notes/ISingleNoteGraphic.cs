@@ -1,11 +1,11 @@
-﻿using Lanostane.Charts;
+﻿using Lanostane.Models;
 using Utils.Maths;
 using LST.Player.Judge;
 using LST.Player.Scrolls;
 
 namespace LST.Player.Graphics
 {
-    public interface ISingleNoteGraphic
+    public interface ISingleNoteGraphic : INoteGraphic
     {
         LST_SingleNoteType Type { get; }
         float Timing { get; }
@@ -17,6 +17,5 @@ namespace LST.Player.Graphics
         void TriggerJudgeEffect(JudgeType type);
         void SetNoteType(LST_SingleNoteType type);
         void UpdateProgress(float progress01);
-        void DestroyInstance();
     }
 }

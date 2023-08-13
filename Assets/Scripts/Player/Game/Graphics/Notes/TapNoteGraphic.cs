@@ -1,18 +1,19 @@
-﻿using Lanostane.Charts;
+﻿using Lanostane.Models;
 using UnityEngine;
 using Utils.Maths;
 using LST.Player.Judge;
 using LST.Player.Scrolls;
+using Utils.Unity;
 
 namespace LST.Player.Graphics
 {
     internal sealed class TapNoteGraphic : MonoBehaviour, ISingleNoteGraphic
     {
         public LST_SingleNoteType Type { get; set; }
+        public LST_NoteSpecialFlags Flags { get; set; }
         public float Timing { get; set; }
         public ScrollTiming ScrollTiming { get; set; }
         public bool JudgeDone { get; set; }
-
 
         public GameObject HighlightObject;
         public GameObject FlickInObject;
@@ -22,6 +23,7 @@ namespace LST.Player.Graphics
         private Vector3 _StartPosition;
         private Vector3 _EndPosition;
         private bool _IsHidden = false;
+        private bool _HasNoGraphicFlag = false;
 
         private readonly System.Random _Rand = new();
 
@@ -45,28 +47,40 @@ namespace LST.Player.Graphics
 
             gameObject.SetActive(false);
             _IsHidden = true;
+
+            Flags = info.Flags;
+            _HasNoGraphicFlag = info.Flags.HasFlag(LST_NoteSpecialFlags.NoGraphic);
         }
 
         public void Show()
         {
-            if (_IsHidden)
-            {
-                gameObject.SetActive(true);
-                _IsHidden = false;
-            }
+            if (_HasNoGraphicFlag)
+                return;
+
+            if (!_IsHidden)
+                return;
+
+            gameObject.SetActive(true);
+            _IsHidden = false;
         }
 
         public void Hide()
         {
-            if (!_IsHidden)
-            {
-                gameObject.SetActive(false);
-                _IsHidden = true;
-            }
+            if (_HasNoGraphicFlag)
+                return;
+
+            if (_IsHidden)
+                return;
+
+            gameObject.SetActive(false);
+            _IsHidden = true;
         }
 
         public void TriggerJudgeEffect(JudgeType type)
         {
+            if (_HasNoGraphicFlag)
+                return;
+
             switch (Type)
             {
                 case LST_SingleNoteType.Click:
@@ -138,7 +152,7 @@ namespace LST.Player.Graphics
         {
             Show();
 
-            transform.localScale = Vector3.one * GameConst.LerpNoteSize(progress01);
+            transform.localScale = GameConst.LerpNoteSize(progress01);
             transform.localPosition = Vector3.Lerp(_StartPosition, _EndPosition, progress01);
         }
 

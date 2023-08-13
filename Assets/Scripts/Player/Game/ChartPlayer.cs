@@ -1,4 +1,4 @@
-﻿using Lanostane.Charts.DTO;
+﻿using Lanostane.Models.ThirdParty;
 using Newtonsoft.Json;
 using Lanostane.Settings;
 using System;
@@ -36,6 +36,7 @@ namespace LST.Player
         private bool _ChartPaused = false;
         private float _ChartOffset = 0.0f;
         private float _ChartPlaytime = 0.0f;
+        private double _ScheduledPlaytime;
 
         void Awake()
         {
@@ -126,9 +127,10 @@ namespace LST.Player
 
         private void StartChart_Internal()
         {
-            Audio.Play();
+            _ScheduledPlaytime = AudioSettings.dspTime + 3.0;
+            Audio.PlayScheduled(_ScheduledPlaytime);
             Audio.pitch = PlaySpeed;
-            ChartTime = 0.0f;
+            ChartTime = -3.0f;
             OffsetChartTime = 0.0f;
             _ChartPlaying = true;
         }
@@ -150,13 +152,15 @@ namespace LST.Player
             else
             {
                 ChartTime += Time.deltaTime * PlaySpeed;
-                var audioTime = GetAudioTime();
-                if (!MathfE.AbsApprox(ChartTime, audioTime, 0.03f))
+                if (AudioSettings.dspTime >= _ScheduledPlaytime)
                 {
-                    ChartTime = audioTime;
-                    Debug.Log("Time Calibrated!");
+                    var audioTime = GetAudioTime();
+                    if (!MathfE.AbsApprox(ChartTime, audioTime, 0.03f))
+                    {
+                        ChartTime = audioTime;
+                        Debug.Log("Time Calibrated!");
+                    }
                 }
-
                 OffsetChartTime = ChartTime + _ChartOffset;
                 _Updater.TimeUpdate(OffsetChartTime);
             }

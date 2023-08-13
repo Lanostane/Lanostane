@@ -1,5 +1,6 @@
-﻿using Lanostane.Charts;
+﻿using Lanostane.Models;
 using LST.Player.Scrolls;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Utils.Maths;
@@ -9,6 +10,9 @@ namespace LST.Player.Graphics
     public sealed partial class NoteGraphicUpdater : MonoBehaviour, INoteGraphicUpdater
     {
         public Transform NoteOrigin;
+
+        public event Action<float, ISingleNoteGraphic> OnSingleNoteProgressUpdate;
+        public event Action<float, ILongNoteGraphic> OnLongNoteProgressUpdate;
 
         void Awake()
         {
