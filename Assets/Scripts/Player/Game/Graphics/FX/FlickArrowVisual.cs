@@ -7,7 +7,8 @@ namespace LST.Player.Graphics
         private static readonly int MAIN_TEX = Shader.PropertyToID("_MainTex");
         private static readonly int MAIN_TEX_ST = Shader.PropertyToID("_MainTex_ST");
 
-        public MeshRenderer Renderer;
+        public Texture Texture;
+        public Renderer Renderer;
         public bool InDirection = false;
 
         private MaterialPropertyBlock _Props;
@@ -17,7 +18,7 @@ namespace LST.Player.Graphics
         {
             _Offset = UnityEngine.Random.Range(0.0f, 1.0f);
             _Props = new();
-            _Props.SetTexture(MAIN_TEX, Renderer.material.mainTexture);
+            _Props.SetTexture(MAIN_TEX, Texture);
         }
 
         void Update()
