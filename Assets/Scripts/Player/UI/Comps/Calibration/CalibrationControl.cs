@@ -1,5 +1,4 @@
-﻿using Lanostane.Settings;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -124,8 +123,8 @@ namespace LST.Player.UI
                 TapArea.SetText($"Your Offset: {avgDelta}ms\n\nAccuracy (Lower-Better): {accurate}\n\n{text}");
 
                 //TODO: Move this to Event later
-                UserSetting.Offset = avgDelta;
-                UserSetting.Save();
+                PlayerSettings.Setting.Offset = avgDelta;
+                PlayerSettings.SaveToDisk();
             }
             else
             {

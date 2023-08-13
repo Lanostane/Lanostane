@@ -14,13 +14,13 @@ namespace Providers
     {
         public static void PauseChart()
         {
-            GamePlayManager.ChartPlayer?.Pause();
+            GamePlay.ChartPlayer?.Pause();
             UIManager.Overlays?.GamePause?.SetActive(true);
         }
 
         public static void ResumeChart()
         {
-            GamePlayManager.ChartPlayer?.Resume();
+            GamePlay.ChartPlayer?.Resume();
             UIManager.Overlays?.GamePause?.SetActive(false);
         }
     }

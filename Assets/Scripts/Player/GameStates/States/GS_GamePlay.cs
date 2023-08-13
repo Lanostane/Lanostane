@@ -39,7 +39,7 @@ namespace LST.Player.States
         {
             //TODO: Pause Screen
             UIManager.Overlays.GamePause.SetActive(true);
-            GamePlayManager.ChartPlayer.Pause();
+            GamePlay.ChartPlayer.Pause();
         }
 
         public override void EnterLoadJob()

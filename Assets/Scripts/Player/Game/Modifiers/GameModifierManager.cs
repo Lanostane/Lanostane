@@ -1,7 +1,9 @@
-﻿using System;
+﻿using LST.Player.Game.Modifiers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils.Maths;
 
 namespace LST.Player.Modifiers
 {
@@ -11,33 +13,46 @@ namespace LST.Player.Modifiers
         GhostNotes,             //Hide Note that close enough to Judgeline
     }
 
-    public enum NoteEaseMode : byte
+    public interface IGameModifierManager
     {
-        Default,
-        Linear,
-        Deceleration
+        public ShadowMode ShadowMode { get; }
+        GameSpaceEaseMode NoteEase { get; set; }
+        void SetModEnabled(GameModes mod, bool enabled);
     }
 
-    public sealed class GameModifierManager : MonoBehaviour
+    public sealed class GameModifierManager : MonoBehaviour, IGameModifierManager
     {
-        public static GameModifierManager Instance { get; private set; }
+        public ShadowMode ShadowMode { get; private set; }
 
+        [field: SerializeField]
+        public GameSpaceEaseMode NoteEase { get; set; } = GameSpaceEaseMode.Default;
 
-
-        public NoteEaseMode NoteEase { get; private set; }
+        private readonly Dictionary<GameModes, Modifier> _Modifiers = new();
 
         void Awake()
         {
-            Shader.SetGlobalFloat("_ShadowMode_Enabled", 0.0f);
-            Shader.SetGlobalFloat("_ShadowMode_StartDist", GameConst.LerpSpaceFactor(0.1f));
-            Shader.SetGlobalFloat("_ShadowMode_EndDist", GameConst.LerpSpaceFactor(0.485f));
+            GamePlay.Modifier = this;
+
+            ShadowMode = new(enabled: false);
+            _Modifiers[GameModes.GhostNotes] = ShadowMode;
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
-            Shader.SetGlobalFloat("_ShadowMode_Enabled", 0.0f);
-            Shader.SetGlobalFloat("_ShadowMode_StartDist", GameConst.LerpSpaceFactor(0.1f));
-            Shader.SetGlobalFloat("_ShadowMode_EndDist", GameConst.LerpSpaceFactor(0.485f));
+            ShadowMode.SetEnabled(false);
+            GamePlay.Modifier = null;
+        }
+
+        public void SetModEnabled(GameModes mod, bool enabled)
+        {
+            if (_Modifiers.TryGetValue(mod, out var modifier))
+            {
+                modifier.SetEnabled(enabled);
+            }
+            else
+            {
+                Debug.LogError($"{mod} is missing!");
+            }
         }
     }
 }

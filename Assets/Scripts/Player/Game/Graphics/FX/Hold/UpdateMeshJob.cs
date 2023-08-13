@@ -12,6 +12,7 @@ namespace LST.Player.Graphics
     {
         public const float SIZE = 4.15f;
 
+        public GameSpaceEaseMode EaseMode;
         public Millisecond FromScroll;
         public Millisecond ToScroll;
         [NativeDisableParallelForRestriction]
@@ -29,7 +30,7 @@ namespace LST.Player.Graphics
             var progress = Millisecond.InverseLerp(ToScroll, FromScroll, timing);
             if (progress > 0.0f && progress < 1.0f)
             {
-                progress = Ease.GameSpaceEase(progress);
+                progress = Ease.GameSpaceEase(progress, EaseMode);
             }
 
             var radius = GameConst.LerpSpaceFactor(progress);
@@ -40,7 +41,7 @@ namespace LST.Player.Graphics
 
         public static void UpdateVertics(ushort scrollGroupID, Millisecond[] amounts, LinePointInfo[] points, Vector3[] result)
         {
-            if (!GamePlayManager.ScrollUpdater.TryGetGroup(scrollGroupID, out var group))
+            if (!GamePlay.ScrollUpdater.TryGetGroup(scrollGroupID, out var group))
             {
                 return;
             }
@@ -54,6 +55,7 @@ namespace LST.Player.Graphics
 
             var job = new UpdateMeshJob()
             {
+                EaseMode = GamePlay.Modifier.NoteEase,
                 FromScroll = group.WatchingFrom,
                 ToScroll = group.WatchingTo,
                 ScrollTimings = scrollTimingsNative,

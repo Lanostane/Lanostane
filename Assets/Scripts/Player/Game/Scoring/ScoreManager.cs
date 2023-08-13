@@ -51,7 +51,6 @@ namespace LST.Player.Scoring
             _ScorePerNote = MaxScore / _NoteCount;
 
             Reset();
-            UpdateScore();
         }
 
         public static void Reset()
@@ -65,6 +64,7 @@ namespace LST.Player.Scoring
             IsAllPurePerfect = true;
             IsAllPerfect = true;
             IsAllCombo = true;
+            UpdateScore();
         }
 
         public static void RegisterNote(ScoreData data)

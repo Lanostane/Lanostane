@@ -1,5 +1,6 @@
-﻿using Lanostane.Settings;
-using LST.Player.UI;
+﻿using LST.Player.UI;
+using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,60 +9,64 @@ namespace LST.Player
 {
     public interface IGamePlayLoader
     {
+        event Action OnLoaded;
+        event Action OnUnloaded;
         public TextAsset ChartToLoad { get; set; }
         public AudioClip MusicToPlay { get; set; }
     }
 
     public class GamePlayLoader : MonoBehaviour, IGamePlayLoader
     {
+        public event Action OnLoaded;
+        public event Action OnUnloaded;
+
         [field: SerializeField]
         public TextAsset ChartToLoad { get; set; }
 
         [field: SerializeField]
         public AudioClip MusicToPlay { get; set; }
 
-        [field: SerializeField]
-        public float ScrollSpeedOverride { get; set; } = -1.0f;
-
         void Awake()
         {
-            GamePlayManager.GamePlayLoader = this;
+            GamePlay.GamePlayLoader = this;
         }
 
-        void Start()
+        [Button("Load GamePlay", EButtonEnableMode.Playmode)]
+        public void LoadGamePlay()
         {
-            UserSetting.Load();
+            PlayerSettings.LoadFromDisk();
 
             LoadingWorker.Instance.AddSceneLoadJob(Lanostane.SceneName.GamePlay);
             LoadingWorker.Instance.DoLoading(new LoadingStyle()
             {
                 HideScreenOnFinished = true,
                 Style = LoadingStyles.BlackShutter
-            }, ()=>
+            }, () =>
             {
-                GamePlayManager.ChartPlayer.LoadChart(MusicToPlay, ChartToLoad.text);
-                GamePlayManager.ChartPlayer.StartChart();
-
-                if (ScrollSpeedOverride > 0.0f)
-                {
-                    GamePlayManager.ScrollUpdater.ScrollingSpeed = ScrollSpeedOverride;
-                }
+                GamePlay.ChartPlayer.LoadChart(MusicToPlay, ChartToLoad.text);
+                GamePlay.ChartPlayer.StartChart();
+                GamePlay.ScrollUpdater.ScrollingSpeed = PlayerSettings.Setting.ScrollSpeed;
+                OnLoaded?.Invoke();
             });
         }
 
-        public void LoadGamePlay()
-        {
-
-        }
-
+        [Button("Unload GamePlay", EButtonEnableMode.Playmode)]
         public void UnloadGamePlay()
         {
-            
+            LoadingWorker.Instance.AddSceneUnloadJob(Lanostane.SceneName.GamePlay);
+            LoadingWorker.Instance.DoLoading(new LoadingStyle()
+            {
+                HideScreenOnFinished = true,
+                Style = LoadingStyles.BlackShutter
+            }, ()=>
+            {
+                OnUnloaded?.Invoke();
+            });
         }
 
         void OnDestroy()
         {
-            GamePlayManager.GamePlayLoader = null;
+            GamePlay.GamePlayLoader = null;
         }
     }
 }

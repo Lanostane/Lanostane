@@ -70,7 +70,7 @@ namespace LST.Player.Graphics
                     jointNote.transform.localEulerAngles = new Vector3(0.0f, 0.0f, joint.StartDeg);
                     jointNoteList.Add(new()
                     {
-                        ScrollTiming = GamePlayManager.ScrollUpdater.GetScrollTimingByTime(scrollGroupID, joint.StartTiming),
+                        ScrollTiming = GamePlay.ScrollUpdater.GetScrollTimingByTime(scrollGroupID, joint.StartTiming),
                         JointObject = jointNote,
                         JointTransform = jointNote.transform,
                         Direction = LinePointInfo.DegreeToDir(joint.StartDeg)
@@ -110,7 +110,7 @@ namespace LST.Player.Graphics
             }
 
             var timings = _PointInfos.Select(point => point.Timing).ToArray();
-            var amountInfos = GamePlayManager.ScrollUpdater.GetProgressions(scrollGroupID, 0.0f, timings);
+            var amountInfos = GamePlay.ScrollUpdater.GetProgressions(scrollGroupID, 0.0f, timings);
             var sorted = amountInfos.OrderBy(x => x.Timing);
             _ScrollAmounts = amountInfos.Select(x => x.Timing).ToArray();
             _MinAmount = sorted.First().Timing;
@@ -153,10 +153,10 @@ namespace LST.Player.Graphics
             for (int i = 0; i < length; i++)
             {
                 var jointNote = _JointNoteInfos[i];
-                var p = GamePlayManager.ScrollUpdater.GetProgressionSingleFast(_ScrollGroupID, jointNote.ScrollTiming, out var visible);
+                var p = GamePlay.ScrollUpdater.GetProgressionSingleFast(_ScrollGroupID, jointNote.ScrollTiming, out var visible);
                 if (visible)
                 {
-                    p = Ease.GameSpaceEase(p);
+                    p = Ease.GameSpaceEase(p, GamePlay.Modifier.NoteEase);
                     jointNote.JointTransform.localPosition = jointNote.Direction * GameConst.LerpSpaceFactor(p);
                     jointNote.JointTransform.localScale = GameConst.LerpNoteSize(p);
                     jointNote.JointObject.SetActive(true);
@@ -170,7 +170,7 @@ namespace LST.Player.Graphics
 
         public bool IsInsideScreen()
         {
-            return GamePlayManager.ScrollUpdater.IsScrollRangeVisible(_ScrollGroupID, _MinAmount, _MaxAmount);
+            return GamePlay.ScrollUpdater.IsScrollRangeVisible(_ScrollGroupID, _MinAmount, _MaxAmount);
         }
     }
 }

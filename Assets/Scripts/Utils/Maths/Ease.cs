@@ -2,18 +2,42 @@
 
 namespace Utils.Maths
 {
+    public enum GameSpaceEaseMode : byte
+    {
+        Default,
+        Linear,
+        Deceleration
+    }
+
     public static class Ease
     {
         private readonly static Vector2 P1 = new(0.80f, 0.15f);
         private readonly static Vector2 P2 = new(0.95f, 0.10f);
 
-        public static float GameSpaceEase(float t)
+        public static float GameSpaceEase(float t, GameSpaceEaseMode easeMode = GameSpaceEaseMode.Default)
         {
-            t = Mathf.Clamp01(t);
-            t = Cubic.In(t);
+            if (easeMode == GameSpaceEaseMode.Default)
+            {
+                t = Mathf.Clamp01(t);
+                t = Quartic.In(t);
 
-            var p = 3 * Mathf.Pow(1 - t, 2) * t * P1 + 3 * Mathf.Pow(t, 2) * (1 - t) * P2 + Mathf.Pow(t, 3) * Vector2.one;
-            return p.y;
+                var p = 3 * Mathf.Pow(1 - t, 2) * t * P1 + 3 * Mathf.Pow(t, 2) * (1 - t) * P2 + Mathf.Pow(t, 3) * Vector2.one;
+                return p.y;
+            }
+            else if (easeMode == GameSpaceEaseMode.Deceleration)
+            {
+                t = Mathf.Clamp01(t);
+                t = Circular.Out(t);
+
+                var p = 3 * Mathf.Pow(1 - t, 2) * t * P1 + 3 * Mathf.Pow(t, 2) * (1 - t) * P2 + Mathf.Pow(t, 3) * Vector2.one;
+                return p.y;
+            }
+            else //Linear Or Default
+            {
+                t = Mathf.Clamp01(t);
+                t = Cubic.In(t);
+                return t;
+            }
         }
 
         public static float Linear(float k)

@@ -1,51 +1,82 @@
-﻿using System;
+﻿using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Audio;
 
 namespace LST.Player
 {
     [Serializable]
-    public struct PlayerSettingsData
+    public class PlayerSettingsData
     {
         [Range(-1000, 1000)]
-        public int Offset;
-        [Range(1.0f, 9.0f)]
-        public float ScrollSpeed;
-        [Range(0.0f, 1.0f)]
-        public float MasterVolume;
-        [Range(0.0f, 1.0f)]
-        public float SFXVolume;
-        [Range(0.0f, 1.0f)]
-        public float MusicVolume;
+        public int Offset = 0;
 
-        public int FrameRate;
+        [Range(1.0f, 9.0f)]
+        public float ScrollSpeed = 7.0f;
+
+        [Range(0.0f, 1.0f)]
+        public float MasterVolume = 1.0f;
+
+        [Range(0.0f, 1.0f)]
+        public float SFXVolume = 1.0f;
+
+        [Range(0.0f, 1.0f)]
+        public float MusicVolume = 1.0f;
+
+        [Range(-1, 120)]
+        public int FrameRate = -1;
+    }
+
+    [Serializable]
+    public class DebugSettingsData
+    {
+        [Range(0.0001f, 3.0f)]
+        public float MusicPlaySpeed = 1.0f;
+
+        public bool AudoPlayEnabled = false;
     }
 
     public sealed class PlayerSettings : MonoBehaviour
     {
         public static PlayerSettingsData Setting;
+        public static DebugSettingsData DebugSetting;
 
-        public PlayerSettingsData Data;
+        [Label("User Settings")]
+        public PlayerSettingsData UserData;
 
-        [SerializeField]
+        [Label("Development Settings")]
+        public DebugSettingsData DebugData;
+
         private AudioMixer _Mixer;
+
+        [Button(null, EButtonEnableMode.Playmode)]
+        public static void LoadFromDisk()
+        {
+
+        }
+
+        [Button(null, EButtonEnableMode.Playmode)]
+        public static void SaveToDisk()
+        {
+
+        }
 
         void Start()
         {
+            Setting = UserData;
+            DebugSetting = DebugData;
             _Mixer = Resources.Load<AudioMixer>("AudioMixer");
         }
 
-        void Update()
+        void FixedUpdate()
         {
-            Setting = Data;
-            _Mixer.SetFloat("VolMaster", GetVolume(Data.MasterVolume));
-            _Mixer.SetFloat("VolMusic", GetVolume(Data.MusicVolume));
-            _Mixer.SetFloat("VolJudgeSFX", GetVolume(Data.SFXVolume));
+            _Mixer.SetFloat("VolMaster", GetVolume(Setting.MasterVolume));
+            _Mixer.SetFloat("VolMusic", GetVolume(Setting.MusicVolume));
+            _Mixer.SetFloat("VolJudgeSFX", GetVolume(Setting.SFXVolume));
 
-            Application.targetFrameRate = Data.FrameRate;
+            Application.targetFrameRate = Setting.FrameRate;
         }
 
         static float GetVolume(float vol01)

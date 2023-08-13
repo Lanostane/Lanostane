@@ -1,6 +1,5 @@
 ﻿using Lanostane.Models.ThirdParty;
 using Newtonsoft.Json;
-using Lanostane.Settings;
 using System;
 using UnityEngine;
 using Utils.Maths;
@@ -40,23 +39,22 @@ namespace LST.Player
 
         void Awake()
         {
-            GamePlayManager.ChartPlayer = this;
+            GamePlay.ChartPlayer = this;
 
             _ChartOffset = -PlayerSettings.Setting.Offset / 1000.0f;
             Debug.Log($"Play Offset: {_ChartOffset}");
-            PlaySpeed = PlayerSetting.Settings.PlaySpeed;
+            PlaySpeed = PlayerSettings.DebugSetting.MusicPlaySpeed;
         }
 
         void OnDestroy()
         {
-            GamePlayManager.ChartPlayer = null;
+            GamePlay.ChartPlayer = null;
             ResetValues();
         }
 
         void OnValidate()
         {
             Audio.pitch = PlaySpeed;
-
         }
 
         public void LoadChart(AudioClip music, string json)
@@ -74,7 +72,7 @@ namespace LST.Player
             ChartLoaded = true;
             if (StartChartOnLoaded)
             {
-                GamePlayManager.MotionUpdater.StartDefaultMotion(1.75f);
+                GamePlay.MotionUpdater.StartDefaultMotion(1.75f);
                 Invoke(nameof(StartChart), 1.75f);
             }
         }
@@ -120,7 +118,7 @@ namespace LST.Player
         {
             if (ChartLoaded)
             {
-                GamePlayManager.MotionUpdater.StartDefaultMotion(1.5f);
+                GamePlay.MotionUpdater.StartDefaultMotion(1.5f);
                 Invoke(nameof(StartChart_Internal), 1.75f);
             }
         }
