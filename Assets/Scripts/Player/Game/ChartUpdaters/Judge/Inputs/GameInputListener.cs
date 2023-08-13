@@ -1,5 +1,7 @@
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Utils.Unity;
 
 namespace LST.Player.Judge
 {
@@ -8,6 +10,8 @@ namespace LST.Player.Judge
         IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public RectTransform GamePlayScreenRect;
+
+        [ReadOnly]
         public Camera MainCamera;
 
         void Awake()
@@ -21,7 +25,7 @@ namespace LST.Player.Judge
                 return;
 
             GetWorldPosition(eventData.position, out var worldPos, out var canSendEvent);
-            Debug.DrawLine(Vector3.zero, worldPos, Color.white, 0.5f);
+            DebugLines.DrawLine(Vector3.zero, worldPos, Color.white, 0.5f);
 
             if (GamePlay.NoteJudgeUpdater.TryGetInputHandle(eventData.pointerId, out var handle))
             {
@@ -39,7 +43,7 @@ namespace LST.Player.Judge
                 return;
 
             GetWorldPosition(eventData.position, out var worldPos, out var canSendEvent);
-            Debug.DrawLine(Vector3.zero, worldPos, Color.red * 0.5f, 0.5f);
+            DebugLines.DrawLine(Vector3.zero, worldPos, Color.red * 0.5f, 0.5f);
 
             if (GamePlay.NoteJudgeUpdater.TryGetInputHandle(eventData.pointerId, out var handle))
             {
@@ -62,7 +66,7 @@ namespace LST.Player.Judge
                 return;
 
             GetWorldPosition(eventData.position, out var worldPos, out var canSendEvent);
-            Debug.DrawLine(Vector3.zero, worldPos, Color.yellow, 0.5f);
+            DebugLines.DrawLine(Vector3.zero, worldPos, Color.yellow, 0.5f);
 
             if (GamePlay.NoteJudgeUpdater.TryGetInputHandle(eventData.pointerId, out var handle))
             {
@@ -98,7 +102,7 @@ namespace LST.Player.Judge
                 return;
 
             GetWorldPosition(eventData.position, out var worldPos, out var canSendEvent);
-            Debug.DrawLine(Vector3.zero, worldPos, Color.cyan * 0.5f, 0.5f);
+            DebugLines.DrawLine(Vector3.zero, worldPos, Color.cyan * 0.5f, 0.5f);
 
             if (GamePlay.NoteJudgeUpdater.TryGetInputHandle(eventData.pointerId, out var handle))
             {

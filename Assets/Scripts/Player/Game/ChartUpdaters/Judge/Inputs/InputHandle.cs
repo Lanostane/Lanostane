@@ -2,6 +2,7 @@
 using LST.Player.Motions;
 using UnityEngine;
 using Utils;
+using Utils.Unity;
 
 namespace LST.Player.Judge
 {
@@ -88,7 +89,7 @@ namespace LST.Player.Judge
             FlickAmount = delta.magnitude;
             FlickAngle = (Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg) + 90.0f;
 
-            Debug.DrawLine(PreviousFlickPosition, position, Color.blue, 1.0f);
+            DebugLines.DrawLine(PreviousFlickPosition, position, Color.blue, 1.0f);
             PreviousFlickPosition = position;
         }
     }

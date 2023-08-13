@@ -130,9 +130,9 @@ namespace LST.Player.Judge
                 Debug.LogError($"SizeType: {Size} was not implemented! defaulting to size0");
             }
 
-            DebugLines.DrawToBorder(CurrentDegree + range, Color.yellow, 0.1f);
-            DebugLines.DrawToBorder(CurrentDegree - range, Color.yellow, 0.1f);
-            DebugLines.DrawToBorder(inputDegree, Color.cyan, 0.1f);
+            DebugLines.DrawToBorder(CurrentDegree + range - GamePlay.MotionUpdater.CurrentRotation, Color.yellow, 0.1f);
+            DebugLines.DrawToBorder(CurrentDegree - range - GamePlay.MotionUpdater.CurrentRotation, Color.yellow, 0.1f);
+            DebugLines.DrawToBorder(inputDegree - GamePlay.MotionUpdater.CurrentRotation, Color.cyan, 0.1f);
 
             if (MathfE.ApproxAngle(inputDegree, CurrentDegree, range))
                 return true;
