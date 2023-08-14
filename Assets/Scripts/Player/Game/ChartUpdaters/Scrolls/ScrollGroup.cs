@@ -26,7 +26,7 @@ namespace LST.Player.Scrolls
         public void UpdateByChartTime(float scrollSpeed, float chartTime)
         {
             var speedPercentage = Mathf.InverseLerp(1.0f, 9.0f, scrollSpeed);
-            EndAmountFactor = Mathf.Lerp(4.5f, 0.6f, speedPercentage);
+            EndAmountFactor = Mathf.Lerp(5.75f, 0.45f, speedPercentage);
 
             WatchingFrom = Millisecond.Zero;
 

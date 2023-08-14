@@ -19,7 +19,7 @@ namespace Utils.Maths
             if (easeMode == GameSpaceEaseMode.Default)
             {
                 t = Mathf.Clamp01(t);
-                t = Quartic.In(t);
+                t = Cubic.In(t);
 
                 Vector2 p = 3 * Mathf.Pow(1 - t, 2) * t * P1 + 3 * Mathf.Pow(t, 2) * (1 - t) * P2 + Mathf.Pow(t, 3) * Vector2.one;
                 return p.y;
