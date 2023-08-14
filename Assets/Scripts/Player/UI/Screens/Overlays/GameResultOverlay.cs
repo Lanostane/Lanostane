@@ -12,8 +12,8 @@ namespace LST.Player.UI
 {
     public class GameResultOverlay : BaseOverlay
     {
-        private readonly static Vector3 _HiddenScale = new(1.2f, 1.2f, 1.2f);
-        private readonly static Vector3 _VisibleScale = new(1.0f, 1.0f, 1.0f);
+        private readonly static Vector3 s_HiddenScale = new(1.2f, 1.2f, 1.2f);
+        private readonly static Vector3 s_VisibleScale = new(1.0f, 1.0f, 1.0f);
         public override OverlayType OverlayType => OverlayType.GameResult;
         protected override bool AutoActiveObject => true;
         protected override bool AutoDeactiveObject => true;
@@ -26,7 +26,7 @@ namespace LST.Player.UI
         protected override void OnScreenEnabled()
         {
             //transform.DOScale(1.0f, 0.75f);
-            ScoreText.text = $"Score: {ScoreManager.ScoreString}";
+            ScoreText.text = $"Score: {ScoreManager.ScoreRounded.ToString("D8")}";
             PerfectText.text = $"Perfect: {ScoreManager.PerfectCount}/{ScoreManager.TotalNotes} (+{ScoreManager.PerfectPlusCount})";
             GoodText.text = $"Good: {ScoreManager.GoodCount}/{ScoreManager.TotalNotes}";
             MissText.text = $"Miss: {ScoreManager.MissCount}/{ScoreManager.TotalNotes}";

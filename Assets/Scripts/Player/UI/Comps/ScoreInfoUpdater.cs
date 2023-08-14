@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using Utils.Maths;
+using Utils.Unity;
 
 namespace LST.Player.UI
 {
@@ -14,8 +16,14 @@ namespace LST.Player.UI
         public Color FullComboColor;
         public Color RegularColor;
 
+        private bool _UpdatingScore = false;
         private int _OldScore = 0;
-        private char[] _ScoreTextBuffer = new char[8];
+        private int _ScoreDelta = 0;
+        private int _NewScore = 0;
+        private int _DisplayScore = 0;
+        private float _Timer = 0.0f;
+        private float _EndTime = 0.35f;
+
 
         void Awake()
         {
@@ -25,7 +33,6 @@ namespace LST.Player.UI
         void OnDestroy()
         {
             ScoreManager.ScoreUpdated -= ScoreUpdated;
-            _ScoreTextBuffer = null;
         }
 
         void Start()
@@ -48,67 +55,42 @@ namespace LST.Player.UI
                 ScoreText.color = RegularColor;
             }
 
-            StopAllCoroutines();
-            StartCoroutine(UpdateScore(0.35f, _OldScore, ScoreManager.ScoreRounded));
-
-            _OldScore = ScoreManager.ScoreRounded;
+            UpdateScore(0.35f, _DisplayScore, ScoreManager.ScoreRounded);
         }
 
-        IEnumerator UpdateScore(float duration, int from, int to)
+        private void UpdateScore(float duration, int oldScore, int newScore)
         {
-            if (from == to)
+            _UpdatingScore = true;
+            _Timer = 0.0f;
+            _EndTime = duration;
+            _OldScore = oldScore;
+            _NewScore = newScore;
+            _ScoreDelta = _NewScore - _OldScore;
+        }
+
+        private void FixedUpdate()
+        {
+            if (!_UpdatingScore)
+                return;
+
+            if (_Timer >= _EndTime)
             {
-                SetScoreText(to);
-                yield break;
+                SetScoreText(_NewScore);
+                _OldScore = _NewScore;
+                _UpdatingScore = false;
+                return;
             }
 
-            var p = 0.0f;
-            var deltaFactor = 1.0f / duration;
-            var delta = to - from;
-
-            while (p <= 1.0f)
-            {
-                _OldScore = from + (int)(delta * Ease.Exponential.Out(p));
-                SetScoreText(_OldScore);
-                p += Time.fixedDeltaTime * deltaFactor;
-                yield return new WaitForFixedUpdate();
-            }
-
-            SetScoreText(to);
+            var p = Mathf.Clamp01(_Timer / _EndTime);
+            _DisplayScore = _OldScore + (int)(_ScoreDelta * Ease.Exponential.Out(p));
+            SetScoreText(_DisplayScore);
+            _Timer += Time.fixedDeltaTime;
         }
 
         private unsafe void SetScoreText(int score)
         {
-            _ScoreTextBuffer[0] = GetDigitChar(score, 8);
-            _ScoreTextBuffer[1] = GetDigitChar(score, 7);
-            _ScoreTextBuffer[2] = GetDigitChar(score, 6);
-            _ScoreTextBuffer[3] = GetDigitChar(score, 5);
-            _ScoreTextBuffer[4] = GetDigitChar(score, 4);
-            _ScoreTextBuffer[5] = GetDigitChar(score, 3);
-            _ScoreTextBuffer[6] = GetDigitChar(score, 2);
-            _ScoreTextBuffer[7] = GetDigitChar(score, 1);
-            ScoreText.SetCharArray(_ScoreTextBuffer);
-        }
-
-        private static char GetDigitChar(int baseNumber, int digit)
-        {
-            var n = Math.Pow(10, digit);
-            var n2 = Math.Pow(10, digit - 1);
-            var i = (int)Math.Floor((baseNumber % n) / n2);
-            return i switch
-            {
-                0 => '0',
-                1 => '1',
-                2 => '2',
-                3 => '3',
-                4 => '4',
-                5 => '5',
-                6 => '6',
-                7 => '7',
-                8 => '8',
-                9 => '9',
-                _ => throw new NotImplementedException()
-            };
+            ScoreStrings.SetScoreBuffer(score);
+            ScoreText.SetCharArray(ScoreStrings.ScoreBuffer);
         }
     }
 }

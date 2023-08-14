@@ -32,7 +32,8 @@ namespace LST.Player.Graphics
             else
             {
                 ComboText.gameObject.SetActive(true);
-                ComboText.SetText(ScoreManager.ComboCountString);
+                ScoreStrings.SetComboBuffer(ScoreManager.ComboCount);
+                ComboText.SetCharArray(ScoreStrings.ComboBuffer, 0, ScoreStrings.ComboCharsCount);
                 ComboText.color = color;
             }
         }

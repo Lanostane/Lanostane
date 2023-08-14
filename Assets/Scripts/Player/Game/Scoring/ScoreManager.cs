@@ -25,11 +25,9 @@ namespace LST.Player.Scoring
         public static bool IsAllCombo { get; private set; }
         public static float Score { get; private set; }
         public static int ScoreRounded { get; private set; }
-        public static string ScoreString { get; private set; } = string.Empty;
         public static int TotalNotes { get; private set; }
         public static int RegisteredNotes => PerfectCount + GoodCount + MissCount;
         public static int ComboCount { get; private set; }
-        public static string ComboCountString { get; private set; } = string.Empty;
 
         public static event Action ScoreUpdated;
         public static event NoteRegisteredDel NoteRegistered;
@@ -129,8 +127,6 @@ namespace LST.Player.Scoring
             ScoreRounded = Mathf.RoundToInt(Score);
 
             SetRank(ScoreRounded);
-            ScoreString = ScoreRounded.ToString("D8");
-            ComboCountString = ComboCount.ToString();
 
             ScoreUpdated?.Invoke();
         }
