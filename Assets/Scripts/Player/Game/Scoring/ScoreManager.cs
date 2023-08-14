@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
+using Utils.Unity;
 
 namespace LST.Player.Scoring
 {
@@ -45,7 +46,7 @@ namespace LST.Player.Scoring
 
         public static void Initialize(int maxNoteCount)
         {
-            Debug.Log($"Setting up score! Max Notes: {maxNoteCount}");
+            EditorLog.Info($"Setting up score! Max Notes: {maxNoteCount}");
 
             ComboCount = 0;
 

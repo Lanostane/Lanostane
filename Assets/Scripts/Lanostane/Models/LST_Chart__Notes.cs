@@ -20,7 +20,9 @@ namespace Lanostane.Models
         [ID(2)] public virtual float Degree { get; set; }
         [ID(3)] public virtual ushort ScrollGroup { get; set; }
         [ID(4)] public virtual bool Highlight { get; set; }
-        [ID(5)] public virtual LST_NoteSpecialFlags Flags { get; set; }
+
+        [ID(100)] public virtual LST_NoteSpecialFlags Flags { get; set; } = LST_NoteSpecialFlags.None;
+        [ID(101)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
 
         [IgnoreFormat]
         public LST_SingleNoteInfo NoteInfo => new()
@@ -31,7 +33,9 @@ namespace Lanostane.Models
             Size = Size,
             Highlight = Highlight,
             Type = LST_SingleNoteType.Click,
-            Flags = Flags
+
+            Flags = Flags,
+            ColorPaletteIndex = ColorPaletteIndex
         };
     }
 
@@ -44,7 +48,9 @@ namespace Lanostane.Models
         [ID(2)] public virtual float Degree { get; set; }
         [ID(3)] public virtual ushort ScrollGroup { get; set; }
         [ID(4)] public virtual bool Highlight { get; set; }
-        [ID(5)] public virtual LST_NoteSpecialFlags Flags { get; set; }
+
+        [ID(100)] public virtual LST_NoteSpecialFlags Flags { get; set; } = LST_NoteSpecialFlags.None;
+        [ID(101)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
 
         [IgnoreFormat]
         public LST_SingleNoteInfo NoteInfo => new()
@@ -55,7 +61,9 @@ namespace Lanostane.Models
             Size = Size,
             Highlight = Highlight,
             Type = LST_SingleNoteType.Catch,
-            Flags = Flags
+
+            Flags = Flags,
+            ColorPaletteIndex = ColorPaletteIndex
         };
     }
 
@@ -68,8 +76,10 @@ namespace Lanostane.Models
         [ID(2)] public virtual float Degree { get; set; }
         [ID(3)] public virtual ushort ScrollGroup { get; set; }
         [ID(4)] public virtual bool Highlight { get; set; }
-        [ID(5)] public virtual LST_NoteSpecialFlags Flags { get; set; }
-        [ID(6)] public virtual LST_FlickDir Direction { get; set; }
+        [ID(5)] public virtual LST_FlickDir Direction { get; set; }
+
+        [ID(100)] public virtual LST_NoteSpecialFlags Flags { get; set; } = LST_NoteSpecialFlags.None;
+        [ID(101)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
 
         [IgnoreFormat]
         public LST_SingleNoteInfo NoteInfo => new()
@@ -80,7 +90,9 @@ namespace Lanostane.Models
             Size = Size,
             Highlight = Highlight,
             Type = Direction == LST_FlickDir.In ? LST_SingleNoteType.FlickIn : LST_SingleNoteType.FlickOut,
-            Flags = Flags
+
+            Flags = Flags,
+            ColorPaletteIndex = ColorPaletteIndex
         };
     }
 
@@ -94,9 +106,10 @@ namespace Lanostane.Models
         [ID(3)] public virtual float Degree { get; set; }
         [ID(4)] public virtual ushort ScrollGroup { get; set; }
         [ID(5)] public virtual bool Highlight { get; set; }
-        [ID(6)] public virtual LST_NoteSpecialFlags Flags { get; set; }
+        [ID(6)] public virtual List<LST_Joint> Joints { get; protected set; } = new();
 
-        [ID(7)] public virtual List<LST_Joint> Joints { get; protected set; } = new();
+        [ID(100)] public virtual LST_NoteSpecialFlags Flags { get; set; } = LST_NoteSpecialFlags.None;
+        [ID(101)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
 
         [IgnoreFormat]
         public LST_LongNoteInfo NoteInfo => CreateNoteInfo();
@@ -111,7 +124,9 @@ namespace Lanostane.Models
                 Size = Size,
                 Highlight = Highlight,
                 Type = LST_LongNoteType.Hold,
-                Flags = Flags
+
+                Flags = Flags,
+                ColorPaletteIndex = ColorPaletteIndex
             };
             info.SetJoints(Joints.ToArray());
             return info;
@@ -128,6 +143,8 @@ namespace Lanostane.Models
         [ID(3)] public virtual ushort ScrollGroup { get; set; }
         [ID(4)] public List<LST_Joint> Joints { get; protected set; } = new();
 
+        [ID(100)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
+
         [IgnoreFormat]
         public LST_LongNoteInfo NoteInfo => CreateNoteInfo();
         public LST_LongNoteInfo CreateNoteInfo()
@@ -141,7 +158,9 @@ namespace Lanostane.Models
                 Size = LST_NoteSize.Size0,
                 Highlight = false,
                 Type = LST_LongNoteType.Hold,
-                Flags = LST_NoteSpecialFlags.None
+
+                Flags = LST_NoteSpecialFlags.None,
+                ColorPaletteIndex = ColorPaletteIndex
             };
             info.SetJoints(Joints.ToArray());
             return info;

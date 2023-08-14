@@ -52,7 +52,7 @@ namespace Utils.Unity
 
             if (holderFields.Count() <= 0)
             {
-                Debug.Log("Holder Fields count were 0");
+                EditorLog.Error("Holder Fields count were 0");
                 return Enumerable.Empty<C>();
             }
 

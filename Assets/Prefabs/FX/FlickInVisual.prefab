@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6452970738919471060}
   - component: {fileID: 6363653401497187971}
   - component: {fileID: 4665692453742929669}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7953385051218318443}
   - component: {fileID: 365904538465553149}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlickInVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}

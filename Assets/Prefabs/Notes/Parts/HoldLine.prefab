@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6236778465530498804}
   - component: {fileID: 1545871776900540118}
   - component: {fileID: 3749970418040894564}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HoldLine
   m_TagString: DoNotAppendMaterials
   m_Icon: {fileID: 0}

@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using Utils.Maths;
 using LST.Player.Motions;
+using Utils.Unity;
 
 namespace LST.Player
 {
@@ -42,7 +43,7 @@ namespace LST.Player
             GamePlay.ChartPlayer = this;
 
             _ChartOffset = -PlayerSettings.Setting.Offset / 1000.0f;
-            Debug.Log($"Play Offset: {_ChartOffset}");
+            EditorLog.Info($"Play Offset: {_ChartOffset}");
             PlaySpeed = PlayerSettings.DebugSetting.MusicPlaySpeed;
         }
 
@@ -156,7 +157,7 @@ namespace LST.Player
                     if (!MathfE.AbsApprox(ChartTime, audioTime, 0.03f))
                     {
                         ChartTime = audioTime;
-                        Debug.Log("Time Calibrated!");
+                        EditorLog.Info("Time Calibrated!");
                     }
                 }
                 OffsetChartTime = ChartTime + _ChartOffset;

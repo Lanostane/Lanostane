@@ -8,6 +8,8 @@
         public LST_SingleNoteType Type;
         public LST_NoteSize Size;
         public bool Highlight;
+
         public LST_NoteSpecialFlags Flags;
+        public LST_ColorPaletteIndex ColorPaletteIndex; //TODO: Implement ColorPalette System;
     }
 }

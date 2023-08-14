@@ -14,7 +14,9 @@ namespace Lanostane.Models
         public LST_NoteSize Size;
         public bool Highlight;
         public LST_JointInfo[] Joints;
+
         public LST_NoteSpecialFlags Flags;
+        public LST_ColorPaletteIndex ColorPaletteIndex; //TODO: Implement ColorPalette System;
 
         public void SetJoints(params LST_Joint[] joints)
         {

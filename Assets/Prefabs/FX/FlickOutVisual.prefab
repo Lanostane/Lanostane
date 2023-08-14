@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8198418947836073316}
   - component: {fileID: 5561383995263431963}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlickOutVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 4515449086820672544}
   - component: {fileID: 1074052440970885658}
   - component: {fileID: 5240410857575563067}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

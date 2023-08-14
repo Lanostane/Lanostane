@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7587684966905027637}
   - component: {fileID: 6654448556380698816}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Deco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6592823073172065436}
   - component: {fileID: 6592823073172065437}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SingleNote_S2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6592823074769439814}
   - component: {fileID: 6592823074769439815}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 304829951682963623}
   - component: {fileID: 7420393454366748201}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Deco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,7 +315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3305554201126193980}
   - component: {fileID: 8655643940795458233}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Deco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,6 +461,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlickOutVisual
       objectReference: {fileID: 0}
+    - target: {fileID: 8215888910701539029, guid: 2cc9845660f044a44a43b92f80034131, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8309748884041096453, guid: 2cc9845660f044a44a43b92f80034131, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8309748884041096453, guid: 2cc9845660f044a44a43b92f80034131, type: 3}
       propertyPath: m_TagString
       value: Untagged
@@ -539,6 +547,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Highlight_S2
       objectReference: {fileID: 0}
+    - target: {fileID: 846465491053052509, guid: ea58fc9cc8eaf2b48888de640a2d878a, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -566,9 +578,17 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2273960832193679798, guid: 3d42d0caaa33db34db3257b0b728b23f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5367862920482023575, guid: 3d42d0caaa33db34db3257b0b728b23f, type: 3}
       propertyPath: m_Name
       value: FlickInVisual
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367862920482023575, guid: 3d42d0caaa33db34db3257b0b728b23f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7953385051218318443, guid: 3d42d0caaa33db34db3257b0b728b23f, type: 3}
       propertyPath: m_RootOrder

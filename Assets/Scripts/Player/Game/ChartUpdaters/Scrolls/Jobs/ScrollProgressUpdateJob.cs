@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
+using Utils;
 using Utils.Maths;
 
 namespace LST.Player.Scrolls

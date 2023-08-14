@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 58218270}
   - component: {fileID: 58218271}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 64011491}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gameplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 82945331}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rotatable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -904,7 +904,7 @@ GameObject:
   m_Component:
   - component: {fileID: 423072862}
   - component: {fileID: 423072863}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Combo Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -958,6 +958,100 @@ MonoBehaviour:
   Side5: {fileID: 321790890}
   Side6: {fileID: 1437997813}
   Side7: {fileID: 2013172612}
+--- !u!1 &462409082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 462409084}
+  - component: {fileID: 462409083}
+  m_Layer: 0
+  m_Name: Point Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &462409083
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462409082}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 48.65
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &462409084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462409082}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: 0, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &597718132
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1579,7 +1673,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1070449374}
   - component: {fileID: 1070449375}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1774,7 +1868,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1138008111}
   - component: {fileID: 1138008112}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MainBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1858,7 +1952,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1162333742}
   - component: {fileID: 1162333743}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Judge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2059,12 +2153,12 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1
-  m_RenderingPath: -1
+    m_Bits: 256
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 8400000, guid: b101f49d36e22014f9425c613d7c7196, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
@@ -2096,7 +2190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1358716771}
   - component: {fileID: 1358716772}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2322,12 +2416,12 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1
-  m_RenderingPath: -1
+    m_Bits: 256
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 8400000, guid: b101f49d36e22014f9425c613d7c7196, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
@@ -2765,12 +2859,12 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 129
-  m_RenderingPath: -1
+    m_Bits: 385
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 8400000, guid: b101f49d36e22014f9425c613d7c7196, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
@@ -2909,7 +3003,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2015439923}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NotesAlign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3153,7 +3247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2140384105}
   - component: {fileID: 2140384106}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: JudgeGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3299,12 +3393,12 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1
-  m_RenderingPath: -1
+    m_Bits: 256
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 8400000, guid: b101f49d36e22014f9425c613d7c7196, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
@@ -3409,3 +3503,4 @@ SceneRoots:
   - {fileID: 2143661203}
   - {fileID: 1513774191}
   - {fileID: 1336077407}
+  - {fileID: 462409084}

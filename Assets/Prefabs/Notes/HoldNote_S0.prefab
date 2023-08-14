@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7256977827977461840}
   - component: {fileID: 550239695476832124}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Deco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1669691169594037042}
   - component: {fileID: 5001006321475741405}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8352627929971057648}
   - component: {fileID: 1692180325834411294}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HoldNote_S0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5315698854014822634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HeadRot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,6 +309,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Highlight_S0
       objectReference: {fileID: 0}
+    - target: {fileID: 9107370465687775793, guid: 5fe9c112afd34dc42bfbdfd9ff4bf715, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -332,6 +336,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8352627929971057648}
     m_Modifications:
+    - target: {fileID: 4918970814528987860, guid: f8096a7004bcef04994a618cf80ab65b, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7327406489680125673, guid: f8096a7004bcef04994a618cf80ab65b, type: 3}
       propertyPath: m_Name
       value: HoldLine
