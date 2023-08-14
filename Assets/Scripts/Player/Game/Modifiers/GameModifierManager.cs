@@ -55,5 +55,11 @@ namespace LST.Player.Modifiers
                 Debug.LogError($"{mod} is missing!");
             }
         }
+
+        [Button(EnableWhen.Playmode)]
+        public void ToggleShadowMode()
+        {
+            ShadowMode.SetEnabled(!ShadowMode.IsEnabled);
+        }
     }
 }
