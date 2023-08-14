@@ -11,26 +11,19 @@ namespace Utils.Maths
 
     public static class Ease
     {
-        public static readonly Vector2 P1 = new(0.80f, 0.15f);
-        public static readonly Vector2 P2 = new(0.95f, 0.10f);
-
         public static float GameSpaceEase(float t, GameSpaceEaseMode easeMode = GameSpaceEaseMode.Default)
         {
             if (easeMode == GameSpaceEaseMode.Default)
             {
                 t = Mathf.Clamp01(t);
                 t = Cubic.In(t);
-
-                Vector2 p = 3 * Mathf.Pow(1 - t, 2) * t * P1 + 3 * Mathf.Pow(t, 2) * (1 - t) * P2 + Mathf.Pow(t, 3) * Vector2.one;
-                return p.y;
+                return BezierLikeEasing(t, 0.15f, 0.10f);
             }
             else if (easeMode == GameSpaceEaseMode.Deceleration)
             {
                 t = Mathf.Clamp01(t);
-                t = Circular.Out(t);
-
-                Vector2 p = 3 * Mathf.Pow(1 - t, 2) * t * P1 + 3 * Mathf.Pow(t, 2) * (1 - t) * P2 + Mathf.Pow(t, 3) * Vector2.one;
-                return p.y;
+                t = Cubic.In(t);
+                return BezierLikeEasing(t, -0.24f, 1.0f);
             }
             else //Linear Or Default
             {
@@ -38,6 +31,15 @@ namespace Utils.Maths
                 t = Cubic.In(t);
                 return t;
             }
+        }
+
+        //Visualize: https://www.desmos.com/calculator/eqkqcnogko
+        private static float BezierLikeEasing(float t, float p1, float p2)
+        {
+            float pr1 = 3.0f * Mathf.Pow(1 - t, 2.0f) * t * p1;
+            float pr2 = 3.0f * Mathf.Pow(t, 2.0f) * (1.0f - t) * p2;
+            float pr3 = Mathf.Pow(t, 3.0f);
+            return pr1 + pr2 + pr3;
         }
 
         public static float Linear(float k)
