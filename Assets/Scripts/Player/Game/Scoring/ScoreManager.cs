@@ -26,7 +26,7 @@ namespace LST.Player.Scoring
         public static float Score { get; private set; }
         public static int ScoreRounded { get; private set; }
         public static string ScoreString { get; private set; } = string.Empty;
-        public static int TotalNotes => _NoteCount;
+        public static int TotalNotes { get; private set; }
         public static int RegisteredNotes => PerfectCount + GoodCount + MissCount;
         public static int ComboCount { get; private set; }
         public static string ComboCountString { get; private set; } = string.Empty;
@@ -35,8 +35,8 @@ namespace LST.Player.Scoring
         public static event NoteRegisteredDel NoteRegistered;
         public static event Action LastNoteRegistered;
 
-        private static double _ScorePerNote;
-        private static int _NoteCount;
+        private static double s_ScorePerNote;
+
         public static int PerfectPlusCount { get; private set; }
         public static int PerfectCount { get; private set; }
         public static int GoodCount { get; private set; }
@@ -50,8 +50,8 @@ namespace LST.Player.Scoring
 
             ComboCount = 0;
 
-            _NoteCount = maxNoteCount;
-            _ScorePerNote = MaxScore / _NoteCount;
+            TotalNotes = maxNoteCount;
+            s_ScorePerNote = MaxScore / TotalNotes;
 
             Reset();
         }
@@ -73,7 +73,7 @@ namespace LST.Player.Scoring
         public static void RegisterNote(ScoreData data)
         {
             var registered = RegisteredCount;
-            if (registered == _NoteCount)
+            if (registered == TotalNotes)
             {
                 return;
             }
@@ -114,7 +114,7 @@ namespace LST.Player.Scoring
             
             UpdateScore();
             NoteRegistered?.Invoke(data.Type, data.Degree);
-            if (registered == _NoteCount)
+            if (registered == TotalNotes)
             {
                 LastNoteRegistered?.Invoke();
             }
@@ -122,8 +122,8 @@ namespace LST.Player.Scoring
 
         private static void UpdateScore()
         {
-            var perfectScore = _ScorePerNote * PerfectCount;
-            var goodScore = _ScorePerNote * GoodCount * GoodScoreMult;
+            double perfectScore = s_ScorePerNote * PerfectCount;
+            double goodScore = s_ScorePerNote * GoodCount * GoodScoreMult;
 
             Score = (float)(perfectScore + goodScore + PerfectPlusCount);
             ScoreRounded = Mathf.RoundToInt(Score);

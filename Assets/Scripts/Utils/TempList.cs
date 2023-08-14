@@ -4,12 +4,12 @@ namespace Utils
 {
     public static class TempList<T>
     {
-        private readonly static List<T> _Temp = new();
+        private static readonly List<T> s_Temp = new();
 
         public static IList<T> GetList()
         {
-            _Temp.Clear();
-            return _Temp;
+            s_Temp.Clear();
+            return s_Temp;
         }
     }
 }

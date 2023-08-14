@@ -7,19 +7,19 @@ namespace Utils.Unity
 {
     public sealed class SpriteGroup : MonoBehaviour
     {
-        private SpriteRenderer[] Renderers = Array.Empty<SpriteRenderer>();
+        private SpriteRenderer[] _Renderers = Array.Empty<SpriteRenderer>();
 
         void Start()
         {
-            Renderers = GetComponentsInChildren<SpriteRenderer>(includeInactive: true);
+            _Renderers = GetComponentsInChildren<SpriteRenderer>(includeInactive: true);
         }
 
         public void SetAlpha(float alpha)
         {
-            int length = Renderers.Length;
+            int length = _Renderers.Length;
             for(int i = 0; i < length; i++)
             {
-                var renderer = Renderers[i];
+                var renderer = _Renderers[i];
                 var color = renderer.color;
                 color.a = alpha;
                 renderer.color = color;

@@ -37,7 +37,7 @@ namespace LST.Player.Motions
         public const float InitialRho = 0.0f;
         public const float InitialHeight = -20.0f;
         public const float InitialRotation = 0.0f;
-        public readonly static Vector3 InitialXY = Vector3.zero;
+        public static readonly Vector3 InitialXY = Vector3.zero;
 
         public GameCameraIndex CameraIndex;
         public Camera Cam;
@@ -45,9 +45,9 @@ namespace LST.Player.Motions
 
         public float CurrentRotation { get; private set; }
 
-        private readonly MotionsRotation _Rots = new();
-        private readonly MotionsXY _XYs = new();
-        private readonly MotionsHeight _Heights = new();
+        private readonly MotionsRotation _RotMos = new();
+        private readonly MotionsXY _XYMos = new();
+        private readonly MotionsHeight _HeightMos = new();
 
         public void Setup(LST_Chart chart)
         {
@@ -55,28 +55,28 @@ namespace LST.Player.Motions
             {
                 foreach (var rot in chart.RotationMos)
                 {
-                    _Rots.AddMotion(rot);
+                    _RotMos.AddMotion(rot);
                 }
-                _Rots.OnUpdateMotion += Update_Rotation;
+                _RotMos.OnUpdateMotion += Update_Rotation;
             }
 
             foreach (var xyl in chart.LinearMos)
             {
-                _XYs.AddMotion(xyl);
+                _XYMos.AddMotion(xyl);
             }
 
             foreach (var xyc in chart.CirclerMos)
             {
-                _XYs.AddMotion(xyc);
+                _XYMos.AddMotion(xyc);
             }
 
             foreach (var height in chart.HeightMos)
             {
-                _Heights.AddMotion(height);
+                _HeightMos.AddMotion(height);
             }
 
-            _XYs.OnUpdateMotion += Update_XY;
-            _Heights.OnUpdateMotion += Update_Height;
+            _XYMos.OnUpdateMotion += Update_XY;
+            _HeightMos.OnUpdateMotion += Update_Height;
         }
 
         private void Update_Height(HeightMotion m, float p)
@@ -108,9 +108,9 @@ namespace LST.Player.Motions
 
         public void SortData()
         {
-            _XYs.UpdateMotionAbsData();
-            _Heights.UpdateMotionAbsData();
-            _Rots.UpdateMotionAbsData();
+            _XYMos.UpdateMotionAbsData();
+            _HeightMos.UpdateMotionAbsData();
+            _RotMos.UpdateMotionAbsData();
         }
 
         public void SetCameraTransform(Vector3 xyPos, float absHeight)
@@ -156,16 +156,16 @@ namespace LST.Player.Motions
 
         public void TimeUpdate(float chartTime)
         {
-            _Rots.UpdateChartTime(chartTime);
-            _XYs.UpdateChartTime(chartTime);
-            _Heights.UpdateChartTime(chartTime);
+            _RotMos.UpdateChartTime(chartTime);
+            _XYMos.UpdateChartTime(chartTime);
+            _HeightMos.UpdateChartTime(chartTime);
         }
 
         public void CleanUp()
         {
-            _Rots.Clear();
-            _XYs.Clear();
-            _Heights.Clear();
+            _RotMos.Clear();
+            _XYMos.Clear();
+            _HeightMos.Clear();
         }
 
         public void StartDefaultMotion(float duration)

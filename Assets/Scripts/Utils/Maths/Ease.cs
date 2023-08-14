@@ -11,8 +11,8 @@ namespace Utils.Maths
 
     public static class Ease
     {
-        private readonly static Vector2 P1 = new(0.80f, 0.15f);
-        private readonly static Vector2 P2 = new(0.95f, 0.10f);
+        public static readonly Vector2 P1 = new(0.80f, 0.15f);
+        public static readonly Vector2 P2 = new(0.95f, 0.10f);
 
         public static float GameSpaceEase(float t, GameSpaceEaseMode easeMode = GameSpaceEaseMode.Default)
         {
@@ -21,7 +21,7 @@ namespace Utils.Maths
                 t = Mathf.Clamp01(t);
                 t = Quartic.In(t);
 
-                var p = 3 * Mathf.Pow(1 - t, 2) * t * P1 + 3 * Mathf.Pow(t, 2) * (1 - t) * P2 + Mathf.Pow(t, 3) * Vector2.one;
+                Vector2 p = 3 * Mathf.Pow(1 - t, 2) * t * P1 + 3 * Mathf.Pow(t, 2) * (1 - t) * P2 + Mathf.Pow(t, 3) * Vector2.one;
                 return p.y;
             }
             else if (easeMode == GameSpaceEaseMode.Deceleration)
@@ -29,7 +29,7 @@ namespace Utils.Maths
                 t = Mathf.Clamp01(t);
                 t = Circular.Out(t);
 
-                var p = 3 * Mathf.Pow(1 - t, 2) * t * P1 + 3 * Mathf.Pow(t, 2) * (1 - t) * P2 + Mathf.Pow(t, 3) * Vector2.one;
+                Vector2 p = 3 * Mathf.Pow(1 - t, 2) * t * P1 + 3 * Mathf.Pow(t, 2) * (1 - t) * P2 + Mathf.Pow(t, 3) * Vector2.one;
                 return p.y;
             }
             else //Linear Or Default
@@ -204,23 +204,23 @@ namespace Utils.Maths
 
         public class Back
         {
-            const float s = 1.70158f;
-            const float s2 = 2.5949095f;
+            public const float C1 = 1.70158f;
+            public const float C2 = 2.5949095f;
 
             public static float In(float k)
             {
-                return k * k * ((s + 1f) * k - s);
+                return k * k * ((C1 + 1f) * k - C1);
             }
 
             public static float Out(float k)
             {
-                return (k -= 1f) * k * ((s + 1f) * k + s) + 1f;
+                return (k -= 1f) * k * ((C1 + 1f) * k + C1) + 1f;
             }
 
             public static float InOut(float k)
             {
-                if ((k *= 2f) < 1f) return 0.5f * (k * k * ((s2 + 1f) * k - s2));
-                return 0.5f * ((k -= 2f) * k * ((s2 + 1f) * k + s2) + 2f);
+                if ((k *= 2f) < 1f) return 0.5f * (k * k * ((C2 + 1f) * k - C2));
+                return 0.5f * ((k -= 2f) * k * ((C2 + 1f) * k + C2) + 2f);
             }
         };
 

@@ -11,7 +11,7 @@ namespace Utils.Jsons
 {
     public static class UnityJSON
     {
-        private static readonly JsonSerializerSettings _Settings = new()
+        private static readonly JsonSerializerSettings s_Settings = new()
         {
             Converters = new JsonConverter[]
             {
@@ -23,12 +23,12 @@ namespace Utils.Jsons
 
         public static string Serialize(object obj)
         {
-            return JsonConvert.SerializeObject(obj, _Settings);
+            return JsonConvert.SerializeObject(obj, s_Settings);
         }
 
         public static T Deserialize<T>(string json)
         {
-            return JsonConvert.DeserializeObject<T>(json, _Settings);
+            return JsonConvert.DeserializeObject<T>(json, s_Settings);
         }
     }
 }

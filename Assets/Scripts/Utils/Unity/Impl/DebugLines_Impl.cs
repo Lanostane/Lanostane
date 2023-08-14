@@ -1,6 +1,7 @@
 ﻿using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 namespace Utils.Unity.Impl
@@ -13,6 +14,7 @@ namespace Utils.Unity.Impl
 
         [ReadOnly]
         [SerializeField]
+        [SuppressMessage("CodeQuality", "IDE0052:Remove unread private members", Justification = "Yeah")]
         private int _RemainingInPool = 0;
 
         private Queue<LineRenderer> _AllocatableLines;

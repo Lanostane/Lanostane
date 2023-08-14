@@ -7993,8 +7993,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d753f780a841d174191a2333072a7cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ChartToLoad>k__BackingField: {fileID: 4900000, guid: 1030331ae303be249b4833e579af1884, type: 3}
-  <MusicToPlay>k__BackingField: {fileID: 8300000, guid: ffb10a4a6379bc24e8db004721fdd94c, type: 3}
+  <ChartToLoad>k__BackingField: {fileID: 4900000, guid: c51ca92b17875974da4154d1e5441d1b, type: 3}
+  <MusicToPlay>k__BackingField: {fileID: 8300000, guid: c1ecc76ebae71934ca290e9220d5415f, type: 3}
 --- !u!4 &1216265983
 Transform:
   m_ObjectHideFlags: 0
@@ -9487,7 +9487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UserData:
-    Offset: 20
+    Offset: 35
     ScrollSpeed: 7
     MasterVolume: 1
     SFXVolume: 1

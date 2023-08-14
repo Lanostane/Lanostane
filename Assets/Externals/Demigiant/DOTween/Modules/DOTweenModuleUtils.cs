@@ -25,7 +25,7 @@ namespace DG.Tweening
     /// </summary>
 	public static class DOTweenModuleUtils
     {
-        static bool _initialized;
+        static bool s_Initialized;
 
         #region Reflection
 
@@ -37,9 +37,9 @@ namespace DG.Tweening
 #endif
         public static void Init()
         {
-            if (_initialized) return;
+            if (s_Initialized) return;
 
-            _initialized = true;
+            s_Initialized = true;
             DOTweenExternalCommand.SetOrientationOnPath += Physics.SetOrientationOnPath;
 
 #if UNITY_EDITOR

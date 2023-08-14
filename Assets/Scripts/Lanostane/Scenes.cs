@@ -25,18 +25,18 @@ namespace Lanostane
 
     public static class Scenes
     {
-        private readonly static Dictionary<SceneName, SceneInfo> _Lookup = new();
+        private static readonly Dictionary<SceneName, SceneInfo> s_Lookup = new();
 
         static Scenes()
         {
-            _Lookup.Add(SceneName.Main, new()
+            s_Lookup.Add(SceneName.Main, new()
             {
                 Type = SceneName.Main,
                 SceneToLoad = "_Main",
                 LoadMode = LoadSceneMode.Single
             });
 
-            _Lookup.Add(SceneName.GamePlay, new()
+            s_Lookup.Add(SceneName.GamePlay, new()
             {
                 Type = SceneName.GamePlay,
                 SceneToLoad = "GamePlay",
@@ -46,7 +46,7 @@ namespace Lanostane
 
         public static bool IsLoaded(SceneName scene)
         {
-            if (!_Lookup.TryGetValue(scene, out var info))
+            if (!s_Lookup.TryGetValue(scene, out var info))
             {
                 Debug.LogError($"SceneName: {scene} is not definied or registered!");
                 return false;
@@ -63,7 +63,7 @@ namespace Lanostane
 
         public static AsyncOperation Load(SceneName scene)
         {
-            if (!_Lookup.TryGetValue(scene, out var info))
+            if (!s_Lookup.TryGetValue(scene, out var info))
             {
                 Debug.LogError($"SceneName: {scene} is not definied or registered!");
                 return null;
@@ -86,7 +86,7 @@ namespace Lanostane
 
         public static AsyncOperation Unload(SceneName scene)
         {
-            if (!_Lookup.TryGetValue(scene, out var info))
+            if (!s_Lookup.TryGetValue(scene, out var info))
             {
                 Debug.LogError($"SceneName: {scene} is not definied or registered!");
                 return null;

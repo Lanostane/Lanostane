@@ -1,4 +1,5 @@
 ﻿using LST.Player.Game.Modifiers;
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;

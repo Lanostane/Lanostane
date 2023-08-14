@@ -11,24 +11,24 @@ namespace Utils.Unity
 {
     public static class Coroutines
     {
-        private static Coroutines_Impl _Instance;
+        private static Coroutines_Impl s_Instance;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Setup()
         {
             var dispatcher = new GameObject($"[{nameof(Coroutine)}]");
-            _Instance = dispatcher.AddComponent<Coroutines_Impl>();
+            s_Instance = dispatcher.AddComponent<Coroutines_Impl>();
             UnityEngine.Object.DontDestroyOnLoad(dispatcher);
         }
 
         public static Coroutine Start(IEnumerator routine)
         {
-            return _Instance.StartCoroutine(routine);
+            return s_Instance.StartCoroutine(routine);
         }
 
         public static void Stop(Coroutine routine)
         {
-            _Instance.StopCoroutine(routine);
+            s_Instance.StopCoroutine(routine);
         }
     }
 }

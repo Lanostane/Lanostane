@@ -1,9 +1,8 @@
 ﻿using Lanostane.Models;
-using UnityEngine;
-using Utils.Maths;
 using LST.Player.Judge;
 using LST.Player.Scrolls;
-using Utils.Unity;
+using UnityEngine;
+using Utils.Maths;
 
 namespace LST.Player.Graphics
 {
@@ -28,7 +27,7 @@ namespace LST.Player.Graphics
         public void Setup(LST_SingleNoteInfo info)
         {
             Timing = info.Timing;
-            var scrollTiming = GamePlay.ScrollUpdater.GetScrollTimingByTime(info.ScrollGroup, Timing);
+            Millisecond scrollTiming = GamePlay.ScrollUpdater.GetScrollTimingByTime(info.ScrollGroup, Timing);
             ScrollTiming = new(info.ScrollGroup, scrollTiming);
 
             SetNoteType(info.Type);
@@ -37,9 +36,9 @@ namespace LST.Player.Graphics
             transform.localPosition = Vector3.zero;
             transform.localEulerAngles = new(0.0f, 0.0f, info.Degree);
 
-            var x = Mathf.Sin(Mathf.Deg2Rad * info.Degree);
-            var y = -Mathf.Cos(Mathf.Deg2Rad * info.Degree);
-            var dir = new Vector3(x, y, 0.0f);
+            float x = Mathf.Sin(Mathf.Deg2Rad * info.Degree);
+            float y = -Mathf.Cos(Mathf.Deg2Rad * info.Degree);
+            Vector3 dir = new(x, y, 0.0f);
             _StartPosition = dir * GameConst.SpaceStart;
             _EndPosition = dir * GameConst.SpaceEnd;
 

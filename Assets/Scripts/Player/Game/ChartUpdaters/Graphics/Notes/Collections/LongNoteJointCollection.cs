@@ -21,18 +21,16 @@ namespace LST.Player.Graphics
 
     public sealed class LongNoteJointCollection : IEnumerable<LongNoteJointInfo>
     {
-        public float StartTiming => _Timing;
-        public float EndTiming => _Timing + _Duration;
-        public float TotalDuration => _Duration;
+        public float StartTiming { get; private set; }
+        public float EndTiming => StartTiming + TotalDuration;
+        public float TotalDuration { get; private set; }
 
-        private float _Timing;
-        private float _Duration;
         private readonly List<LongNoteJointInfo> _Joints = new();
 
         public void Setup(LST_LongNoteInfo info)
         {
-            _Timing = info.Timing;
-            _Duration = info.Duration;
+            StartTiming = info.Timing;
+            TotalDuration = info.Duration;
 
 
             if (info.Joints.Length <= 0)
@@ -73,18 +71,18 @@ namespace LST.Player.Graphics
 
         public float GetDegreeByProgress(float progress01)
         {
-            var time = Mathf.Lerp(_Timing, _Timing + _Duration, progress01);
+            var time = Mathf.Lerp(StartTiming, StartTiming + TotalDuration, progress01);
             return GetDegreeByTime(time);
         }
 
         public float GetDegreeByTime(float time)
         {
-            if (time >= _Timing + _Duration)
+            if (time >= StartTiming + TotalDuration)
             {
                 return _Joints.Last().EndDeg;
             }
 
-            if (time <= _Timing)
+            if (time <= StartTiming)
             {
                 return _Joints.First().StartDeg;
             }
@@ -104,7 +102,7 @@ namespace LST.Player.Graphics
 
         public float GetProgressByTime(float time)
         {
-            return Mathf.InverseLerp(_Timing, _Timing + _Duration, time);
+            return Mathf.InverseLerp(StartTiming, StartTiming + TotalDuration, time);
         }
 
         public bool TryGetLastJointIndex(float timing, out int index)

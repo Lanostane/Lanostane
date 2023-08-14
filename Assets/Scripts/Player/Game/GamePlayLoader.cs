@@ -1,5 +1,6 @@
 ﻿using LST.Player.UI;
 using NaughtyAttributes;
+//using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace LST.Player
             GamePlay.GamePlayLoader = this;
         }
 
-        [Button("Load GamePlay", EButtonEnableMode.Playmode)]
+        [Button("Load GamePlay", EnableWhen.Playmode)]
         public void LoadGamePlay()
         {
             PlayerSettings.LoadFromDisk();
@@ -50,7 +51,7 @@ namespace LST.Player
             });
         }
 
-        [Button("Unload GamePlay", EButtonEnableMode.Playmode)]
+        [Button("Unload GamePlay", EnableWhen.Playmode)]
         public void UnloadGamePlay()
         {
             LoadingWorker.Instance.AddSceneUnloadJob(Lanostane.SceneName.GamePlay);

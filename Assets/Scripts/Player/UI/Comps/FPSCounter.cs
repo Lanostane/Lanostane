@@ -12,10 +12,10 @@ namespace LST.Player.UI
             StartCoroutine(FPSUpdate());
         }
 
-        int fps = 0;
+        int _Fps = 0;
         void Update()
         {
-            fps++;
+            _Fps++;
         }
 
         IEnumerator FPSUpdate()
@@ -24,8 +24,8 @@ namespace LST.Player.UI
             while (true)
             {
                 yield return yielder;
-                TextField.text = (fps * 8).ToString();
-                fps = 0;
+                TextField.text = (_Fps * 8).ToString();
+                _Fps = 0;
             }
         }
     }

@@ -51,13 +51,13 @@ namespace LST.Player
 
         private AudioMixer _Mixer;
 
-        [Button(null, EButtonEnableMode.Playmode)]
+        [Button(null, EnableWhen.Playmode)]
         public static void LoadFromDisk()
         {
 
         }
 
-        [Button(null, EButtonEnableMode.Playmode)]
+        [Button(null, EnableWhen.Playmode)]
         public static void SaveToDisk()
         {
 

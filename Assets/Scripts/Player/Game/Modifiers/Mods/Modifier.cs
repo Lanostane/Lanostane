@@ -7,26 +7,25 @@ namespace LST.Player.Game.Modifiers
 {
     public abstract class Modifier
     {
-        private bool _Enabled = false;
-
+        public bool IsEnabled { get; private set; }
         public abstract GameModes Mode { get; }
 
         public Modifier()
         {
-            _Enabled = false;
+            IsEnabled = false;
             OnDisable();
         }
 
         public void SetEnabled(bool enabled)
         {
-            if (enabled && !_Enabled)
+            if (enabled && !IsEnabled)
             {
-                _Enabled = true;
+                IsEnabled = true;
                 OnEnable();
             }
-            else if (!enabled && _Enabled)
+            else if (!enabled && IsEnabled)
             {
-                _Enabled = false;
+                IsEnabled = false;
                 OnDisable();
             }
         }
