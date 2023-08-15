@@ -1,4 +1,4 @@
-﻿using LST.Player;
+﻿using LST.GamePlay;
 using LST.Player.UI;
 using System;
 using System.Collections.Generic;
@@ -14,13 +14,13 @@ namespace Providers
     {
         public static void PauseChart()
         {
-            GamePlay.ChartPlayer?.Pause();
+            GamePlays.ChartPlayer?.Pause();
             UIManager.Overlays?.GamePause?.SetActive(true);
         }
 
         public static void ResumeChart()
         {
-            GamePlay.ChartPlayer?.Resume();
+            GamePlays.ChartPlayer?.Resume();
             UIManager.Overlays?.GamePause?.SetActive(false);
         }
     }
