@@ -69,29 +69,19 @@ namespace Lanostane.Tracks
         public LST_ChartAppearancePreset Preset { get; set; } = LST_ChartAppearancePreset.Master;
 
         [JsonProperty("Custom")]
-        private LST_ChartAppearance _Custom { get; set; } = LST_ChartAppearance.MasterPreset;
+        private LST_ChartAppearance Custom { get; set; } = LST_ChartAppearance.MasterPreset;
 
         public LST_ChartAppearance GetAppearance()
         {
-            switch (Preset)
+            return Preset switch
             {
-                case LST_ChartAppearancePreset.Whisper:
-                    return LST_ChartAppearance.WhisperPreset;
-
-                case LST_ChartAppearancePreset.Acoustic:
-                    return LST_ChartAppearance.AcousticPreset;
-
-                case LST_ChartAppearancePreset.Ultra:
-                    return LST_ChartAppearance.UltraPreset;
-
-                case LST_ChartAppearancePreset.Master:
-                    return LST_ChartAppearance.MasterPreset;
-
-                case LST_ChartAppearancePreset.Orchestral:
-                    return LST_ChartAppearance.OrchestralPreset;
-            }
-
-            return _Custom;
+                LST_ChartAppearancePreset.Whisper => LST_ChartAppearance.WhisperPreset,
+                LST_ChartAppearancePreset.Acoustic => LST_ChartAppearance.AcousticPreset,
+                LST_ChartAppearancePreset.Ultra => LST_ChartAppearance.UltraPreset,
+                LST_ChartAppearancePreset.Master => LST_ChartAppearance.MasterPreset,
+                LST_ChartAppearancePreset.Orchestral => LST_ChartAppearance.OrchestralPreset,
+                _ => Custom,
+            };
         }
     }
 }

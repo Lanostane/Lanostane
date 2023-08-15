@@ -164,7 +164,6 @@ namespace NaughtyAttributes.Editor
                 if (GUILayout.Button(buttonText, s_buttonStyle))
                 {
                     object[] defaultParams = methodInfo.GetParameters().Select(p => p.DefaultValue).ToArray();
-                    IEnumerator methodResult = methodInfo.Invoke(target, defaultParams) as IEnumerator;
 
                     if (!Application.isPlaying)
                     {
@@ -183,7 +182,7 @@ namespace NaughtyAttributes.Editor
                             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
                         }
                     }
-                    else if (methodResult != null && target is MonoBehaviour behaviour)
+                    else if (methodInfo.Invoke(target, defaultParams) is IEnumerator methodResult && target is MonoBehaviour behaviour)
                     {
                         behaviour.StartCoroutine(methodResult);
                     }

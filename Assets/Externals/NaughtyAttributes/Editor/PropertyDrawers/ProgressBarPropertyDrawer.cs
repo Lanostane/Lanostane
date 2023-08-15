@@ -141,9 +141,9 @@ namespace NaughtyAttributes.Editor
 
         private float CastToFloat(object obj)
         {
-            if (obj is int)
+            if (obj is int intVal)
             {
-                return (int)obj;
+                return intVal;
             }
             else
             {

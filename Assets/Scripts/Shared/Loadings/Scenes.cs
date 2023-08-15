@@ -20,7 +20,7 @@ namespace Loadings
         public string SceneToLoad;
         public LoadSceneMode LoadMode;
 
-        public bool HasValidMode => LoadMode == LoadSceneMode.Single || LoadMode == LoadSceneMode.Additive;
+        public readonly bool HasValidMode => LoadMode == LoadSceneMode.Single || LoadMode == LoadSceneMode.Additive;
     }
 
     public static class Scenes

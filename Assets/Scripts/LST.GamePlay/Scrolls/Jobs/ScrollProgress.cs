@@ -12,7 +12,7 @@ namespace LST.GamePlay.Scrolls
         public float EasedProgress;
         public OutScrollType VisibleStatus;
 
-        public bool IsVisible => VisibleStatus == OutScrollType.Visible;
+        public readonly bool IsVisible => VisibleStatus == OutScrollType.Visible;
 
         public static ScrollProgress Create(Millisecond from, Millisecond to, Millisecond timing, GameSpaceEaseMode easeMode = GameSpaceEaseMode.Default)
         {

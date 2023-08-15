@@ -10,8 +10,8 @@ namespace LST.Player.UI
 {
     public class GameHeaderOverlay : BaseOverlay
     {
-        private readonly static Vector3 _HiddenScale = new(1.2f, 1.2f, 1.2f);
-        private readonly static Vector3 _VisibleScale = new(1.0f, 1.0f, 1.0f);
+        private readonly static Vector3 s_HiddenScale = new(1.2f, 1.2f, 1.2f);
+        private readonly static Vector3 s_VisibleScale = new(1.0f, 1.0f, 1.0f);
 
         public override OverlayType OverlayType => OverlayType.GameHeader;
         protected override bool AutoActiveObject => true;
@@ -19,13 +19,13 @@ namespace LST.Player.UI
 
         protected override void OnScreenDisabled()
         {
-            transform.localScale = _VisibleScale;
+            transform.localScale = s_VisibleScale;
             transform.DOScale(1.2f, 0.75f);
         }
 
         protected override void OnScreenEnabled()
         {
-            transform.localScale = _HiddenScale;
+            transform.localScale = s_HiddenScale;
             transform.DOScale(1.0f, 0.75f);
         }
     }

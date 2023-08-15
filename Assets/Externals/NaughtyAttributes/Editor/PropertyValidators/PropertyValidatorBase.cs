@@ -26,8 +26,7 @@ namespace NaughtyAttributes.Editor
 
         public static PropertyValidatorBase GetValidator(this ValidatorAttribute attr)
         {
-            PropertyValidatorBase validator;
-            if (s_ValidatorsByAttributeType.TryGetValue(attr.GetType(), out validator))
+            if (s_ValidatorsByAttributeType.TryGetValue(attr.GetType(), out var validator))
             {
                 return validator;
             }

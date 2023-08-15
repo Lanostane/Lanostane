@@ -28,12 +28,7 @@ namespace NaughtyAttributes
         public EnableIfAttributeBase(string enumName, Enum enumValue)
             : this(enumName)
         {
-            if (enumValue == null)
-            {
-                throw new ArgumentNullException(nameof(enumValue), "This parameter must be an enum value.");
-            }
-
-            EnumValue = enumValue;
+            EnumValue = enumValue ?? throw new ArgumentNullException(nameof(enumValue), "This parameter must be an enum value.");
         }
     }
 }

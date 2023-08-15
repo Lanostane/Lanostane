@@ -37,7 +37,7 @@ namespace Lanostane.Models
             H = h;
         }
 
-        public Color GetColor(LST_ColorPaletteIndex index)
+        public readonly Color GetColor(LST_ColorPaletteIndex index)
         {
             return index switch
             {

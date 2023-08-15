@@ -35,13 +35,13 @@ namespace NaughtyAttributes.Editor
 
             if (AreValuesValid(valuesObject, dropdownField))
             {
-                if (valuesObject is IList && dropdownField.FieldType == GetElementType(valuesObject))
+                if (valuesObject is IList list && dropdownField.FieldType == GetElementType(valuesObject))
                 {
                     // Selected value
                     object selectedValue = dropdownField.GetValue(target);
 
                     // Values and display options
-                    IList valuesList = (IList)valuesObject;
+                    IList valuesList = list;
                     object[] values = new object[valuesList.Count];
                     string[] displayOptions = new string[valuesList.Count];
 
@@ -62,7 +62,7 @@ namespace NaughtyAttributes.Editor
                     NaughtyEditorGUI.Dropdown(
                         rect, property.serializedObject, target, dropdownField, label.text, selectedValueIndex, values, displayOptions);
                 }
-                else if (valuesObject is IDropdownList)
+                else if (valuesObject is IDropdownList dropdownList)
                 {
                     // Current value
                     object selectedValue = dropdownField.GetValue(target);
@@ -72,7 +72,7 @@ namespace NaughtyAttributes.Editor
                     int selectedValueIndex = -1;
                     List<object> values = new List<object>();
                     List<string> displayOptions = new List<string>();
-                    IDropdownList dropdown = (IDropdownList)valuesObject;
+                    IDropdownList dropdown = dropdownList;
 
                     using (IEnumerator<KeyValuePair<string, object>> dropdownEnumerator = dropdown.GetEnumerator())
                     {

@@ -6,7 +6,7 @@ namespace LST.GamePlay.Motions
     public struct BpmMotion : IMotion
     {
         public float Timing { get; set; }
-        public float Duration => 0.0f;
+        public readonly float Duration => 0.0f;
         public float Bpm;
     }
 

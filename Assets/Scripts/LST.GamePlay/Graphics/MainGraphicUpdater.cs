@@ -4,7 +4,7 @@ namespace LST.GamePlay.Graphics
 {
     public sealed class MainGraphicUpdater : MonoBehaviour
     {
-        private readonly Vector3 ClockwiseRot = new(0.0f, 0.0f, -1.0f);
+        private readonly Vector3 _ClockwiseRot = new(0.0f, 0.0f, -1.0f);
 
         public Color JudgeColorStart;
         public Color JudgeColorEnd;
@@ -32,9 +32,9 @@ namespace LST.GamePlay.Graphics
 
         void FixedUpdate()
         {
-            Core.Rotate(0.1f * _RotPerSec * Time.fixedDeltaTime * -ClockwiseRot);
-            JudgeLine.Rotate(0.5f * _RotPerSec * Time.fixedDeltaTime * -ClockwiseRot);
-            Background.Rotate(0.5f * _RotPerSec * Time.fixedDeltaTime * ClockwiseRot);
+            Core.Rotate(0.1f * _RotPerSec * Time.fixedDeltaTime * -_ClockwiseRot);
+            JudgeLine.Rotate(0.5f * _RotPerSec * Time.fixedDeltaTime * -_ClockwiseRot);
+            Background.Rotate(0.5f * _RotPerSec * Time.fixedDeltaTime * _ClockwiseRot);
 
             JudgeLineGlow.color = Color.Lerp(JudgeColorStart, JudgeColorEnd, Mathf.PingPong(Time.time * _ColorTime, 1.0f));
         }

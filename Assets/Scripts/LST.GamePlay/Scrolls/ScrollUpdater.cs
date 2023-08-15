@@ -17,7 +17,7 @@ namespace LST.GamePlay.Scrolls
         public float Speed;
         public float Duration;
 
-        public float GetPassedTime(float time)
+        public readonly float GetPassedTime(float time)
         {
             if (time <= Timing)
                 return 0.0f;
