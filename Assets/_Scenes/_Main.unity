@@ -8906,8 +8906,6 @@ MonoBehaviour:
     Prefab: {fileID: 3535701926844905021, guid: 68911c5c4d10c7e429f6f3bbe3f832ca, type: 3}
     Parent: {fileID: 1458004884}
     Capacity: 250
-    ActiveOnAllocate: 1
-    DeactiveOnDeallocate: 1
   _RemainingInPool: 0
 --- !u!1 &1467407921
 GameObject:
@@ -9499,7 +9497,7 @@ MonoBehaviour:
     FrameRate: -1
   DebugData:
     MusicPlaySpeed: 1
-    AudoPlayEnabled: 1
+    AudoPlayEnabled: 0
 --- !u!4 &1672311988
 Transform:
   m_ObjectHideFlags: 0
