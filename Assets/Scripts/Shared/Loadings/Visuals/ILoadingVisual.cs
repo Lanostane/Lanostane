@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Loadings
+namespace Loadings.Visuals
 {
     public interface ILoadingVisual
     {

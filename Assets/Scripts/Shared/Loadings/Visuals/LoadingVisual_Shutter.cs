@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-namespace Loadings
+namespace Loadings.Visuals
 {
     public sealed class LoadingVisual_Shutter : MonoBehaviour, ILoadingVisual
     {
