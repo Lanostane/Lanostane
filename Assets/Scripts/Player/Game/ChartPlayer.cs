@@ -5,6 +5,7 @@ using UnityEngine;
 using Utils.Maths;
 using LST.Player.Motions;
 using Utils.Unity;
+using Cysharp.Threading.Tasks;
 
 namespace LST.Player
 {
@@ -12,8 +13,23 @@ namespace LST.Player
     {
         void Pause();
         void Resume();
-        void LoadChart(AudioClip music, string json);
+        UniTask LoadChart(AudioClip music, string json, IProgress<LoadChartSteps> progress);
         void StartChart();
+    }
+
+    public enum LoadChartSteps : byte
+    {
+        S0_LoadingAudio,
+        S1_LoadingChartFile,
+        S2_CreateChart,
+        S3_BuildMotions,
+        S4_PrepareMotions,
+        S5_AddScrolls,
+        S6_PrepareScrolls,
+        S7_AddSingleNotes,
+        S8_AddLongNotes,
+        S9_PrepareGraphics,
+        S10_InitializeScoring,
     }
 
     public sealed class ChartPlayer : MonoBehaviour, IChartPlayer
@@ -58,16 +74,23 @@ namespace LST.Player
             Audio.pitch = PlaySpeed;
         }
 
-        public void LoadChart(AudioClip music, string json)
+        public async UniTask LoadChart(AudioClip music, string json, IProgress<LoadChartSteps> progress)
         {
             ResetValues();
 
+            progress.Report(LoadChartSteps.S0_LoadingAudio);
             Audio.clip = music;
             MusicTime = Audio.clip.length;
+            await UniTask.Yield();
 
+            progress.Report(LoadChartSteps.S1_LoadingChartFile);
             var laChart = JsonConvert.DeserializeObject<LaChart>(json);
+            await UniTask.Yield();
+
+            progress.Report(LoadChartSteps.S2_CreateChart);
             var chart = laChart.CreateLanostaneChart();
-            _Updater.Setup(chart);
+            await _Updater.BuildFromChart(chart, progress);
+
             _ChartPlaytime = chart.SongLength;
 
             ChartLoaded = true;

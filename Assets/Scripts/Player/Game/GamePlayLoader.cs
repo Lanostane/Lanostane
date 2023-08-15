@@ -1,10 +1,13 @@
-﻿using LST.Player.UI;
+﻿using Cysharp.Threading.Tasks;
+using LST.Player.UI;
 using NaughtyAttributes;
 //using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.iOS;
 using UnityEngine;
+using Utils.Unity;
 
 namespace LST.Player
 {
@@ -38,13 +41,24 @@ namespace LST.Player
             PlayerSettings.LoadFromDisk();
 
             LoadingWorker.Instance.AddSceneLoadJob(Lanostane.SceneName.GamePlay);
-            LoadingWorker.Instance.DoLoading(new LoadingStyle()
+            LoadingWorker.Instance.AddJob(new ()
+            {
+                JobDescription = "Loading Chart...",
+                Job = () =>
+                {
+                    return GamePlay.ChartPlayer.LoadChart(MusicToPlay, ChartToLoad.text, Progress.Create<LoadChartSteps>((step)=>
+                    {
+                        EditorLog.Info($"Step Change: {step}");
+                    }));
+                }
+            });
+            LoadingWorker.Instance.StartLoading(new LoadingStyle()
             {
                 HideScreenOnFinished = true,
                 Style = LoadingStyles.BlackShutter
             }, () =>
             {
-                GamePlay.ChartPlayer.LoadChart(MusicToPlay, ChartToLoad.text);
+                
                 GamePlay.ChartPlayer.StartChart();
                 GamePlay.ScrollUpdater.ScrollingSpeed = PlayerSettings.Setting.ScrollSpeed;
                 OnLoaded?.Invoke();
@@ -54,13 +68,8 @@ namespace LST.Player
         [Button("Unload GamePlay", EnableWhen.Playmode)]
         public void UnloadGamePlay()
         {
-            LoadingWorker.Instance.AddSceneUnloadJob(Lanostane.SceneName.GamePlay);
-            LoadingWorker.Instance.AddJob(new()
-            {
-                Job = Resources.UnloadUnusedAssets,
-                JobDescription = "Unloading Unused Assets..."
-            });
-            LoadingWorker.Instance.DoLoading(new LoadingStyle()
+            LoadingWorker.Instance.AddSceneUnloadJob(Lanostane.SceneName.GamePlay, unloadUnusedAssets: true);
+            LoadingWorker.Instance.StartLoading(new LoadingStyle()
             {
                 HideScreenOnFinished = true,
                 Style = LoadingStyles.BlackShutter

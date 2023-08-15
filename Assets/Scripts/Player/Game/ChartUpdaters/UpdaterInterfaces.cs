@@ -57,7 +57,7 @@ namespace LST.Player
 
         IMotionWorker Main { get; }
 
-        void AddMotions(LST_Chart chart);
+        void AddFromChart(LST_Chart chart);
         void Prepare();
         void StartDefaultMotion(float duration);
         bool TryGetBPMByTime(float time, out float bpm);
@@ -67,6 +67,7 @@ namespace LST.Player
     public interface IScrollUpdater : IChartUpdater
     {
         float ScrollingSpeed { get; set; }
+        void AddFromChart(LST_Chart chart);
         void AddScroll(LST_ScrollChange scrollChange);
         void Prepare();
         bool TryGetGroup(ushort scrollGroupID, out ScrollGroup group);

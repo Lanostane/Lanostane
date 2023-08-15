@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Lanostane;
 using System;
 using System.Collections;
@@ -17,20 +18,22 @@ namespace LST.Player.UI
     {
         void AddJob(LoadJob job);
         void AddSceneLoadJob(SceneName scene);
-        void AddSceneUnloadJob(SceneName scene);
-        void DoLoading(LoadingStyle style, Action onDone = null);
+        void AddSceneUnloadJob(SceneName scene, bool unloadUnusedAssets = false);
+        void StartLoading(LoadingStyle style, Action onDone = null);
     }
 
     public class LoadJob
     {
         public string JobDescription;
-        public Func<AsyncOperation> Job;
+        public Func<UniTask?> Job;
         public Action DoneCallback;
     }
 
     public sealed class LoadingWorker : MonoBehaviour, ILoadingWorker
     {
         public static ILoadingWorker Instance { get; private set; } = null;
+        public Action OnDoneCallback { get; set; }
+
         private readonly Queue<LoadJob> _Jobs = new();
 
         [ChildTypeEnumValue((int)LoadingStyles.BlackShutter)]
@@ -79,24 +82,35 @@ namespace LST.Player.UI
                 JobDescription = "Loading Scenes...",
                 Job = () =>
                 {
-                    return Scenes.Load(scene);
+                    return Scenes.Load(scene).ToUniTask();
                 }
             });
         }
 
-        public void AddSceneUnloadJob(SceneName scene)
+        public void AddSceneUnloadJob(SceneName scene, bool unloadUnusedAssets = false)
         {
             AddJob(new LoadJob()
             {
                 JobDescription = "Loading Scenes...",
                 Job = () =>
                 {
-                    return Scenes.Unload(scene);
+                    return Scenes.Unload(scene).ToUniTask();
                 }
             });
+            if (unloadUnusedAssets)
+            {
+                AddJob(new LoadJob()
+                {
+                    JobDescription = "Unloading Unused Assets...",
+                    Job = () =>
+                    {
+                        return Resources.UnloadUnusedAssets().ToUniTask();
+                    }
+                });
+            }
         }
 
-        public void DoLoading(LoadingStyle style, Action onDone = null)
+        public void StartLoading(LoadingStyle style, Action onDone = null)
         {
             if (_Jobs.Count <= 0)
             {
@@ -126,13 +140,15 @@ namespace LST.Player.UI
             while (_Jobs.TryDequeue(out var job))
             {
                 var operation = job.Job.Invoke();
-                if (operation == null)
+                if (!operation.HasValue)
                     continue;
 
                 visual.SetTaskText(job.JobDescription);
-                while (!operation.isDone)
+                var awaiter = operation.Value.GetAwaiter();
+                while (!awaiter.IsCompleted)
                 {
-                    visual.SetTaskProgress(operation.progress);
+                    //TODO: Reimplement Loading System Tbh
+                    visual.SetTaskProgress(0.0f);
                     yield return null;
                 }
                 visual.SetTaskProgress(1.0f);

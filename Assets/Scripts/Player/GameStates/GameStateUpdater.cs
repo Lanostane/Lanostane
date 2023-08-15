@@ -98,7 +98,7 @@ namespace LST.Player.States
             nextState.EnterLoadJob();
 
             _LoadingInProgress = true;
-            LoadingWorker.Instance.DoLoading(LoadingStyle.Default, () =>
+            LoadingWorker.Instance.StartLoading(LoadingStyle.Default, () =>
             {
                 GC.Collect();
 

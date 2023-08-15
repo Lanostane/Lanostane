@@ -34,8 +34,10 @@ namespace LST.Player.Motions
             GamePlay.MotionUpdater = null;
         }
 
-        public void AddMotions(LST_Chart chart)
+        public void AddFromChart(LST_Chart chart)
         {
+            SetDefaultMotion(chart.Default);
+
             _Main.Setup(chart);
 
             foreach (var bpm in chart.BPMs)

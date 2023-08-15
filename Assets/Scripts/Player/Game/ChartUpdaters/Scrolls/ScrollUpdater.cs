@@ -82,6 +82,14 @@ namespace LST.Player.Scrolls
             }
         }
 
+        public void AddFromChart(LST_Chart chart)
+        {
+            foreach (var scroll in chart.Scrolls)
+            {
+                AddScroll(scroll);
+            }
+        }
+
         public void AddScroll(LST_ScrollChange scrollChange)
         {
             if (scrollChange.Group == 0)
