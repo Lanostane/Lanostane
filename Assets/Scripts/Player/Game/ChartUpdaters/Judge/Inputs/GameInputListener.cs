@@ -124,9 +124,9 @@ namespace LST.Player.Judge
             var viewport = new Vector3(
                 screenPoint.x / gameplaySize.x,
                 screenPoint.y / gameplaySize.y,
-                Vector3.Distance(MainGameCamera.Transform.position, Vector3.zero));
+                Vector3.Distance(GamePlay.MainCamTransform.position, Vector3.zero));
 
-            worldPosition = MainGameCamera.Cam.ViewportToWorldPoint(viewport);
+            worldPosition = GamePlay.MainCam.ViewportToWorldPoint(viewport);
             worldPosition.z = 0.0f;
 
             canSendEvent = worldPosition.sqrMagnitude >= 30.25f; //Input that not far about 5.5m from core
@@ -137,7 +137,7 @@ namespace LST.Player.Judge
             if (GamePlay.NoteJudgeUpdater == null)
                 return false;
 
-            if (MainGameCamera.Cam == null)
+            if (GamePlay.MainCam == null)
                 return false;
 
             return true;

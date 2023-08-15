@@ -8,21 +8,18 @@ using UnityEngine;
 namespace LST.Player
 {
     [RequireComponent(typeof(Camera))]
-    public sealed class MainGameCamera : MonoBehaviour
+    internal sealed class MainGameCamera : MonoBehaviour
     {
-        public static Camera Cam { get; private set; }
-        public static Transform Transform { get; private set; }
-
         void Awake()
         {
-            Cam = GetComponent<Camera>();
-            Transform = Cam.transform;
+            GamePlay.MainCam = GetComponent<Camera>();
+            GamePlay.MainCamTransform = transform;
         }
 
         void OnDestroy()
         {
-            Cam = null;
-            Transform = null;
+            GamePlay.MainCam = null;
+            GamePlay.MainCamTransform = null;
         }
     }
 }

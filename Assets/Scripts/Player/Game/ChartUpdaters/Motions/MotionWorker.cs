@@ -1,4 +1,5 @@
 ﻿using Lanostane.Models;
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,9 +41,12 @@ namespace LST.Player.Motions
         public static readonly Vector3 InitialXY = Vector3.zero;
 
         public GameCameraIndex CameraIndex;
-        public Camera Cam;
+        public Transform CamTransform;
+
+        [EnableIf(nameof(IsMainWorker))]
         public Transform RotationOrigin;
 
+        public bool IsMainWorker => CameraIndex == GameCameraIndex.Main;
         public float CurrentRotation { get; private set; }
 
         private readonly MotionsRotation _RotMos = new();
@@ -116,29 +120,29 @@ namespace LST.Player.Motions
         public void SetCameraTransform(Vector3 xyPos, float absHeight)
         {
             xyPos.z = absHeight;
-            MainGameCamera.Transform.position = xyPos;
+            CamTransform.position = xyPos;
         }
 
         public void SetCameraPos(Vector3 xyPos)
         {
-            var cameraPos = MainGameCamera.Transform.position;
+            var cameraPos = CamTransform.position;
             xyPos.z = cameraPos.z;
-            Cam.transform.position = xyPos;
+            CamTransform.position = xyPos;
         }
 
         public void SetCameraPos(PolarPoint polar)
         {
-            var height = MainGameCamera.Transform.position.z;
+            var height = CamTransform.position.z;
             var coord = polar.ToCoord();
             coord.z = height;
-            Cam.transform.position = coord;
+            CamTransform.position = coord;
         }
 
         public void SetCameraHeight(float absHeight)
         {
-            var cameraPos = MainGameCamera.Transform.position;
+            var cameraPos = CamTransform.position;
             cameraPos.z = absHeight;
-            Cam.transform.position = cameraPos;
+            CamTransform.position = cameraPos;
         }
 
         public void SetRotation(float absRotation)
