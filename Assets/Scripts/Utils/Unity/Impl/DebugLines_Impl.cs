@@ -3,38 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
+using Utils.Unity.Poolings;
 
 namespace Utils.Unity.Impl
 {
     internal class DebugLines_Impl : MonoBehaviour
     {
         public bool Enabled;
-        public GameObject LineRendererPrefab;
-        public int PoolCount = 200;
+        public GameObjectPoolDescriptor PoolOptions;
 
         [ReadOnly]
         [SerializeField]
         [SuppressMessage("CodeQuality", "IDE0052:Remove unread private members", Justification = "Yeah")]
         private int _RemainingInPool = 0;
 
-        private Queue<LineRenderer> _AllocatableLines;
         private Vector3[] _Buffer;
+        private GameObjectPool<LineRenderer> _Pool;
 
         internal static DebugLines_Impl Instance { get; private set; }
 
         void Awake()
         {
             Instance = this;
-
-            _AllocatableLines = new(PoolCount);
             _Buffer = new Vector3[2];
-            for (int i = 0; i<PoolCount; i++)
-            {
-                var obj = Instantiate(LineRendererPrefab, transform);
-                obj.SetActive(false);
-                _AllocatableLines.Enqueue(obj.GetComponent<LineRenderer>());
-            }
-            _RemainingInPool = _AllocatableLines.Count;
+            _Pool = new(PoolOptions);
+            _RemainingInPool = _Pool.RemainingCount;
         }
 
         public void DrawLine(Vector3 pos1, Vector3 pos2, Color color, float time)
@@ -42,7 +35,7 @@ namespace Utils.Unity.Impl
             if (!Enabled)
                 return;
 
-            if (_AllocatableLines.TryDequeue(out var line))
+            if (_Pool.TryAllocate(out var line))
             {
                 StartCoroutine(SetLineLife(line, time));
 
@@ -53,7 +46,7 @@ namespace Utils.Unity.Impl
                 _Buffer[1] = pos2;
                 line.SetPositions(_Buffer);
 
-                _RemainingInPool = _AllocatableLines.Count;
+                _RemainingInPool = _Pool.RemainingCount;
             }
         }
 
@@ -64,15 +57,15 @@ namespace Utils.Unity.Impl
             yield return new WaitForSecondsRealtime(time);
 
             renderer.gameObject.SetActive(false);
-            _AllocatableLines.Enqueue(renderer);
-            _RemainingInPool = _AllocatableLines.Count;
+            _Pool.Deallocate(renderer);
+            _RemainingInPool = _Pool.RemainingCount;
         }
 
         void OnDestroy()
         {
             Instance = null;
-            _AllocatableLines.Clear();
-            _AllocatableLines = null;
+            _Pool.Dispose();
+            _Pool = null;
             _Buffer = null;
         }
     }
