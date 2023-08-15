@@ -262,18 +262,18 @@ namespace Lanostane.Models.ThirdParty
             return laEase switch
             {
                 LaEaseType.Linear => LST_Ease.Linear,
-                LaEaseType.InQuart => LST_Ease.InQuart,
-                LaEaseType.OutQuart => LST_Ease.OutQuart,
-                LaEaseType.InOutQuart => LST_Ease.InOutQuart,
+                LaEaseType.InQuart => LST_Ease.InQuartic,
+                LaEaseType.OutQuart => LST_Ease.OutQuartic,
+                LaEaseType.InOutQuart => LST_Ease.InOutQuartic,
                 LaEaseType.InCubic => LST_Ease.InCubic,
                 LaEaseType.OutCubic => LST_Ease.OutCubic,
                 LaEaseType.InOutCubic => LST_Ease.InOutCubic,
-                LaEaseType.InExpo => LST_Ease.InExpo,
-                LaEaseType.OutExpo => LST_Ease.OutExpo,
-                LaEaseType.InOutExpo => LST_Ease.InOutExpo,
-                LaEaseType.InSine => LST_Ease.InSine,
-                LaEaseType.OutSine => LST_Ease.OutSine,
-                LaEaseType.InOutSine => LST_Ease.InOutSine,
+                LaEaseType.InExpo => LST_Ease.InExponential,
+                LaEaseType.OutExpo => LST_Ease.OutExponential,
+                LaEaseType.InOutExpo => LST_Ease.InOutExponential,
+                LaEaseType.InSine => LST_Ease.InSinusoidal,
+                LaEaseType.OutSine => LST_Ease.OutSinusoidal,
+                LaEaseType.InOutSine => LST_Ease.InOutSinusoidal,
                 _ => LST_Ease.Linear,
             };
         }
