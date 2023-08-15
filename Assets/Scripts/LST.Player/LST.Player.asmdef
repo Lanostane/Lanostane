@@ -1,6 +1,6 @@
 {
-    "name": "LST.Players",
-    "rootNamespace": "LST.Players",
+    "name": "LST.Player",
+    "rootNamespace": "LST.Player",
     "references": [
         "GUID:5cd249c0bd25d4d46ab1f19cbcead92f",
         "GUID:0d0b008e4a81bf34e9395875d44ec166",
