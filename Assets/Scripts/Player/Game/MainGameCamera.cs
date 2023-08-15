@@ -8,7 +8,7 @@ using UnityEngine;
 namespace LST.Player
 {
     [RequireComponent(typeof(Camera))]
-    public sealed class GameCamera : MonoBehaviour
+    public sealed class MainGameCamera : MonoBehaviour
     {
         public static Camera Cam { get; private set; }
         public static Transform Transform { get; private set; }

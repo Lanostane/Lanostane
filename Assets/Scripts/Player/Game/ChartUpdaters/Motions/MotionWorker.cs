@@ -116,19 +116,19 @@ namespace LST.Player.Motions
         public void SetCameraTransform(Vector3 xyPos, float absHeight)
         {
             xyPos.z = absHeight;
-            GameCamera.Transform.position = xyPos;
+            MainGameCamera.Transform.position = xyPos;
         }
 
         public void SetCameraPos(Vector3 xyPos)
         {
-            var cameraPos = GameCamera.Transform.position;
+            var cameraPos = MainGameCamera.Transform.position;
             xyPos.z = cameraPos.z;
             Cam.transform.position = xyPos;
         }
 
         public void SetCameraPos(PolarPoint polar)
         {
-            var height = GameCamera.Transform.position.z;
+            var height = MainGameCamera.Transform.position.z;
             var coord = polar.ToCoord();
             coord.z = height;
             Cam.transform.position = coord;
@@ -136,7 +136,7 @@ namespace LST.Player.Motions
 
         public void SetCameraHeight(float absHeight)
         {
-            var cameraPos = GameCamera.Transform.position;
+            var cameraPos = MainGameCamera.Transform.position;
             cameraPos.z = absHeight;
             Cam.transform.position = cameraPos;
         }
