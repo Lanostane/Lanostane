@@ -11,7 +11,9 @@ namespace Loadings
     public enum SceneName
     {
         Main,
-        GamePlay
+        GamePlay,
+        PlayerUI,
+        CreatorUI
     }
 
     public struct SceneInfo
@@ -34,6 +36,20 @@ namespace Loadings
                 Type = SceneName.Main,
                 SceneToLoad = "_Main",
                 LoadMode = LoadSceneMode.Single
+            });
+
+            s_Lookup.Add(SceneName.PlayerUI, new()
+            {
+                Type = SceneName.PlayerUI,
+                SceneToLoad = "PlayerUI",
+                LoadMode = LoadSceneMode.Additive
+            });
+
+            s_Lookup.Add(SceneName.CreatorUI, new()
+            {
+                Type = SceneName.CreatorUI,
+                SceneToLoad = "CreatorUI",
+                LoadMode = LoadSceneMode.Additive
             });
 
             s_Lookup.Add(SceneName.GamePlay, new()
