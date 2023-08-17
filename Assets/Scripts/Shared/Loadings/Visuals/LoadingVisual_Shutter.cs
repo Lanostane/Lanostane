@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using Utils.Unity;
 
 namespace Loadings.Visuals
 {
@@ -15,6 +16,8 @@ namespace Loadings.Visuals
         public Transform Shutter;
         public TextMeshProUGUI LoadingText;
         public TextMeshProUGUI ProgressText;
+        public float ShowDuration = 0.22f;
+        public float HideDuration = 0.22f;
 
         public LoadingStyles Type => LoadingStyles.BlackShutter;
 
@@ -44,7 +47,7 @@ namespace Loadings.Visuals
                 Shutter.gameObject.SetActive(true);
                 Shutter.localScale = new(1.0f, 1.0f, 1.0f);
                 yield return Shutter
-                        .DOScaleY(0.0f, 0.45f)
+                        .DOScaleY(0.0f, HideDuration)
                         .SetEase(Ease.OutCirc)
                         .WaitForCompletion();
                 Shutter.gameObject.SetActive(false);
@@ -70,7 +73,7 @@ namespace Loadings.Visuals
                 Shutter.gameObject.SetActive(true);
                 Shutter.localScale = new(1.0f, 0.0f, 1.0f);
                 yield return Shutter
-                        .DOScaleY(1.0f, 0.45f)
+                        .DOScaleY(1.0f, ShowDuration)
                         .SetEase(Ease.OutCirc)
                         .WaitForCompletion();
                 LoadingText.gameObject.SetActive(true);
@@ -103,6 +106,11 @@ namespace Loadings.Visuals
         public void SetTaskText(string text)
         {
             LoadingText.text = text;
+        }
+
+        public UnityEngine.Object GetUnityObjectReference()
+        {
+            return this;
         }
     }
 }

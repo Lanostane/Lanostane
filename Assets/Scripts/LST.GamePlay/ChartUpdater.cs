@@ -29,7 +29,7 @@ namespace LST.GamePlay
             await UniTask.Yield();
 
             int jobCount = 0;
-            int jobPerFrame = 5;
+            int jobPerFrame = 20;
             progress?.Report(LoadChartSteps.S7_AddSingleNotes);
             foreach (var note in chart.TapNotes)
             {

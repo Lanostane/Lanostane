@@ -18,4 +18,17 @@ namespace Utils.Unity
         public int GetInstanceID();
         public UnityEngine.Object GetUnityObjectReference();
     }
+
+    public static class IUnityObjectExtension
+    {
+        public static bool IsNull(this IUnityObject obj)
+        {
+            return obj == null || obj.GetUnityObjectReference() == null;
+        }
+
+        public static bool IsNotNull(this IUnityObject obj)
+        {
+            return obj != null && obj.GetUnityObjectReference() != null;
+        }
+    }
 }

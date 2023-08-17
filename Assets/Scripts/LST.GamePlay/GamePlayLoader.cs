@@ -39,17 +39,7 @@ namespace LST.GamePlay
         public void LoadGamePlay()
         {
             LoadingWorker.Instance.AddSceneLoadJob(SceneName.GamePlay);
-            LoadingWorker.Instance.AddJob(new()
-            {
-                JobDescription = "Loading Chart...",
-                Job = () =>
-                {
-                    return GamePlays.ChartPlayer.LoadChart(MusicToPlay, ChartToLoad.text, Progress.Create<LoadChartSteps>((step) =>
-                    {
-                        EditorLog.Info($"Step Change: {step}");
-                    }));
-                }
-            });
+            LoadingWorker.Instance.AddJob(new LoadGamePlayJob(MusicToPlay, ChartToLoad));
             LoadingWorker.Instance.StartLoading(new LoadingStyle()
             {
                 HideScreenOnFinished = true,

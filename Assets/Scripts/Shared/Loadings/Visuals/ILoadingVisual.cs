@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Utils.Unity;
 
 namespace Loadings.Visuals
 {
-    public interface ILoadingVisual
+    public interface ILoadingVisual : IUnityObject
     {
         LoadingStyles Type { get; }
-        GameObject gameObject { get; }
         void Setup();
         Coroutine ShowScreen(bool animation = true);
         Coroutine HideScreen(bool animation = true);

@@ -16,7 +16,7 @@ namespace Loadings
 {
     public interface ILoadingWorker
     {
-        void AddJob(LoadJob job);
+        void AddJob(ILoadJob job);
         void AddSceneLoadJob(SceneName scene);
         void AddSceneUnloadJob(SceneName scene, bool unloadUnusedAssets = false);
         void StartLoading(LoadingStyle style, Action onDone = null);
@@ -34,7 +34,7 @@ namespace Loadings
         public static ILoadingWorker Instance { get; private set; } = null;
         public Action OnDoneCallback { get; set; }
 
-        private readonly Queue<LoadJob> _Jobs = new();
+        private readonly Queue<ILoadJob> _Jobs = new();
 
         [ChildTypeEnumValue((int)LoadingStyles.BlackShutter)]
         [SuppressMessage("Style", "IDE0044:Add readonly modifier")]
@@ -64,12 +64,9 @@ namespace Loadings
             }
         }
 
-        public void AddJob(LoadJob job)
+        public void AddJob(ILoadJob job)
         {
             if (job == null)
-                return;
-
-            if (job.Job == null)
                 return;
 
             _Jobs.Enqueue(job);
@@ -77,37 +74,12 @@ namespace Loadings
 
         public void AddSceneLoadJob(SceneName scene)
         {
-            AddJob(new LoadJob()
-            {
-                JobDescription = "Loading Scenes...",
-                Job = () =>
-                {
-                    return Scenes.Load(scene).ToUniTask();
-                }
-            });
+            AddJob(new LoadSceneJob(scene));
         }
 
         public void AddSceneUnloadJob(SceneName scene, bool unloadUnusedAssets = false)
         {
-            AddJob(new LoadJob()
-            {
-                JobDescription = "Loading Scenes...",
-                Job = () =>
-                {
-                    return Scenes.Unload(scene).ToUniTask();
-                }
-            });
-            if (unloadUnusedAssets)
-            {
-                AddJob(new LoadJob()
-                {
-                    JobDescription = "Unloading Unused Assets...",
-                    Job = () =>
-                    {
-                        return Resources.UnloadUnusedAssets().ToUniTask();
-                    }
-                });
-            }
+            AddJob(new UnloadSceneJob(scene, unloadUnusedAssets));
         }
 
         public void StartLoading(LoadingStyle style, Action onDone = null)
@@ -137,18 +109,25 @@ namespace Loadings
             visual.HideScreen(animation: false);
             yield return visual.ShowScreen(animation: true);
 
+            var progress = Progress.Create<JobProgress>((p) =>
+            {
+                if (p.Progress.HasValue)
+                {
+                    visual.SetTaskProgress(p.Progress.Value);
+                }
+
+                if (p.BatchName != null)
+                {
+                    visual.SetTaskText(p.BatchName);
+                }
+            });
+
             while (_Jobs.TryDequeue(out var job))
             {
-                var operation = job.Job.Invoke();
-                if (!operation.HasValue)
-                    continue;
-
-                visual.SetTaskText(job.JobDescription);
-                var awaiter = operation.Value.GetAwaiter();
+                var operation = job.Job(progress);
+                var awaiter = operation.GetAwaiter();
                 while (!awaiter.IsCompleted)
                 {
-                    //TODO: Reimplement Loading System Tbh
-                    visual.SetTaskProgress(0.0f);
                     yield return null;
                 }
                 visual.SetTaskProgress(1.0f);
