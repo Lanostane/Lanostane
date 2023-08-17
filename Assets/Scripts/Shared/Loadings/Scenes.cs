@@ -42,14 +42,14 @@ namespace Loadings
             {
                 Type = SceneName.PlayerUI,
                 SceneToLoad = "PlayerUI",
-                LoadMode = LoadSceneMode.Additive
+                LoadMode = LoadSceneMode.Single
             });
 
             s_Lookup.Add(SceneName.CreatorUI, new()
             {
                 Type = SceneName.CreatorUI,
                 SceneToLoad = "CreatorUI",
-                LoadMode = LoadSceneMode.Additive
+                LoadMode = LoadSceneMode.Single
             });
 
             s_Lookup.Add(SceneName.GamePlay, new()
