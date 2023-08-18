@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace LST.GamePlay
 {
-    public class ChartUpdater : IChartUpdater
+    internal sealed class ChartUpdater : IChartUpdater
     {
         public async UniTask BuildFromChart(LST_Chart chart, IProgress<LoadChartSteps> progress)
         {

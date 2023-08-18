@@ -5,7 +5,7 @@ using Utils.Maths;
 
 namespace LST.GamePlay.Graphics
 {
-    public sealed partial class NoteGraphicUpdater : MonoBehaviour, INoteGraphicUpdater
+    internal sealed partial class NoteGraphicUpdater : MonoBehaviour, INoteGraphicUpdater
     {
         public GameObject Size0HoldPrefab;
         public GameObject Size1HoldPrefab;

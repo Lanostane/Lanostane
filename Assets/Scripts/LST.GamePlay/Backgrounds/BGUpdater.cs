@@ -6,7 +6,7 @@ using UnityEngine.Video;
 namespace LST.GamePlay.BG
 {
     
-    public class BGUpdater : MonoBehaviour, IBGUpdater
+    internal sealed class BGUpdater : MonoBehaviour, IBGUpdater
     {
         public VideoPlayer VP;
 

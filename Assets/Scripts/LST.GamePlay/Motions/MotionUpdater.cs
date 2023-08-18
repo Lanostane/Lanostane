@@ -5,7 +5,7 @@ using Utils.Maths;
 
 namespace LST.GamePlay.Motions
 {
-    internal class MotionUpdater : MonoBehaviour, IMotionUpdater
+    internal sealed class MotionUpdater : MonoBehaviour, IMotionUpdater
     {
         public Transform RotationOrigin;
 

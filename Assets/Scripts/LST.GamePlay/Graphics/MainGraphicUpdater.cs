@@ -2,7 +2,7 @@
 
 namespace LST.GamePlay.Graphics
 {
-    public sealed class MainGraphicUpdater : MonoBehaviour
+    internal sealed class MainGraphicUpdater : MonoBehaviour
     {
         private readonly Vector3 _ClockwiseRot = new(0.0f, 0.0f, -1.0f);
 

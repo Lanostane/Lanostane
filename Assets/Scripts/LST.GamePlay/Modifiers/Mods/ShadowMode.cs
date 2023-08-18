@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LST.GamePlay.Modifiers
 {
-    public class ShadowMode : Modifier
+    internal sealed class ShadowMode : Modifier
     {
         public override GameModes Mode => GameModes.GhostNotes;
 

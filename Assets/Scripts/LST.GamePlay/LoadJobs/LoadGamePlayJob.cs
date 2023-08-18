@@ -10,7 +10,7 @@ using Utils.Unity;
 
 namespace LST.GamePlay
 {
-    internal class LoadGamePlayJob : ILoadJob
+    internal sealed class LoadGamePlayJob : ILoadJob
     {
         public AudioClip MusicToPlay;
         public TextAsset ChartToLoad;

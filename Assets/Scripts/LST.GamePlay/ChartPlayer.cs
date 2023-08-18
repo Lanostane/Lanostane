@@ -33,7 +33,7 @@ namespace LST.GamePlay
         S10_InitializeScoring,
     }
 
-    public sealed class ChartPlayer : MonoBehaviour, IChartPlayer
+    internal sealed class ChartPlayer : MonoBehaviour, IChartPlayer
     {
         public int ChartOffset { get; set; }
         public static bool ChartLoaded { get; private set; }

@@ -32,7 +32,7 @@ namespace LST.GamePlay.Scrolls
         public Millisecond To;
     }
 
-    public class ScrollUpdater : MonoBehaviour, IScrollUpdater
+    internal sealed class ScrollUpdater : MonoBehaviour, IScrollUpdater
     {
         [field: SerializeField]
         [field: Range(1.0f, 9.0f)]

@@ -8,7 +8,7 @@ using LST.GamePlay.Scoring;
 
 namespace LST.GamePlay.Judge
 {
-    public partial class NoteJudgeUpdater : MonoBehaviour, INoteJudgeUpdater
+    internal sealed partial class NoteJudgeUpdater : MonoBehaviour, INoteJudgeUpdater
     {
         public bool AutoPlay { get; set; }
 

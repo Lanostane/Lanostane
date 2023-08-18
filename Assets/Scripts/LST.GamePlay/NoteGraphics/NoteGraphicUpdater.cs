@@ -9,7 +9,7 @@ using Utils.Unity;
 
 namespace LST.GamePlay.Graphics
 {
-    public sealed partial class NoteGraphicUpdater : MonoBehaviour, INoteGraphicUpdater
+    internal sealed partial class NoteGraphicUpdater : MonoBehaviour, INoteGraphicUpdater
     {
         public Transform NoteOrigin;
 

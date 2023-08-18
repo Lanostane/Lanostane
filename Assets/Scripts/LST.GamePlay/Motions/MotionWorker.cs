@@ -32,7 +32,7 @@ namespace LST.GamePlay.Motions
         void SetRotation(float absRotation);
     }
 
-    public class MotionWorker : MonoBehaviour, IMotionWorker
+    internal sealed class MotionWorker : MonoBehaviour, IMotionWorker
     {
         public const float InitialTheta = 0.0f;
         public const float InitialRho = 0.0f;

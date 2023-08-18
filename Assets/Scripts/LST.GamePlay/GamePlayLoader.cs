@@ -19,7 +19,7 @@ namespace LST.GamePlay
         public AudioClip MusicToPlay { get; set; }
     }
 
-    public class GamePlayLoader : MonoBehaviour, IGamePlayLoader
+    internal sealed class GamePlayLoader : MonoBehaviour, IGamePlayLoader
     {
         public event Action OnLoaded;
         public event Action OnUnloaded;

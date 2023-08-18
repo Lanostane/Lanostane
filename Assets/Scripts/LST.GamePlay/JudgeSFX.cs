@@ -2,7 +2,7 @@
 
 namespace LST.GamePlay
 {
-    public sealed class JudgeSFX : MonoBehaviour
+    internal sealed class JudgeSFX : MonoBehaviour
     {
         public static JudgeSFX Instance { get; private set; }
 

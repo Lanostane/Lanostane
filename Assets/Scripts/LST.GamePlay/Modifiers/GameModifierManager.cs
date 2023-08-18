@@ -20,7 +20,7 @@ namespace LST.GamePlay.Modifiers
         void SetModEnabled(GameModes mod, bool enabled);
     }
 
-    public sealed class GameModifierManager : MonoBehaviour, IGameModifierManager
+    internal sealed class GameModifierManager : MonoBehaviour, IGameModifierManager
     {
         public ShadowMode ShadowMode { get; private set; }
 

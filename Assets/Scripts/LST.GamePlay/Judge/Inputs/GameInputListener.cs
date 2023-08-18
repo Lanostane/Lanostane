@@ -5,7 +5,7 @@ using Utils.Unity;
 
 namespace LST.GamePlay.Judge
 {
-    public class GameInputListener : MonoBehaviour,
+    internal sealed class GameInputListener : MonoBehaviour,
         IPointerDownHandler, IPointerUpHandler,
         IBeginDragHandler, IDragHandler, IEndDragHandler
     {
