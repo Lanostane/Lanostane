@@ -1,10 +1,41 @@
-﻿using System.Collections;
-using TMPro;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using Utils.Maths;
 
 namespace LST.GamePlay.Scrolls
 {
+    public enum OutScrollType : byte
+    {
+        Visible,
+        Early,
+        Late
+    }
+
+    public struct ScrollData
+    {
+        public float Timing;
+        public float Speed;
+        public float Duration;
+
+        public readonly float GetPassedTime(float time)
+        {
+            if (time <= Timing)
+                return 0.0f;
+
+            return Mathf.Min(time - Timing, Duration);
+        }
+    }
+
+    public struct ScrollRangeData
+    {
+        public Millisecond From;
+        public Millisecond To;
+    }
+
     public struct ScrollProgress
     {
         public Millisecond Timing;
@@ -40,10 +71,15 @@ namespace LST.GamePlay.Scrolls
         }
     }
 
-    public enum OutScrollType : byte
+    public readonly struct ScrollTiming
     {
-        Visible,
-        Early,
-        Late
+        public readonly Millisecond Timing;
+        public readonly ushort ScrollGroupID;
+
+        public ScrollTiming(ushort scrollGroupID, Millisecond scrollTiming)
+        {
+            Timing = scrollTiming;
+            ScrollGroupID = scrollGroupID;
+        }
     }
 }

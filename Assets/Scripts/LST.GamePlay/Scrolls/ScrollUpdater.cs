@@ -11,27 +11,6 @@ using Utils.Maths;
 
 namespace LST.GamePlay.Scrolls
 {
-    public struct ScrollData
-    {
-        public float Timing;
-        public float Speed;
-        public float Duration;
-
-        public readonly float GetPassedTime(float time)
-        {
-            if (time <= Timing)
-                return 0.0f;
-
-            return Mathf.Min(time - Timing, Duration);
-        }
-    }
-
-    public struct ScrollRangeData
-    {
-        public Millisecond From;
-        public Millisecond To;
-    }
-
     internal sealed class ScrollUpdater : MonoBehaviour, IScrollUpdater
     {
         [field: SerializeField]
