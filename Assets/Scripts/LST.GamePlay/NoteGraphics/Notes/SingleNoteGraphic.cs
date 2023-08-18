@@ -6,7 +6,7 @@ using Utils.Maths;
 
 namespace LST.GamePlay.Graphics
 {
-    internal sealed class TapNoteGraphic : MonoBehaviour, ISingleNoteGraphic
+    internal sealed class SingleNoteGraphic : MonoBehaviour, ISingleNoteGraphic
     {
         public LST_SingleNoteType Type { get; set; }
         public LST_NoteSpecialFlags Flags { get; set; }
@@ -27,8 +27,7 @@ namespace LST.GamePlay.Graphics
         public void Setup(LST_SingleNoteInfo info)
         {
             Timing = info.Timing;
-            Millisecond scrollTiming = GamePlays.ScrollUpdater.GetScrollTimingByTime(info.ScrollGroup, Timing);
-            ScrollTiming = new(info.ScrollGroup, scrollTiming);
+            ScrollTiming = GamePlays.ScrollUpdater.GetScrollTimingByTime(info.ScrollGroup, Timing);
 
             SetNoteType(info.Type);
             HighlightObject.SetActive(info.Highlight);

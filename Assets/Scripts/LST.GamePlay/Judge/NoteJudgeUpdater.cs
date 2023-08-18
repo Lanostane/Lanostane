@@ -10,7 +10,7 @@ namespace LST.GamePlay.Judge
 {
     public partial class NoteJudgeUpdater : MonoBehaviour, INoteJudgeUpdater
     {
-        public bool AutoPlay { get; private set; }
+        public bool AutoPlay { get; set; }
 
         private readonly FastList<SingleNoteJudgeHandle> _SingleNoteHandles = new();
         private readonly FastList<LongNoteJudgeHandle> _LongNoteHandles = new();

@@ -36,7 +36,7 @@ namespace LST.GamePlay
 
     public interface INoteJudgeUpdater : IChartUpdater
     {
-        bool AutoPlay { get; }
+        bool AutoPlay { get; set; }
         void InitializeScoring();
         void AddSingleJudgeHandle(LST_SingleNoteInfo info, ISingleNoteGraphic graphic);
         void AddLongJudgeHandle(LST_LongNoteInfo info, ILongNoteGraphic graphic);
@@ -71,7 +71,7 @@ namespace LST.GamePlay
         void AddScroll(LST_ScrollChange scrollChange);
         void Prepare();
         bool TryGetGroup(ushort scrollGroupID, out ScrollGroup group);
-        Millisecond GetScrollTimingByTime(ushort scrollGroupID, float time);
+        ScrollTiming GetScrollTimingByTime(ushort scrollGroupID, float time);
         float GetProgressionSingle(ushort scrollGroupID, float chartTime, float timing, out bool isInScreen);
         float GetProgressionSingleFast(ushort scrollGroupID, Millisecond scrollTiming, out bool isInScreen);
         bool IsScrollRangeVisible(ushort scrollGroupID, Millisecond minAmount, Millisecond maxAmount);

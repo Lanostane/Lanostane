@@ -70,7 +70,7 @@ namespace LST.GamePlay.Graphics
                     jointNote.transform.localEulerAngles = new Vector3(0.0f, 0.0f, joint.StartDeg);
                     jointNoteList.Add(new()
                     {
-                        ScrollTiming = GamePlays.ScrollUpdater.GetScrollTimingByTime(scrollGroupID, joint.StartTiming),
+                        ScrollTiming = GamePlays.ScrollUpdater.GetScrollTimingByTime(scrollGroupID, joint.StartTiming).Timing,
                         JointObject = jointNote,
                         JointTransform = jointNote.transform,
                         Direction = LinePointInfo.DegreeToDir(joint.StartDeg)

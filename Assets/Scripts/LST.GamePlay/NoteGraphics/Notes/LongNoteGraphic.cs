@@ -8,7 +8,7 @@ using Utils.Unity;
 
 namespace LST.GamePlay.Graphics
 {
-    internal sealed class HoldNoteGraphic : MonoBehaviour, ILongNoteGraphic
+    internal sealed class LongNoteGraphic : MonoBehaviour, ILongNoteGraphic
     {
         public LST_LongNoteType Type { get; set; }
         public LST_NoteSpecialFlags Flags { get; set; }
@@ -37,8 +37,7 @@ namespace LST.GamePlay.Graphics
         public void Setup(LST_LongNoteInfo info)
         {
             Timing = info.Timing;
-            var scrollTiming = GamePlays.ScrollUpdater.GetScrollTimingByTime(info.ScrollGroup, Timing);
-            HeadScrollTiming = new(info.ScrollGroup, scrollTiming);
+            HeadScrollTiming = GamePlays.ScrollUpdater.GetScrollTimingByTime(info.ScrollGroup, Timing);
             Duration = info.Duration;
             SetNoteType(info.Type);
             HighlightObject.SetActive(info.Highlight);

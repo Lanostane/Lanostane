@@ -145,11 +145,11 @@ namespace LST.GamePlay.Scrolls
             return _ScrollGroups.TryGetValue(groupID, out group);
         }
 
-        public Millisecond GetScrollTimingByTime(ushort scrollGroupID, float time)
+        public ScrollTiming GetScrollTimingByTime(ushort scrollGroupID, float time)
         {
             if (TryGetGroup(scrollGroupID, out var group))
             {
-                return group.GetScrollTimingByTime(time);
+                return new (scrollGroupID, group.GetScrollTimingByTime(time));
             }
 
             throw new KeyNotFoundException($"{scrollGroupID} is not a valid scroll group ID");
