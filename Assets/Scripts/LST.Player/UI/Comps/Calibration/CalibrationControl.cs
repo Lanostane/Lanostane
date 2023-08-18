@@ -124,7 +124,7 @@ namespace LST.Player.UI
 
                 //TODO: Move this to Event later
                 //PlayerSettings.Setting.Offset = avgDelta;
-                PlayerSettings.SaveToDisk();
+                //PlayerSettings.SaveToDisk();
             }
             else
             {

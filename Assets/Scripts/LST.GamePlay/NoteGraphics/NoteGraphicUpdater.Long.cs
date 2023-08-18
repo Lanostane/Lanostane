@@ -9,9 +9,9 @@ namespace LST.GamePlay.Graphics
 {
     internal sealed partial class NoteGraphicUpdater : MonoBehaviour, INoteGraphicUpdater
     {
-        public AssetReference Size0HoldPrefab;
-        public AssetReference Size1HoldPrefab;
-        public AssetReference Size2HoldPrefab;
+        public AssetReferenceGameObject Size0HoldPrefab;
+        public AssetReferenceGameObject Size1HoldPrefab;
+        public AssetReferenceGameObject Size2HoldPrefab;
 
         private readonly LongNoteGraphicCollection _Longs = new();
         public async UniTask<ILongNoteGraphic> AddLongNote(LST_LongNoteInfo info)

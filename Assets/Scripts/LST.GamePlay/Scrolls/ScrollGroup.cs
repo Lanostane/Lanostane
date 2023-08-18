@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using UnityEngine;
 using Utils;
@@ -21,6 +22,26 @@ namespace LST.GamePlay.Scrolls
         public ScrollGroup(ushort groupID)
         {
             GroupID = groupID;
+        }
+
+        public void UpdateItems()
+        {
+            var scrolls = Scrolls.Items;
+            var length = scrolls.Length;
+            for (int i = 0; i < length; i++)
+            {
+                var scroll = scrolls[i];
+                scroll.Duration = float.MaxValue;
+
+                if (i > 0)
+                {
+                    var prevScroll = scrolls[i - 1];
+                    prevScroll.Duration = scroll.Timing - prevScroll.Timing;
+                    scrolls[i - 1] = prevScroll;
+                }
+
+                scrolls[i] = scroll;
+            }
         }
 
         public void UpdateByChartTime(float scrollSpeed, float chartTime)

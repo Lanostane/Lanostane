@@ -10,9 +10,9 @@ namespace LST.GamePlay.Graphics
 {
     internal sealed partial class NoteGraphicUpdater : MonoBehaviour, INoteGraphicUpdater
     {
-        public AssetReference Size0SinglePrefab;
-        public AssetReference Size1SinglePrefab;
-        public AssetReference Size2SinglePrefab;
+        public AssetReferenceGameObject Size0SinglePrefab;
+        public AssetReferenceGameObject Size1SinglePrefab;
+        public AssetReferenceGameObject Size2SinglePrefab;
 
         private readonly SingleNoteGraphicCollection _Singles = new();
 

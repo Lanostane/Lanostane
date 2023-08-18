@@ -1,94 +1,32 @@
 ﻿using LST.GamePlay;
 using NaughtyAttributes;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using Utils.FileSystems;
 
 namespace LST.Player
 {
-    [Serializable]
-    public class PlayerSettingsData
+    public static class PlayerSettings
     {
-        [Range(-1000, 1000)]
-        public int Offset = 0;
+        public static readonly PlayerSettingsData UserData = new();
+        public static readonly DebugSettingsData DebugData = new();
 
-        [Range(1.0f, 9.0f)]
-        public float ScrollSpeed = 7.0f;
 
-        [Range(0.0f, 1.0f)]
-        public float MasterVolume = 1.0f;
-
-        [Range(0.0f, 1.0f)]
-        public float SFXVolume = 1.0f;
-
-        [Range(0.0f, 1.0f)]
-        public float MusicVolume = 1.0f;
-
-        [Range(-1, 120)]
-        public int FrameRate = -1;
-    }
-
-    [Serializable]
-    public class DebugSettingsData
-    {
-        [Range(0.0001f, 3.0f)]
-        public float MusicPlaySpeed = 1.0f;
-
-        public bool AudoPlayEnabled = false;
-    }
-
-    public sealed class PlayerSettings : MonoBehaviour
-    {
-        [Label("User Settings")]
-        public PlayerSettingsData UserData;
-
-        [Label("Development Settings")]
-        public DebugSettingsData DebugData;
-
-        private AudioMixer _Mixer;
-
-        [Button(null, EnableWhen.Playmode)]
         public static void LoadFromDisk()
         {
-
+            //var config = Paths.Data.ReadTextFile("config.json");
+            //UserData = JsonConvert.DeserializeObject<PlayerSettingsData>(config);
         }
 
-        [Button(null, EnableWhen.Playmode)]
         public static void SaveToDisk()
         {
-
-        }
-
-        void Start()
-        {
-            _Mixer = Resources.Load<AudioMixer>("AudioMixer");
-
-            GamePlayLoader.OnLoaded += GamePlayLoader_OnLoaded;
-        }
-
-        private void GamePlayLoader_OnLoaded()
-        {
-            GamePlays.ScrollUpdater.ScrollingSpeed = UserData.ScrollSpeed;
-            GamePlays.NoteJudgeUpdater.AutoPlay = DebugData.AudoPlayEnabled;
-            GamePlays.ChartPlayer.ChartOffset = UserData.Offset;
-            Debug.Log("Settings Applied!");
-        }
-
-        void FixedUpdate()
-        {
-            _Mixer.SetFloat("VolMaster", GetVolume(UserData.MasterVolume));
-            _Mixer.SetFloat("VolMusic", GetVolume(UserData.MusicVolume));
-            _Mixer.SetFloat("VolJudgeSFX", GetVolume(UserData.SFXVolume));
-
-            Application.targetFrameRate = UserData.FrameRate;
-        }
-
-        static float GetVolume(float vol01)
-        {
-            var clamped = Mathf.Clamp(vol01, min: float.Epsilon, max: 1.0f);
-            return Mathf.Log10(clamped) * 20.0f;
+            //
+            //var config = Paths.Data.ReadTextFile("config.json");
+            //UserData = JsonConvert.DeserializeObject<PlayerSettingsData>(config);
         }
     }
 }

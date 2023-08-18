@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NaughtyAttributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using UnityEngine;
 
 namespace Utils.Maths
 {
+    [Serializable]
     public struct Millisecond : IComparable<Millisecond>, IComparer<Millisecond>, IEqualityComparer<Millisecond>
     {
         public const float TimeConversion = 1.0f / 1000.0f;
@@ -32,6 +34,8 @@ namespace Utils.Maths
             set => _MS = ToMS(value);
         }
 
+        [SerializeField]
+        [NaughtyAttributes.Label("Millisecond")]
         private long _MS;
 
         public Millisecond(float time)

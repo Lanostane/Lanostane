@@ -2992,6 +2992,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec9c36a314310924daec17964b717f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BlurMaterial:
+    m_AssetGUID: a68fcacaba7eab847870b329736ea8be
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!1 &1989318386
 GameObject:
   m_ObjectHideFlags: 0

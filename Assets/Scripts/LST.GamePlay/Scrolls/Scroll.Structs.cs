@@ -71,10 +71,13 @@ namespace LST.GamePlay.Scrolls
         }
     }
 
-    public readonly struct ScrollTiming
+    [Serializable]
+    public struct ScrollTiming
     {
-        public readonly Millisecond Timing;
-        public readonly ushort ScrollGroupID;
+        [SerializeField]
+        public Millisecond Timing;
+        [SerializeField]
+        public ushort ScrollGroupID;
 
         public ScrollTiming(ushort scrollGroupID, Millisecond scrollTiming)
         {

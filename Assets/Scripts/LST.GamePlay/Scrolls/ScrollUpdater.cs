@@ -24,6 +24,7 @@ namespace LST.GamePlay.Scrolls
         void Awake()
         {
             GamePlays.ScrollUpdater = this;
+            _ScrollGroups[0] = _MainScrolls;
         }
 
         void OnDestroy()
@@ -49,12 +50,12 @@ namespace LST.GamePlay.Scrolls
 
         public void CleanUp()
         {
-            _MainScrolls.Scrolls.Clear();
             foreach (var group in _ScrollGroups.Values)
             {
                 group.Scrolls.Clear();
             }
             _ScrollGroups.Clear();
+
             if (_ScrollRangesNativeData.IsCreated)
             {
                 _ScrollRangesNativeData.Dispose();
@@ -100,6 +101,11 @@ namespace LST.GamePlay.Scrolls
 
         public void Prepare()
         {
+            foreach (var group in _ScrollGroups.Values)
+            {
+                group.UpdateItems();
+            }
+
             if (_ScrollRangesNativeData.IsCreated)
             {
                 _ScrollRangesNativeData.Dispose();

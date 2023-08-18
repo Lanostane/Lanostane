@@ -91,6 +91,11 @@ namespace Utils.FileSystems.PathProxy
             return Path.Combine(BasePath, fileName);
         }
 
+        public string GetFullFileURI(string fileName)
+        {
+            return new Uri(GetFullFilePath(fileName)).AbsoluteUri;
+        }
+
         public FileStream Open(string fileName, FileMode mode)
         {
             var path = Path.Combine(BasePath, fileName);

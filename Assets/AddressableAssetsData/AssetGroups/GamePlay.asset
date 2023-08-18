@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: NoteAssets
+  m_Name: GamePlay
   m_EditorClassIdentifier: 
-  m_GroupName: NoteAssets
+  m_GroupName: GamePlay
   m_Data:
     m_SerializedData: []
-  m_GUID: 68ee46a0203c89246b691ada4bc7e4d8
+  m_GUID: 8166a9075fadaaa4286e5619cc40d658
   m_SerializeEntries:
   - m_GUID: 412a973c1e4b0084a98e1fdd8fe15d11
     m_Address: Notes/HoldNote_S0
@@ -47,9 +47,14 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a68fcacaba7eab847870b329736ea8be
+    m_Address: Materials/ImageEffects/Blur-GameSpace
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 17466bc77d8d6f146870319ef092fafe, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: ba122e9583057b744bfcc47d45b98061, type: 2}
-    - {fileID: 11400000, guid: 6dc695d2842b65c49902b6ca0691c489, type: 2}
+    - {fileID: 11400000, guid: 84b4e84f30cd7fa49ba32fb23c891b63, type: 2}
+    - {fileID: 11400000, guid: 0777f47a56d40774f8a12336c46b5b85, type: 2}
