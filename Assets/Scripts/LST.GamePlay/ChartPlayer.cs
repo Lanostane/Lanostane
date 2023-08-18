@@ -6,15 +6,12 @@ using Utils.Maths;
 using LST.GamePlay.Motions;
 using Utils.Unity;
 using Cysharp.Threading.Tasks;
+using Codice.Client.Common;
 
 namespace LST.GamePlay
 {
     public interface IChartPlayer
     {
-        event Action<float> ChartProgressUpdated;
-        event Action<float> ChartTimeUpdated;
-        event Action ChartPlayFinished;
-
         bool ChartLoaded { get; }
         float MusicTime { get; }
         float ChartTime { get; }
@@ -50,13 +47,8 @@ namespace LST.GamePlay
         public float ChartTime { get; private set; }
         public float OffsetChartTime { get; private set; }
 
-        public event Action<float> ChartProgressUpdated;
-        public event Action<float> ChartTimeUpdated;
-        public event Action ChartPlayFinished;
-
         public AudioSource Audio;
         public float PlaySpeed { get; private set; } = 1.0f;
-        public bool StartChartOnLoaded;
 
         private readonly ChartUpdater _Updater = new();
         private bool _ChartPlaying = false;
@@ -67,7 +59,6 @@ namespace LST.GamePlay
 
         void Awake()
         {
-            
             GamePlays.ChartPlayer = this;
             EditorLog.Info($"Play Offset: {ChartOffset}");
         }
@@ -109,17 +100,12 @@ namespace LST.GamePlay
             _ChartPlaytime = chart.SongLength;
 
             ChartLoaded = true;
-            if (StartChartOnLoaded)
-            {
-                GamePlays.MotionUpdater.StartDefaultMotion(1.75f);
-                Invoke(nameof(StartChart), 1.75f);
-            }
         }
 
         public void Invoke_TimeUpdate(float time)
         {
-            ChartTimeUpdated?.Invoke(time);
-            ChartProgressUpdated?.Invoke(time / MusicTime);
+            GamePlays.Invoke_ChartTimeUpdated(time);
+            GamePlays.Invoke_ChartProgressUpdated(Mathf.Clamp01(time / MusicTime));
         }
 
         private void ResetValues()
@@ -164,7 +150,7 @@ namespace LST.GamePlay
 
         private void StartChart_Internal()
         {
-            _ScheduledPlaytime = AudioSettings.dspTime + 3.0;
+            _ScheduledPlaytime = AudioSettings.dspTime + (3.0 / PlaySpeed);
             Audio.PlayScheduled(_ScheduledPlaytime);
             Audio.pitch = PlaySpeed;
             ChartTime = -3.0f;
@@ -184,11 +170,11 @@ namespace LST.GamePlay
             if (!playing)
             {
                 _ChartPlaying = false;
-                ChartPlayFinished?.Invoke();
+                GamePlays.Invoke_ChartPlayFinished();
             }
             else
             {
-                ChartTime += Time.deltaTime * PlaySpeed;
+                ChartTime += UnityEngine.Time.deltaTime * PlaySpeed;
                 if (AudioSettings.dspTime >= _ScheduledPlaytime)
                 {
                     var audioTime = GetAudioTime();

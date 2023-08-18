@@ -22,6 +22,11 @@ namespace LST.GamePlay
 
     }
 
+    public interface IColorPaletteUpdater : IChartUpdater
+    {
+
+    }
+
     public interface INoteGraphicUpdater : IChartUpdater
     {
         event Action<float, ISingleNoteGraphic> OnSingleNoteProgressUpdate;

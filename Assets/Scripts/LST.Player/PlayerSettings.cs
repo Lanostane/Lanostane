@@ -41,9 +41,6 @@ namespace LST.Player
 
     public sealed class PlayerSettings : MonoBehaviour
     {
-        public static PlayerSettingsData Setting;
-        public static DebugSettingsData DebugSetting;
-
         [Label("User Settings")]
         public PlayerSettingsData UserData;
 
@@ -66,8 +63,6 @@ namespace LST.Player
 
         void Start()
         {
-            Setting = UserData;
-            DebugSetting = DebugData;
             _Mixer = Resources.Load<AudioMixer>("AudioMixer");
 
             GamePlayLoader.OnLoaded += GamePlayLoader_OnLoaded;
@@ -75,24 +70,24 @@ namespace LST.Player
 
         private void GamePlayLoader_OnLoaded()
         {
-            GamePlays.ScrollUpdater.ScrollingSpeed = Setting.ScrollSpeed;
-            GamePlays.NoteJudgeUpdater.AutoPlay = DebugSetting.AudoPlayEnabled;
-            GamePlays.ChartPlayer.ChartOffset = Setting.Offset;
+            GamePlays.ScrollUpdater.ScrollingSpeed = UserData.ScrollSpeed;
+            GamePlays.NoteJudgeUpdater.AutoPlay = DebugData.AudoPlayEnabled;
+            GamePlays.ChartPlayer.ChartOffset = UserData.Offset;
             Debug.Log("Settings Applied!");
         }
 
         void FixedUpdate()
         {
-            _Mixer.SetFloat("VolMaster", GetVolume(Setting.MasterVolume));
-            _Mixer.SetFloat("VolMusic", GetVolume(Setting.MusicVolume));
-            _Mixer.SetFloat("VolJudgeSFX", GetVolume(Setting.SFXVolume));
+            _Mixer.SetFloat("VolMaster", GetVolume(UserData.MasterVolume));
+            _Mixer.SetFloat("VolMusic", GetVolume(UserData.MusicVolume));
+            _Mixer.SetFloat("VolJudgeSFX", GetVolume(UserData.SFXVolume));
 
-            Application.targetFrameRate = Setting.FrameRate;
+            Application.targetFrameRate = UserData.FrameRate;
         }
 
         static float GetVolume(float vol01)
         {
-            var clamped = Mathf.Clamp(vol01, float.Epsilon, 1.0f);
+            var clamped = Mathf.Clamp(vol01, min: float.Epsilon, max: 1.0f);
             return Mathf.Log10(clamped) * 20.0f;
         }
     }

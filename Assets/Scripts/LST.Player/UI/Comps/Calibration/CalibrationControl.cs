@@ -123,7 +123,7 @@ namespace LST.Player.UI
                 TapArea.SetText($"Your Offset: {avgDelta}ms\n\nAccuracy (Lower-Better): {accurate}\n\n{text}");
 
                 //TODO: Move this to Event later
-                PlayerSettings.Setting.Offset = avgDelta;
+                //PlayerSettings.Setting.Offset = avgDelta;
                 PlayerSettings.SaveToDisk();
             }
             else

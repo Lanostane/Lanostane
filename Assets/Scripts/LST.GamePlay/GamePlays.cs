@@ -10,9 +10,10 @@ using UnityEngine;
 
 namespace LST.GamePlay
 {
-    public static class GamePlays
+    public static partial class GamePlays
     {
         public static bool GamePlayLoaded { get; internal set; } = false;
+        
 
         public static IGameModifierManager Modifier { get; internal set; }
         public static IChartPlayer ChartPlayer { get; internal set; }

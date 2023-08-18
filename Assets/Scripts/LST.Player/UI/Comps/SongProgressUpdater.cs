@@ -13,18 +13,21 @@ namespace LST.Player.UI
         public RectTransform BaseRect;
         public Transform Knob;
 
-        void FixedUpdate()
+        private void Awake()
         {
-            if (GamePlays.GamePlayLoaded)
-            {
-                if (GamePlays.ChartPlayer.MusicTime > 0.0f)
-                {
-                    var p = GamePlays.ChartPlayer.ChartTime / GamePlays.ChartPlayer.MusicTime;
-                    var p1 = 0.0f;
-                    var p2 = BaseRect.rect.size.x;
-                    Knob.localPosition = Vector3.right * Mathf.Lerp(p1, p2, p);
-                }
-            }
+            GamePlays.ChartProgressUpdated += ProgressUpdated;
+        }
+
+        private void OnDestroy()
+        {
+            GamePlays.ChartProgressUpdated -= ProgressUpdated;
+        }
+
+        private void ProgressUpdated(float p)
+        {
+            var p1 = 0.0f;
+            var p2 = BaseRect.rect.size.x;
+            Knob.localPosition = Vector3.right * Mathf.Lerp(p1, p2, p);
         }
     }
 }
