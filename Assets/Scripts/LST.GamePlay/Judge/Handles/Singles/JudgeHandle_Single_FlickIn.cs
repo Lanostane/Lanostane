@@ -9,7 +9,6 @@ namespace LST.GamePlay.Judge
         #region Constants
         public const float Timeout = JudgeConst.Timeout;
         public const float FlickPerfect = JudgeConst.FlickPerfect;
-        public const float FlickGood = JudgeConst.FlickGood;
         #endregion
 
         public bool FlickDone = false;
@@ -70,10 +69,8 @@ namespace LST.GamePlay.Judge
             var delta = MathfE.AbsDelta(noteTime, clickTime);
             if (delta <= FlickPerfect)
                 return JudgeType.PurePerfect;
-            else if (delta <= FlickGood)
-                return JudgeType.Good;
             else
-                return JudgeType.Miss;
+                return JudgeType.Good;
         }
     }
 }
