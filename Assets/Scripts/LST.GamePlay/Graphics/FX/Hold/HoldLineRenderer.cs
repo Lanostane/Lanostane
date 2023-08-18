@@ -23,8 +23,8 @@ namespace LST.GamePlay.Graphics
 
         public static Vector3 DegreeToDir(float degree)
         {
-            var x = FastTrig.Sin(degree);
-            var y = -FastTrig.Cos(degree);
+            var x = FastTrig.DegSin(degree);
+            var y = -FastTrig.DegCos(degree);
 
             return new Vector3(x, y, 0.0f);
         }
@@ -88,8 +88,8 @@ namespace LST.GamePlay.Graphics
                 {
                     var time = joint.StartTiming + (delta * i);
                     var deg = _JointInfo.GetDegreeByTime(time);
-                    var x = FastTrig.Sin(deg);
-                    var y = -FastTrig.Cos(deg);
+                    var x = FastTrig.DegSin(deg);
+                    var y = -FastTrig.DegCos(deg);
                     var dir = new Vector3(x, y, 0.0f);
 
                     pointList.Add(new()

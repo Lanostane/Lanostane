@@ -15,8 +15,8 @@ namespace Utils.Unity
         [Conditional("UNITY_EDITOR")]
         public static void DrawToBorder(float worlddegree, Color color, float time = 1.0f)
         {
-            var x = FastTrig.Sin(worlddegree);
-            var y = -FastTrig.Cos(worlddegree);
+            var x = FastTrig.DegSin(worlddegree);
+            var y = -FastTrig.DegCos(worlddegree);
             var start = new Vector3(x, y, 0.0f) * 10.0f;
             var end = new Vector3(x, y, 0.0f) * 11.5f;
 

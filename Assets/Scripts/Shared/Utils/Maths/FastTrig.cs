@@ -4,14 +4,24 @@ namespace Utils.Maths
 {
     public static class FastTrig
     {
-        public static float Sin(float degree)
+        public static float DegSin(float degree)
         {
             return UnsafeSin(MathfE.AbsAngle(degree) * Mathf.Deg2Rad);
         }
 
-        public static float Cos(float degree)
+        public static float DegCos(float degree)
         {
             return UnsafeCos(MathfE.AbsAngle(degree) * Mathf.Deg2Rad);
+        }
+
+        public static float RadSin(float radian)
+        {
+            return UnsafeSin(MathfE.AbsRadian(radian));
+        }
+
+        public static float RadCos(float radian)
+        {
+            return UnsafeCos(MathfE.AbsRadian(radian));
         }
 
         public static float UnsafeSin(float rad)

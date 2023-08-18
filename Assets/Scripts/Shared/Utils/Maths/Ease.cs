@@ -127,17 +127,17 @@ namespace Utils.Maths
         {
             public static float In(float k)
             {
-                return 1f - Mathf.Cos(k * Mathf.PI / 2f);
+                return 1f - FastTrig.RadCos(k * MathfE.HalfPI);
             }
 
             public static float Out(float k)
             {
-                return Mathf.Sin(k * Mathf.PI / 2f);
+                return FastTrig.RadSin(k * MathfE.HalfPI);
             }
 
             public static float InOut(float k)
             {
-                return 0.5f * (1f - Mathf.Cos(Mathf.PI * k));
+                return 0.5f * (1f - FastTrig.RadCos(Mathf.PI * k));
             }
         };
 
@@ -187,20 +187,20 @@ namespace Utils.Maths
             {
                 if (k == 0) return 0;
                 if (k == 1) return 1;
-                return -Mathf.Pow(2f, 10f * (k -= 1f)) * Mathf.Sin((k - 0.1f) * (2f * Mathf.PI) / 0.4f);
+                return -Mathf.Pow(2f, 10f * (k -= 1f)) * FastTrig.RadSin((k - 0.1f) * (MathfE.TwoPI) / 0.4f);
             }
 
             public static float Out(float k)
             {
                 if (k == 0) return 0;
                 if (k == 1) return 1;
-                return Mathf.Pow(2f, -10f * k) * Mathf.Sin((k - 0.1f) * (2f * Mathf.PI) / 0.4f) + 1f;
+                return Mathf.Pow(2f, -10f * k) * FastTrig.RadSin((k - 0.1f) * (MathfE.TwoPI) / 0.4f) + 1f;
             }
 
             public static float InOut(float k)
             {
-                if ((k *= 2f) < 1f) return -0.5f * Mathf.Pow(2f, 10f * (k -= 1f)) * Mathf.Sin((k - 0.1f) * (2f * Mathf.PI) / 0.4f);
-                return Mathf.Pow(2f, -10f * (k -= 1f)) * Mathf.Sin((k - 0.1f) * (2f * Mathf.PI) / 0.4f) * 0.5f + 1f;
+                if ((k *= 2f) < 1f) return -0.5f * Mathf.Pow(2f, 10f * (k -= 1f)) * FastTrig.RadSin((k - 0.1f) * (MathfE.TwoPI) / 0.4f);
+                return Mathf.Pow(2f, -10f * (k -= 1f)) * FastTrig.RadSin((k - 0.1f) * (MathfE.TwoPI) / 0.4f) * 0.5f + 1f;
             }
         };
 

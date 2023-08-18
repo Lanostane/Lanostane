@@ -16,19 +16,19 @@ namespace Utils.Maths
 
         public long Milisecond
         {
-            get => _MS;
+            readonly get => _MS;
             set => _MS = value;
         }
 
         public float Time
         {
-            get => _MS * TimeConversion;
+            readonly get => _MS * TimeConversion;
             set => _MS = ToMS(value);
         }
 
         public double DoubleTime
         {
-            get => _MS * DoubleTimeConversion;
+            readonly get => _MS * DoubleTimeConversion;
             set => _MS = ToMS(value);
         }
 
@@ -91,37 +91,37 @@ namespace Utils.Maths
             return (float)t / max;
         }
 
-        public int Compare(Millisecond x, Millisecond y)
+        public readonly int Compare(Millisecond x, Millisecond y)
         {
             return x.Milisecond.CompareTo(y);
         }
 
-        public bool Equals(Millisecond x, Millisecond y)
+        public readonly bool Equals(Millisecond x, Millisecond y)
         {
             return x.Milisecond == y.Milisecond;
         }
 
-        public int GetHashCode(Millisecond obj)
+        public readonly int GetHashCode(Millisecond obj)
         {
             return obj.Milisecond.GetHashCode();
         }
 
-        public int CompareTo(Millisecond other)
+        public readonly int CompareTo(Millisecond other)
         {
             return _MS.CompareTo(other.Milisecond);
         }
 
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return base.Equals(obj);
         }
 
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return _MS.GetHashCode();
         }
 
-        public override string ToString()
+        public override readonly string ToString()
         {
             return $"{Milisecond}ms";
         }
