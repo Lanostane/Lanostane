@@ -10,14 +10,7 @@ namespace LST.GamePlay.Judge
         IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public RectTransform GamePlayScreenRect;
-
-        [ReadOnly]
         public Camera MainCamera;
-
-        void Awake()
-        {
-            MainCamera = Camera.main;
-        }
 
         public void OnBeginDrag(PointerEventData eventData)
         {

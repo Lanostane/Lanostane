@@ -28,6 +28,9 @@ namespace LST.GamePlay
             {
                 progressHandle.Report(JobProgress.CreateNew($"Loading Chart: {step}"));
             }));
+
+            //TODO: testing Code
+            GamePlays.ChartPlayer.StartChart();
         }
     }
 }

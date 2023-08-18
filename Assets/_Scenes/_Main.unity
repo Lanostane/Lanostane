@@ -614,7 +614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633925dd2a6ce064982726b1a8411157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enabled: 1
+  Enabled: 0
   PoolOptions:
     Prefab: {fileID: 3535701926844905021, guid: 68911c5c4d10c7e429f6f3bbe3f832ca, type: 3}
     Parent: {fileID: 1458004884}
@@ -1022,7 +1022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 1000
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
@@ -1191,6 +1191,8 @@ MonoBehaviour:
   Shutter: {fileID: 1176705683797070514}
   LoadingText: {fileID: 1176705683855830649}
   ProgressText: {fileID: 1176705683244655941}
+  ShowDuration: 0.22
+  HideDuration: 0.22
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
