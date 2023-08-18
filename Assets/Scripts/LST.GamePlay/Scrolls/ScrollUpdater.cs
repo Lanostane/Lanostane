@@ -100,12 +100,6 @@ namespace LST.GamePlay.Scrolls
 
         public void Prepare()
         {
-            _MainScrolls.SortItems();
-            foreach (var group in _ScrollGroups.Values)
-            {
-                group.SortItems();
-            }
-
             if (_ScrollRangesNativeData.IsCreated)
             {
                 _ScrollRangesNativeData.Dispose();

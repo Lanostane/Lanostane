@@ -11,7 +11,7 @@ namespace LST.GamePlay.Scrolls
     public sealed class ScrollGroup
     {
         public readonly ushort GroupID;
-        public readonly FastList<ScrollData> Scrolls = new();
+        public readonly FastSortedList<ScrollData> Scrolls = new(x=>x.Timing, SortBy.AscendingOrder);
         public ScrollRangeData RangeData { get; private set; }
 
         public Millisecond WatchingFrom { get; private set; }
@@ -46,28 +46,6 @@ namespace LST.GamePlay.Scrolls
                 From = WatchingFrom,
                 To = WatchingTo
             };
-        }
-
-        public void SortItems()
-        {
-            var sorted = Scrolls.Items.OrderBy(x => x.Timing).ToArray();
-            for (int i = 0; i < sorted.Length; i++)
-            {
-                var scroll = sorted[i];
-                scroll.Duration = float.MaxValue;
-
-                if (i > 0)
-                {
-                    var prevScroll = sorted[i - 1];
-                    prevScroll.Duration = scroll.Timing - prevScroll.Timing;
-                    sorted[i - 1] = prevScroll;
-                }
-
-                sorted[i] = scroll;
-            }
-
-            Scrolls.Clear();
-            Scrolls.AddRange(sorted);
         }
 
         public Millisecond GetScrollTimingByTime(float time)
