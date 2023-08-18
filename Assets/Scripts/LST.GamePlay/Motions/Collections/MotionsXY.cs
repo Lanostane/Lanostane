@@ -16,7 +16,7 @@ namespace LST.GamePlay.Motions
 
         public PolarPoint Start;
         public PolarPoint End;
-        public LST_Ease Ease;
+        public EaseType Ease;
 
         public bool IsLinear;
     }

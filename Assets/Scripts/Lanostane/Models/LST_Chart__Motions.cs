@@ -3,6 +3,7 @@ using UnityEngine.Scripting;
 using ZeroFormatter;
 using PreserveAttribute = UnityEngine.Scripting.PreserveAttribute;
 using ID = ZeroFormatter.IndexAttribute;
+using Utils.Maths;
 
 namespace Lanostane.Models
 {
@@ -23,7 +24,7 @@ namespace Lanostane.Models
         [ID(0)] public virtual float Timing { get; set; }
         [ID(1)] public virtual float Duration { get; set; }
         [ID(2)] public virtual float DeltaRotation { get; set; }
-        [ID(3)] public virtual LST_Ease Ease { get; set; }
+        [ID(3)] public virtual EaseType Ease { get; set; }
     }
 
     [Preserve]
@@ -34,7 +35,7 @@ namespace Lanostane.Models
         [ID(1)] public virtual float Duration { get; set; }
         [ID(2)] public virtual float NewDegree { get; set; }
         [ID(3)] public virtual float NewRadius { get; set; }
-        [ID(4)] public virtual LST_Ease Ease { get; set; }
+        [ID(4)] public virtual EaseType Ease { get; set; }
     }
 
     [Preserve]
@@ -45,7 +46,7 @@ namespace Lanostane.Models
         [ID(1)] public virtual float Duration { get; set; }
         [ID(2)] public virtual float DeltaDegree { get; set; }
         [ID(3)] public virtual float DeltaRadius { get; set; }
-        [ID(4)] public virtual LST_Ease Ease { get; set; }
+        [ID(4)] public virtual EaseType Ease { get; set; }
     }
 
     [Preserve]
@@ -55,7 +56,7 @@ namespace Lanostane.Models
         [ID(0)] public virtual float Timing { get; set; }
         [ID(1)] public virtual float Duration { get; set; }
         [ID(2)] public virtual float DeltaHeight { get; set; }
-        [ID(3)] public virtual LST_Ease Ease { get; set; }
+        [ID(3)] public virtual EaseType Ease { get; set; }
     }
 
     [Preserve]
@@ -77,11 +78,21 @@ namespace Lanostane.Models
 
     [Preserve]
     [ZeroFormattable]
+    public class LST_ColorPaletteChange
+    {
+        [ID(0)] public virtual LST_ColorPalette Palette { get; set; }
+        [ID(1)] public virtual float Timing { get; set; }
+        [ID(2)] public virtual float Duration { get; set; }
+        [ID(3)] public virtual EaseType Ease { get; set; }
+    }
+
+    [Preserve]
+    [ZeroFormattable]
     public class LST_SubCameraAlphaChange
     {
         [ID(0)] public virtual float Timing { get; set; }
         [ID(1)] public virtual float Duration { get; set; }
-        [ID(2)] public virtual LST_Ease Ease { get; set; }
+        [ID(2)] public virtual EaseType Ease { get; set; }
     }
 
     [Preserve]

@@ -9,6 +9,53 @@ namespace Utils.Maths
         Deceleration
     }
 
+    public enum EaseType : byte
+    {
+        Linear = 0,
+        One = 1,
+        Zero = 2,
+
+        InQuadratic,
+        OutQuadratic,
+        InOutQuadratic,
+
+        InCubic,
+        OutCubic,
+        InOutCubic,
+
+        InQuartic,
+        OutQuartic,
+        InOutQuartic,
+
+        InQuintic,
+        OutQuintic,
+        InOutQuintic,
+
+        InSinusoidal,
+        OutSinusoidal,
+        InOutSinusoidal,
+
+        InExponential,
+        OutExponential,
+        InOutExponential,
+
+        InCircular,
+        OutCircular,
+        InOutCircular,
+
+        InElastic,
+        OutElastic,
+        InOutElastic,
+
+        InBack,
+        OutBack,
+        InOutBack,
+
+        InBounce,
+        OutBounce,
+        InOutBounce
+    }
+
     public static class Ease
     {
         public static float GameSpaceEase(float t, GameSpaceEaseMode easeMode = GameSpaceEaseMode.Default)
@@ -31,6 +78,64 @@ namespace Utils.Maths
                 t = Cubic.In(t);
                 return t;
             }
+        }
+
+        public static float EvalClamped(this EaseType ease, float t)
+        {
+            if (t <= 0.0f)
+                return 0.0f;
+            else if (t >= 1.0f)
+                return 1.0f;
+
+
+            return ease switch
+            {
+                EaseType.Linear => t,
+                EaseType.One => 1.0f,
+                EaseType.Zero => 0.0f,
+
+                EaseType.InQuadratic => Quadratic.In(t),
+                EaseType.OutQuadratic => Quadratic.Out(t),
+                EaseType.InOutQuadratic => Quadratic.InOut(t),
+
+                EaseType.InCubic => Cubic.In(t),
+                EaseType.OutCubic => Cubic.Out(t),
+                EaseType.InOutCubic => Cubic.InOut(t),
+
+                EaseType.InQuartic => Quartic.In(t),
+                EaseType.OutQuartic => Quartic.Out(t),
+                EaseType.InOutQuartic => Quartic.InOut(t),
+
+                EaseType.InQuintic => Quintic.In(t),
+                EaseType.OutQuintic => Quintic.Out(t),
+                EaseType.InOutQuintic => Quintic.InOut(t),
+
+                EaseType.InSinusoidal => Sinusoidal.In(t),
+                EaseType.OutSinusoidal => Sinusoidal.Out(t),
+                EaseType.InOutSinusoidal => Sinusoidal.InOut(t),
+
+                EaseType.InExponential => Exponential.In(t),
+                EaseType.OutExponential => Exponential.Out(t),
+                EaseType.InOutExponential => Exponential.InOut(t),
+
+                EaseType.InCircular => Circular.In(t),
+                EaseType.OutCircular => Circular.Out(t),
+                EaseType.InOutCircular => Circular.InOut(t),
+
+                EaseType.InElastic => Elastic.In(t),
+                EaseType.OutElastic => Elastic.Out(t),
+                EaseType.InOutElastic => Elastic.InOut(t),
+
+                EaseType.InBack => Back.In(t),
+                EaseType.OutBack => Back.Out(t),
+                EaseType.InOutBack => Back.InOut(t),
+
+                EaseType.InBounce => Bounce.In(t),
+                EaseType.OutBounce => Bounce.Out(t),
+                EaseType.InOutBounce => Bounce.InOut(t),
+
+                _ => t,
+            };
         }
 
         //Visualize: https://www.desmos.com/calculator/eqkqcnogko

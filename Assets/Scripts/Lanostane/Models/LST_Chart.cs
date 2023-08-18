@@ -30,6 +30,7 @@ namespace Lanostane.Models
 
         [ID(300)] public virtual List<LST_BPMChange> BPMs { get; protected set; } = new();
         [ID(301)] public virtual List<LST_ScrollChange> Scrolls { get; protected set; } = new();
+        [ID(302)] public virtual List<LST_ColorPaletteChange> PaletteSwaps { get; protected set; } = new();
 
         [ID(400)] public virtual List<LST_Event> Events { get; protected set; } = new();
     }

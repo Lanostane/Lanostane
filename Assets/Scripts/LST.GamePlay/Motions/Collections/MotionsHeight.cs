@@ -1,6 +1,7 @@
 ﻿using Lanostane.Models;
 using System.Linq;
 using UnityEngine;
+using Utils.Maths;
 
 namespace LST.GamePlay.Motions
 {
@@ -13,7 +14,7 @@ namespace LST.GamePlay.Motions
 
         public float StartHeight;
         public float EndHeight;
-        public LST_Ease Ease;
+        public EaseType Ease;
     }
 
     public sealed class MotionsHeight : MotionCollection<HeightMotion>

@@ -24,7 +24,9 @@ namespace LST.GamePlay
 
     public interface IColorPaletteUpdater : IChartUpdater
     {
+        event Action<LST_ColorPalette> PaletteUpdated;
 
+        void AddFromChart(LST_Chart chart);
     }
 
     public interface INoteGraphicUpdater : IChartUpdater

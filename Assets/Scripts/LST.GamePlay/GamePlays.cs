@@ -13,7 +13,6 @@ namespace LST.GamePlay
     public static partial class GamePlays
     {
         public static bool GamePlayLoaded { get; internal set; } = false;
-        
 
         public static IGameModifierManager Modifier { get; internal set; }
         public static IChartPlayer ChartPlayer { get; internal set; }
@@ -22,6 +21,7 @@ namespace LST.GamePlay
         public static Transform MainCamTransform { get; internal set; }
 
         public static IBGUpdater BGUpdater { get; internal set; }
+        public static IColorPaletteUpdater ColorPaletteUpdater { get; internal set; }
         public static INoteGraphicUpdater GraphicUpdater { get; internal set; }
         public static IScrollUpdater ScrollUpdater { get; internal set; }
         public static IMotionUpdater MotionUpdater { get; internal set; }

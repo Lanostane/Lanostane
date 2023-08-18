@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Utils;
+using Utils.Maths;
 
 namespace Lanostane.Models
 {
@@ -44,6 +45,6 @@ namespace Lanostane.Models
     {
         public float Duration;
         public float DeltaDegree;
-        public LST_Ease Ease;
+        public EaseType Ease;
     }
 }

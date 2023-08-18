@@ -13,10 +13,14 @@ namespace LST.GamePlay
 {
     public interface IGamePlayLoader
     {
-        public TextAsset ChartToLoad { get; set; }
-        public AudioClip MusicToPlay { get; set; }
+        TextAsset ChartToLoad { get; set; }
+        AudioClip MusicToPlay { get; set; }
+
+        void LoadGamePlay();
+        void UnloadGamePlay();
     }
 
+    // GamePlayLoader always should be in Scene
     public static class GamePlayLoader
     {
         public static event Action OnLoaded;

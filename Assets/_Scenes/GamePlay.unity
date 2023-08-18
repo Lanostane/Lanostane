@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 196081388}
   - component: {fileID: 196081387}
   m_Layer: 0
-  m_Name: Manager NoteGraphic
+  m_Name: Updater - NoteGraphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1001,7 +1001,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Audio: {fileID: 360564699}
-  StartChartOnLoaded: 0
 --- !u!4 &360564701
 Transform:
   m_ObjectHideFlags: 0
@@ -1408,7 +1407,7 @@ GameObject:
   - component: {fileID: 747260127}
   - component: {fileID: 747260128}
   m_Layer: 0
-  m_Name: Manager Scroll
+  m_Name: Updater - Scroll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1453,7 +1452,7 @@ GameObject:
   - component: {fileID: 798322597}
   - component: {fileID: 798322596}
   m_Layer: 0
-  m_Name: Manager NoteJudge
+  m_Name: Updater - NoteJudge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1471,6 +1470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27a9ad09bc847c4b814c5f12d6bfd1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <AutoPlay>k__BackingField: 0
 --- !u!4 &798322597
 Transform:
   m_ObjectHideFlags: 0
@@ -2215,6 +2215,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1420658832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1420658834}
+  - component: {fileID: 1420658833}
+  m_Layer: 0
+  m_Name: Updater - ColorPalette
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1420658833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420658832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e4e807f3066644f84e0e799cf4c0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1420658834
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420658832}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1437997811
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2489,7 +2533,7 @@ GameObject:
   - component: {fileID: 1750428006}
   - component: {fileID: 1750428007}
   m_Layer: 0
-  m_Name: Manager Motion
+  m_Name: Updater - Motion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3709,6 +3753,7 @@ SceneRoots:
   - {fileID: 798322597}
   - {fileID: 196081388}
   - {fileID: 747260127}
+  - {fileID: 1420658834}
   - {fileID: 268551811}
   - {fileID: 136950619}
   - {fileID: 225654669}

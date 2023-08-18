@@ -16,7 +16,7 @@ namespace LST.GamePlay.Graphics
         public float DeltaDegree;
         public float StartDeg;
         public float EndDeg;
-        public LST_Ease Ease;
+        public EaseType Ease;
     }
 
     public sealed class LongNoteJointCollection : IEnumerable<LongNoteJointInfo>
@@ -43,7 +43,7 @@ namespace LST.GamePlay.Graphics
                     DeltaDegree = 0.0f,
                     StartDeg = MathfE.AbsAngle(info.Degree),
                     EndDeg = MathfE.AbsAngle(info.Degree),
-                    Ease = LST_Ease.Linear
+                    Ease = EaseType.Linear
                 });
                 return;
             }

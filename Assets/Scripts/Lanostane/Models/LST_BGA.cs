@@ -4,6 +4,7 @@ using UnityEngine;
 using ZeroFormatter;
 using PreserveAttribute = UnityEngine.Scripting.PreserveAttribute;
 using ID = ZeroFormatter.IndexAttribute;
+using Utils.Maths;
 
 namespace Lanostane.Models
 {
@@ -36,7 +37,7 @@ namespace Lanostane.Models
         [ID(2)] public virtual float Duration { get; set; }
         [ID(3)] public virtual float NewXScale { get; set; }
         [ID(4)] public virtual float NewYScale { get; set; }
-        [ID(5)] public virtual LST_Ease Ease { get; set; }
+        [ID(5)] public virtual EaseType Ease { get; set; }
     }
 
     [Preserve]
@@ -49,7 +50,7 @@ namespace Lanostane.Models
         [ID(3)] public virtual float NewXScale { get; set; }
         [ID(4)] public virtual float NewYScale { get; set; }
         [ID(5)] public virtual float NewSpeed { get; set; }
-        [ID(6)] public virtual LST_Ease Ease { get; set; }
+        [ID(6)] public virtual EaseType Ease { get; set; }
     }
 
     [Preserve]
@@ -60,6 +61,6 @@ namespace Lanostane.Models
         [ID(1)] public virtual float Timing { get; set; }
         [ID(2)] public virtual float Duration { get; set; }
         [ID(3)] public virtual float NewAlpha { get; set; }
-        [ID(4)] public virtual LST_Ease Ease { get; set; }
+        [ID(4)] public virtual EaseType Ease { get; set; }
     }
 }

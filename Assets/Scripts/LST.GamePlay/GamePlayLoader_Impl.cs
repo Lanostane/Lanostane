@@ -17,6 +17,8 @@ namespace LST.GamePlay
         [field: SerializeField]
         public AudioClip MusicToPlay { get; set; }
 
+        private bool _Loading = false;
+
         void Awake()
         {
             GamePlayLoader.Instance = this;
@@ -25,6 +27,10 @@ namespace LST.GamePlay
         [Button("Load GamePlay", EnableWhen.Playmode)]
         public void LoadGamePlay()
         {
+            if (_Loading)
+                return;
+
+            _Loading = true;
             LoadingWorker.Instance.AddSceneLoadJob(SceneName.GamePlay);
             LoadingWorker.Instance.AddJob(new LoadGamePlayJob(MusicToPlay, ChartToLoad));
             LoadingWorker.Instance.StartLoading(new LoadingStyle()
@@ -33,6 +39,7 @@ namespace LST.GamePlay
                 Style = LoadingStyles.BlackShutter
             }, () =>
             {
+                _Loading = false;
                 GamePlayLoader.Invoke_OnLoaded();
             });
         }
@@ -40,6 +47,10 @@ namespace LST.GamePlay
         [Button("Unload GamePlay", EnableWhen.Playmode)]
         public void UnloadGamePlay()
         {
+            if (_Loading)
+                return;
+
+            _Loading = true;
             LoadingWorker.Instance.AddSceneUnloadJob(SceneName.GamePlay, unloadUnusedAssets: true);
             LoadingWorker.Instance.StartLoading(new LoadingStyle()
             {
@@ -47,6 +58,7 @@ namespace LST.GamePlay
                 Style = LoadingStyles.BlackShutter
             }, () =>
             {
+                _Loading = false;
                 GamePlayLoader.Invoke_OnUnloaded();
             });
         }

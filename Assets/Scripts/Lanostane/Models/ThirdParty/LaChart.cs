@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine.Scripting;
 using Utils;
+using Utils.Maths;
 
 namespace Lanostane.Models.ThirdParty
 {
@@ -257,24 +258,24 @@ namespace Lanostane.Models.ThirdParty
 
     public static class LaEaseConverter
     {
-        public static LST_Ease ToLSTEase(this LaEaseType laEase)
+        public static EaseType ToLSTEase(this LaEaseType laEase)
         {
             return laEase switch
             {
-                LaEaseType.Linear => LST_Ease.Linear,
-                LaEaseType.InQuart => LST_Ease.InQuartic,
-                LaEaseType.OutQuart => LST_Ease.OutQuartic,
-                LaEaseType.InOutQuart => LST_Ease.InOutQuartic,
-                LaEaseType.InCubic => LST_Ease.InCubic,
-                LaEaseType.OutCubic => LST_Ease.OutCubic,
-                LaEaseType.InOutCubic => LST_Ease.InOutCubic,
-                LaEaseType.InExpo => LST_Ease.InExponential,
-                LaEaseType.OutExpo => LST_Ease.OutExponential,
-                LaEaseType.InOutExpo => LST_Ease.InOutExponential,
-                LaEaseType.InSine => LST_Ease.InSinusoidal,
-                LaEaseType.OutSine => LST_Ease.OutSinusoidal,
-                LaEaseType.InOutSine => LST_Ease.InOutSinusoidal,
-                _ => LST_Ease.Linear,
+                LaEaseType.Linear => EaseType.Linear,
+                LaEaseType.InQuart => EaseType.InQuartic,
+                LaEaseType.OutQuart => EaseType.OutQuartic,
+                LaEaseType.InOutQuart => EaseType.InOutQuartic,
+                LaEaseType.InCubic => EaseType.InCubic,
+                LaEaseType.OutCubic => EaseType.OutCubic,
+                LaEaseType.InOutCubic => EaseType.InOutCubic,
+                LaEaseType.InExpo => EaseType.InExponential,
+                LaEaseType.OutExpo => EaseType.OutExponential,
+                LaEaseType.InOutExpo => EaseType.InOutExponential,
+                LaEaseType.InSine => EaseType.InSinusoidal,
+                LaEaseType.OutSine => EaseType.OutSinusoidal,
+                LaEaseType.InOutSine => EaseType.InOutSinusoidal,
+                _ => EaseType.Linear,
             };
         }
     }

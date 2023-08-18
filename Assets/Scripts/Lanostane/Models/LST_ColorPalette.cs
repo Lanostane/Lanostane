@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Drawing;
+using UnityEngine;
 using ZeroFormatter;
 using ID = ZeroFormatter.IndexAttribute;
 using PreserveAttribute = UnityEngine.Scripting.PreserveAttribute;
+using Color = UnityEngine.Color;
 
 namespace Lanostane.Models
 {
@@ -50,6 +52,33 @@ namespace Lanostane.Models
                 LST_ColorPaletteIndex.G => G,
                 LST_ColorPaletteIndex.H => H,
                 _ => throw new NotImplementedException(),
+            };
+        }
+
+        public void CopyFrom(LST_ColorPalette from)
+        {
+            A = from.A;
+            B = from.B;
+            C = from.C;
+            D = from.D;
+            E = from.E;
+            F = from.F;
+            G = from.G;
+            H = from.H;
+        }
+
+        public static LST_ColorPalette Lerp(LST_ColorPalette a, LST_ColorPalette b, float t)
+        {
+            return new()
+            {
+                A = Color.Lerp(a.A, b.A, t),
+                B = Color.Lerp(a.B, b.B, t),
+                C = Color.Lerp(a.C, b.C, t),
+                D = Color.Lerp(a.D, b.D, t),
+                E = Color.Lerp(a.E, b.E, t),
+                F = Color.Lerp(a.F, b.F, t),
+                G = Color.Lerp(a.G, b.G, t),
+                H = Color.Lerp(a.H, b.H, t),
             };
         }
     }

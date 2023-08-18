@@ -8,6 +8,7 @@ using System.Linq;
 
 using PreserveAttribute = UnityEngine.Scripting.PreserveAttribute;
 using ID = ZeroFormatter.IndexAttribute;
+using Utils.Maths;
 
 namespace Lanostane.Models
 {
@@ -173,6 +174,6 @@ namespace Lanostane.Models
     {
         [ID(0)] public virtual float Duration { get; set; }
         [ID(1)] public virtual float DeltaDegree { get; set; }
-        [ID(2)] public virtual LST_Ease Ease { get; set; }
+        [ID(2)] public virtual EaseType Ease { get; set; }
     }
 }
