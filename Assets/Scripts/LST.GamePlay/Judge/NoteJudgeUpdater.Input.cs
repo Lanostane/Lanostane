@@ -46,7 +46,7 @@ namespace LST.GamePlay.Judge
             if (!updatedInputHandle.InValidPosition)
                 return;
 
-            var time = ChartPlayer.OffsetChartTime;
+            var time = GamePlays.ChartPlayer.OffsetChartTime;
             UpdateFirstPass(time, updatedInputHandle);
             var handle = GetEligibleFromFirstPass(updatedInputHandle);
             if (handle == null)

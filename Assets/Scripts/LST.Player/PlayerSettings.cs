@@ -1,4 +1,5 @@
-﻿using NaughtyAttributes;
+﻿using LST.GamePlay;
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -68,6 +69,16 @@ namespace LST.Player
             Setting = UserData;
             DebugSetting = DebugData;
             _Mixer = Resources.Load<AudioMixer>("AudioMixer");
+
+            GamePlayLoader.OnLoaded += GamePlayLoader_OnLoaded;
+        }
+
+        private void GamePlayLoader_OnLoaded()
+        {
+            GamePlays.ScrollUpdater.ScrollingSpeed = Setting.ScrollSpeed;
+            GamePlays.NoteJudgeUpdater.AutoPlay = DebugSetting.AudoPlayEnabled;
+            GamePlays.ChartPlayer.ChartOffset = Setting.Offset;
+            Debug.Log("Settings Applied!");
         }
 
         void FixedUpdate()

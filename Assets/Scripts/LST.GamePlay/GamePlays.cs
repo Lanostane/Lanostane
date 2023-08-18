@@ -12,8 +12,9 @@ namespace LST.GamePlay
 {
     public static class GamePlays
     {
+        public static bool GamePlayLoaded { get; internal set; } = false;
+
         public static IGameModifierManager Modifier { get; internal set; }
-        public static IGamePlayLoader GamePlayLoader { get; internal set; }
         public static IChartPlayer ChartPlayer { get; internal set; }
 
         public static Camera MainCam { get; internal set; }

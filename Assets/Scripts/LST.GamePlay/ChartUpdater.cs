@@ -33,7 +33,7 @@ namespace LST.GamePlay
             progress?.Report(LoadChartSteps.S7_AddSingleNotes);
             foreach (var note in chart.TapNotes)
             {
-                var graphic = GamePlays.GraphicUpdater.AddSingleNote(note.NoteInfo);
+                var graphic = await GamePlays.GraphicUpdater.AddSingleNote(note.NoteInfo);
                 if (note.Timing <= chart.SongLength && !note.Flags.HasFlag(LST_NoteSpecialFlags.NoJudgement))
                     GamePlays.NoteJudgeUpdater.AddSingleJudgeHandle(note.NoteInfo, graphic);
 
@@ -47,7 +47,7 @@ namespace LST.GamePlay
 
             foreach (var note in chart.CatchNotes)
             {
-                var graphic = GamePlays.GraphicUpdater.AddSingleNote(note.NoteInfo);
+                var graphic = await GamePlays.GraphicUpdater.AddSingleNote(note.NoteInfo);
                 if (note.Timing <= chart.SongLength && !note.Flags.HasFlag(LST_NoteSpecialFlags.NoJudgement))
                     GamePlays.NoteJudgeUpdater.AddSingleJudgeHandle(note.NoteInfo, graphic);
 
@@ -60,7 +60,7 @@ namespace LST.GamePlay
 
             foreach (var note in chart.FlickNotes)
             {
-                var graphic = GamePlays.GraphicUpdater.AddSingleNote(note.NoteInfo);
+                var graphic = await GamePlays.GraphicUpdater.AddSingleNote(note.NoteInfo);
                 if (note.Timing <= chart.SongLength && !note.Flags.HasFlag(LST_NoteSpecialFlags.NoJudgement))
                     GamePlays.NoteJudgeUpdater.AddSingleJudgeHandle(note.NoteInfo, graphic);
 
@@ -74,7 +74,7 @@ namespace LST.GamePlay
             progress?.Report(LoadChartSteps.S8_AddLongNotes);
             foreach (var note in chart.HoldNotes)
             {
-                var graphic = GamePlays.GraphicUpdater.AddLongNote(note.NoteInfo);
+                var graphic = await GamePlays.GraphicUpdater.AddLongNote(note.NoteInfo);
                 if (note.Timing <= chart.SongLength && !note.Flags.HasFlag(LST_NoteSpecialFlags.NoJudgement))
                     GamePlays.NoteJudgeUpdater.AddLongJudgeHandle(note.NoteInfo, graphic);
 

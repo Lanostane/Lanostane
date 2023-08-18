@@ -472,12 +472,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NoteOrigin: {fileID: 2015439923}
-  Size0HoldPrefab: {fileID: 4391355111436168239, guid: 412a973c1e4b0084a98e1fdd8fe15d11, type: 3}
-  Size1HoldPrefab: {fileID: 6611334128105852393, guid: d0015525acfd2da42abd19d0d6e3f276, type: 3}
-  Size2HoldPrefab: {fileID: 375502053924250624, guid: 9ed145c5c637a024a8e35d1e530f2d0f, type: 3}
-  Size0SinglePrefab: {fileID: 1271910512300398310, guid: c6370f607a4359347b88f4ab1c5e6f02, type: 3}
-  Size1SinglePrefab: {fileID: 4820694467881911873, guid: b0bd605d79308694690744dc33ae87af, type: 3}
-  Size2SinglePrefab: {fileID: 6592823073172065435, guid: e28e20a2620c3144fa7846c3831b00eb, type: 3}
+  Size0HoldPrefab:
+    m_AssetGUID: 412a973c1e4b0084a98e1fdd8fe15d11
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
+  Size1HoldPrefab:
+    m_AssetGUID: d0015525acfd2da42abd19d0d6e3f276
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
+  Size2HoldPrefab:
+    m_AssetGUID: 9ed145c5c637a024a8e35d1e530f2d0f
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  Size0SinglePrefab:
+    m_AssetGUID: c6370f607a4359347b88f4ab1c5e6f02
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  Size1SinglePrefab:
+    m_AssetGUID: b0bd605d79308694690744dc33ae87af
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  Size2SinglePrefab:
+    m_AssetGUID: e28e20a2620c3144fa7846c3831b00eb
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!4 &196081388
 Transform:
   m_ObjectHideFlags: 0

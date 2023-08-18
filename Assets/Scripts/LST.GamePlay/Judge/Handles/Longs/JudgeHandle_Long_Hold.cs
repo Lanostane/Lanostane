@@ -21,7 +21,7 @@ namespace LST.GamePlay.Judge
         #endregion
 
         public override int TotalNoteCount => _TotalSubNoteCount;
-        public override float CurrentTiming => Mathf.Clamp(ChartPlayer.OffsetChartTime, Timing, Timing + Duration);
+        public override float CurrentTiming => Mathf.Clamp(GamePlays.ChartPlayer.OffsetChartTime, Timing, Timing + Duration);
         public override float CurrentDegree => Graphic.HeadDegree;
         public bool IsDerailed => MathfE.AbsDelta(CurrentTiming, LastInputTime) > 0.4f;
 

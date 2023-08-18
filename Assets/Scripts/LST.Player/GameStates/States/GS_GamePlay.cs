@@ -23,12 +23,12 @@ namespace LST.Player.States
 
         public override void Enter()
         {
-            ChartPlayer.ChartPlayFinished += OnChartFinished;
+            GamePlays.ChartPlayer.ChartPlayFinished += OnChartFinished;
         }
 
         public override void Exit(GameStateType nextState)
         {
-            ChartPlayer.ChartPlayFinished -= OnChartFinished;
+            GamePlays.ChartPlayer.ChartPlayFinished -= OnChartFinished;
         }
 
         private void OnChartFinished()

@@ -1,13 +1,10 @@
-﻿using Lanostane.Models;
+﻿using Cysharp.Threading.Tasks;
+using Lanostane.Models;
 using LST.GamePlay.Graphics;
 using LST.GamePlay.Judge;
 using LST.GamePlay.Motions;
 using LST.GamePlay.Scrolls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Unity.Collections;
 using UnityEngine;
 using Utils.Maths;
@@ -29,8 +26,8 @@ namespace LST.GamePlay
     {
         event Action<float, ISingleNoteGraphic> OnSingleNoteProgressUpdate;
         event Action<float, ILongNoteGraphic> OnLongNoteProgressUpdate;
-        ISingleNoteGraphic AddSingleNote(LST_SingleNoteInfo info);
-        ILongNoteGraphic AddLongNote(LST_LongNoteInfo info);
+        UniTask<ISingleNoteGraphic> AddSingleNote(LST_SingleNoteInfo info);
+        UniTask<ILongNoteGraphic> AddLongNote(LST_LongNoteInfo info);
         void Prepare();
     }
 

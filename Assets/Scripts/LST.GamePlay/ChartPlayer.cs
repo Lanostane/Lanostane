@@ -11,6 +11,15 @@ namespace LST.GamePlay
 {
     public interface IChartPlayer
     {
+        event Action<float> ChartProgressUpdated;
+        event Action<float> ChartTimeUpdated;
+        event Action ChartPlayFinished;
+
+        bool ChartLoaded { get; }
+        float MusicTime { get; }
+        float ChartTime { get; }
+        float OffsetChartTime { get; }
+
         int ChartOffset { get; set; }
         void Pause();
         void Resume();
@@ -36,14 +45,14 @@ namespace LST.GamePlay
     internal sealed class ChartPlayer : MonoBehaviour, IChartPlayer
     {
         public int ChartOffset { get; set; }
-        public static bool ChartLoaded { get; private set; }
-        public static float MusicTime { get; private set; }
-        public static float ChartTime { get; private set; }
-        public static float OffsetChartTime { get; private set; }
+        public bool ChartLoaded { get; private set; }
+        public float MusicTime { get; private set; }
+        public float ChartTime { get; private set; }
+        public float OffsetChartTime { get; private set; }
 
-        public static event Action<float> ChartProgressUpdated;
-        public static event Action<float> ChartTimeUpdated;
-        public static event Action ChartPlayFinished;
+        public event Action<float> ChartProgressUpdated;
+        public event Action<float> ChartTimeUpdated;
+        public event Action ChartPlayFinished;
 
         public AudioSource Audio;
         public float PlaySpeed { get; private set; } = 1.0f;
@@ -58,13 +67,20 @@ namespace LST.GamePlay
 
         void Awake()
         {
+            
             GamePlays.ChartPlayer = this;
             EditorLog.Info($"Play Offset: {ChartOffset}");
+        }
+
+        void Start()
+        {
+            GamePlays.GamePlayLoaded = true;
         }
 
         void OnDestroy()
         {
             GamePlays.ChartPlayer = null;
+            GamePlays.GamePlayLoaded = false;
             ResetValues();
         }
 

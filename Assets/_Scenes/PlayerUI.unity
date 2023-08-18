@@ -8068,7 +8068,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UserData:
-    Offset: 35
+    Offset: 0
     ScrollSpeed: 7.5
     MasterVolume: 1
     SFXVolume: 1

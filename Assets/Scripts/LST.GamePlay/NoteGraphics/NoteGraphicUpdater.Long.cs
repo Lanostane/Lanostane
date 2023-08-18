@@ -1,20 +1,22 @@
-﻿using Lanostane.Models;
+﻿using Cysharp.Threading.Tasks;
+using Lanostane.Models;
 using LST.GamePlay.Scrolls;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using Utils.Maths;
 
 namespace LST.GamePlay.Graphics
 {
     internal sealed partial class NoteGraphicUpdater : MonoBehaviour, INoteGraphicUpdater
     {
-        public GameObject Size0HoldPrefab;
-        public GameObject Size1HoldPrefab;
-        public GameObject Size2HoldPrefab;
+        public AssetReference Size0HoldPrefab;
+        public AssetReference Size1HoldPrefab;
+        public AssetReference Size2HoldPrefab;
 
         private readonly LongNoteGraphicCollection _Longs = new();
-        public ILongNoteGraphic AddLongNote(LST_LongNoteInfo info)
+        public async UniTask<ILongNoteGraphic> AddLongNote(LST_LongNoteInfo info)
         {
-            GameObject note = Instantiate(GetLongPrefab(info.Size), NoteOrigin);
+            var note = await InstantiateLongNote(info.Size);
             var graphic = note.GetComponent<ILongNoteGraphic>();
             graphic.Setup(info);
 
@@ -48,15 +50,16 @@ namespace LST.GamePlay.Graphics
             }
         }
 
-        private GameObject GetLongPrefab(LST_NoteSize size)
+        private async UniTask<GameObject> InstantiateLongNote(LST_NoteSize size)
         {
-            return size.ToValidSize() switch
+            var obj = await (size.ToValidSize() switch
             {
-                LST_NoteSize.Size0 => Size0HoldPrefab,
-                LST_NoteSize.Size1 => Size1HoldPrefab,
-                LST_NoteSize.Size2 => Size2HoldPrefab,
-                _ => Size0HoldPrefab
-            };
+                LST_NoteSize.Size0 => Size0HoldPrefab.InstantiateAsync(NoteOrigin).ToUniTask(),
+                LST_NoteSize.Size1 => Size1HoldPrefab.InstantiateAsync(NoteOrigin).ToUniTask(),
+                LST_NoteSize.Size2 => Size2HoldPrefab.InstantiateAsync(NoteOrigin).ToUniTask(),
+                _ => Size0HoldPrefab.InstantiateAsync(NoteOrigin).ToUniTask()
+            });
+            return obj;
         }
     }
 }

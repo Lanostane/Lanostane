@@ -19,7 +19,7 @@ namespace LST.GamePlay.Graphics
         public bool JudgeDone { get; set; }
         public bool JudgeEffectEnabled { get; set; } = false;
 
-        public float HeadDegree => JointInfo.GetDegreeByTime(ChartPlayer.OffsetChartTime);
+        public float HeadDegree => JointInfo.GetDegreeByTime(GamePlays.ChartPlayer.OffsetChartTime);
 
         
 

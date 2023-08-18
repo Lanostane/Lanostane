@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: NoteAssets
+  m_EditorClassIdentifier: 
+  m_GroupName: NoteAssets
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 68ee46a0203c89246b691ada4bc7e4d8
+  m_SerializeEntries:
+  - m_GUID: 412a973c1e4b0084a98e1fdd8fe15d11
+    m_Address: Notes/HoldNote_S0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0015525acfd2da42abd19d0d6e3f276
+    m_Address: Notes/HoldNote_S1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ed145c5c637a024a8e35d1e530f2d0f
+    m_Address: Notes/HoldNote_S2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c6370f607a4359347b88f4ab1c5e6f02
+    m_Address: Notes/SingleNote_S0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0bd605d79308694690744dc33ae87af
+    m_Address: Notes/SingleNote_S1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e28e20a2620c3144fa7846c3831b00eb
+    m_Address: Notes/SingleNote_S2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 17466bc77d8d6f146870319ef092fafe, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ba122e9583057b744bfcc47d45b98061, type: 2}
+    - {fileID: 11400000, guid: 6dc695d2842b65c49902b6ca0691c489, type: 2}

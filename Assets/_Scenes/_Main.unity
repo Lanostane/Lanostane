@@ -384,7 +384,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1216265983}
-  - component: {fileID: 1216265982}
+  - component: {fileID: 1216265984}
   m_Layer: 0
   m_Name: GamePlayLoader
   m_TagString: Untagged
@@ -392,20 +392,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1216265982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1216265980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d753f780a841d174191a2333072a7cc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ChartToLoad>k__BackingField: {fileID: 4900000, guid: f3bf8c465f4160c4a991acf394ed388f, type: 3}
-  <MusicToPlay>k__BackingField: {fileID: 8300000, guid: ad11702f5c6a1e54ea7220ed443cfa86, type: 3}
 --- !u!4 &1216265983
 Transform:
   m_ObjectHideFlags: 0
@@ -421,6 +407,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 966672788}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1216265984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216265980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ded7bd219ff9e17499d87a2a81c7bf87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ChartToLoad>k__BackingField: {fileID: 4900000, guid: da7b2ab60ad37694abe22bf6f640ef31, type: 3}
+  <MusicToPlay>k__BackingField: {fileID: 8300000, guid: a67773ba32accc04fb4a02f6e0f69cef, type: 3}
 --- !u!1 &1227011819
 GameObject:
   m_ObjectHideFlags: 0

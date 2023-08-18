@@ -1,21 +1,24 @@
-﻿using Lanostane.Models;
+﻿using Cysharp.Threading.Tasks;
+using Lanostane.Models;
 using LST.GamePlay.Scrolls;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using Utils.Maths;
 
 namespace LST.GamePlay.Graphics
 {
     internal sealed partial class NoteGraphicUpdater : MonoBehaviour, INoteGraphicUpdater
     {
-        public GameObject Size0SinglePrefab;
-        public GameObject Size1SinglePrefab;
-        public GameObject Size2SinglePrefab;
+        public AssetReference Size0SinglePrefab;
+        public AssetReference Size1SinglePrefab;
+        public AssetReference Size2SinglePrefab;
 
         private readonly SingleNoteGraphicCollection _Singles = new();
 
-        public ISingleNoteGraphic AddSingleNote(LST_SingleNoteInfo info)
+        public async UniTask<ISingleNoteGraphic> AddSingleNote(LST_SingleNoteInfo info)
         {
-            GameObject note = Instantiate(GetSinglePrefab(info.Size), NoteOrigin);
+            var note = await InstantiateSingleNote(info.Size);
             var graphic = note.GetComponent<ISingleNoteGraphic>();
             graphic.Setup(info);
 
@@ -55,15 +58,16 @@ namespace LST.GamePlay.Graphics
             }
         }
 
-        private GameObject GetSinglePrefab(LST_NoteSize size)
+        private async UniTask<GameObject> InstantiateSingleNote(LST_NoteSize size)
         {
-            return size.ToValidSize() switch
+            var obj = await (size.ToValidSize() switch
             {
-                LST_NoteSize.Size0 => Size0SinglePrefab,
-                LST_NoteSize.Size1 => Size1SinglePrefab,
-                LST_NoteSize.Size2 => Size2SinglePrefab,
-                _ => Size0SinglePrefab
-            };
+                LST_NoteSize.Size0 => Size0SinglePrefab.InstantiateAsync(NoteOrigin).ToUniTask(),
+                LST_NoteSize.Size1 => Size1SinglePrefab.InstantiateAsync(NoteOrigin).ToUniTask(),
+                LST_NoteSize.Size2 => Size2SinglePrefab.InstantiateAsync(NoteOrigin).ToUniTask(),
+                _ => Size0SinglePrefab.InstantiateAsync(NoteOrigin).ToUniTask()
+            });
+            return obj;
         }
     }
 }

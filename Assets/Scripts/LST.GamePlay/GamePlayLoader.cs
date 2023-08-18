@@ -13,60 +13,25 @@ namespace LST.GamePlay
 {
     public interface IGamePlayLoader
     {
-        event Action OnLoaded;
-        event Action OnUnloaded;
         public TextAsset ChartToLoad { get; set; }
         public AudioClip MusicToPlay { get; set; }
     }
 
-    internal sealed class GamePlayLoader : MonoBehaviour, IGamePlayLoader
+    public static class GamePlayLoader
     {
-        public event Action OnLoaded;
-        public event Action OnUnloaded;
+        public static event Action OnLoaded;
+        public static event Action OnUnloaded;
 
-        [field: SerializeField]
-        public TextAsset ChartToLoad { get; set; }
+        public static IGamePlayLoader Instance { get; internal set; }
 
-        [field: SerializeField]
-        public AudioClip MusicToPlay { get; set; }
-
-        void Awake()
+        internal static void Invoke_OnLoaded()
         {
-            GamePlays.GamePlayLoader = this;
+            OnLoaded?.Invoke();
         }
 
-        [Button("Load GamePlay", EnableWhen.Playmode)]
-        public void LoadGamePlay()
+        internal static void Invoke_OnUnloaded()
         {
-            LoadingWorker.Instance.AddSceneLoadJob(SceneName.GamePlay);
-            LoadingWorker.Instance.AddJob(new LoadGamePlayJob(MusicToPlay, ChartToLoad));
-            LoadingWorker.Instance.StartLoading(new LoadingStyle()
-            {
-                HideScreenOnFinished = true,
-                Style = LoadingStyles.BlackShutter
-            }, () =>
-            {
-                OnLoaded?.Invoke();
-            });
-        }
-
-        [Button("Unload GamePlay", EnableWhen.Playmode)]
-        public void UnloadGamePlay()
-        {
-            LoadingWorker.Instance.AddSceneUnloadJob(SceneName.GamePlay, unloadUnusedAssets: true);
-            LoadingWorker.Instance.StartLoading(new LoadingStyle()
-            {
-                HideScreenOnFinished = true,
-                Style = LoadingStyles.BlackShutter
-            }, () =>
-            {
-                OnUnloaded?.Invoke();
-            });
-        }
-
-        void OnDestroy()
-        {
-            GamePlays.GamePlayLoader = null;
+            OnUnloaded?.Invoke();
         }
     }
 }

@@ -17,4 +17,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/CreatorUI.unity
     guid: c606efc30aff45840a7072c2308fa7e4
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: daaa9343a41c7884183240b1f828d6aa, type: 2}
