@@ -14,7 +14,7 @@ Shader "Lanostane/Note-Transparent"
         Cull off
 
         ZWrite Off
-        Blend SrcAlpha OneMinusSrcAlpha
+        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
 
         Pass
         {

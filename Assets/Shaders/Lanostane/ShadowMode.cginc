@@ -15,5 +15,6 @@ float GetShadowModeAlpha(float3 vertWorldPos)
 
 fixed4 ApplyShadowModeAlpha(fixed4 baseColor, float3 vertWorldPos)
 {
-    return fixed4(baseColor.rgb, baseColor.a * GetShadowModeAlpha(vertWorldPos));
+    float a = GetShadowModeAlpha(vertWorldPos);
+    return fixed4(baseColor.rgb * a, baseColor.a * a);
 }
