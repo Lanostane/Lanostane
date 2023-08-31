@@ -12,15 +12,15 @@ namespace LST.GamePlay
     [RequireComponent(typeof(Camera))]
     internal sealed class MainGameCamera : MonoBehaviour
     {
-        public AssetReferenceT<Material> BlurMaterial;
+        //public AssetReferenceT<Material> BlurMaterial;
 
-        private Material _BlurMat;
+        //private Material _BlurMat;
 
         private void Awake()
         {
             GamePlays.MainCam = GetComponent<Camera>();
             GamePlays.MainCamTransform = transform;
-            _BlurMat = BlurMaterial.LoadAssetAsync<Material>().WaitForCompletion();
+            //_BlurMat = BlurMaterial.LoadAssetAsync<Material>().WaitForCompletion();
         }
 
         private void OnDestroy()
@@ -29,9 +29,9 @@ namespace LST.GamePlay
             GamePlays.MainCamTransform = null;
         }
 
-        private void OnRenderImage(RenderTexture source, RenderTexture destination)
-        {
-            UnityEngine.Graphics.Blit(source, destination, _BlurMat);
-        }
+        //private void OnRenderImage(RenderTexture source, RenderTexture destination)
+        //{
+        //    UnityEngine.Graphics.Blit(source, destination, _BlurMat);
+        //}
     }
 }

@@ -27,9 +27,6 @@ namespace LST.Player
 
         [Range(0.0f, 1.0f)]
         public float MusicVolume = 1.0f;
-
-        [Range(-1, 120)]
-        public int FrameRate = -1;
     }
 
     [Serializable]
@@ -76,8 +73,6 @@ namespace LST.Player
             _Mixer.SetFloat("VolMaster", GetVolume(UserData.MasterVolume));
             _Mixer.SetFloat("VolMusic", GetVolume(UserData.MusicVolume));
             _Mixer.SetFloat("VolJudgeSFX", GetVolume(UserData.SFXVolume));
-
-            Application.targetFrameRate = UserData.FrameRate;
         }
 
         static float GetVolume(float vol01)

@@ -16,7 +16,42 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: a0c32e5a2467a604ab71aa6bfe482f12
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 412a973c1e4b0084a98e1fdd8fe15d11
+    m_Address: Notes/HoldNote_S0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0015525acfd2da42abd19d0d6e3f276
+    m_Address: Notes/HoldNote_S1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ed145c5c637a024a8e35d1e530f2d0f
+    m_Address: Notes/HoldNote_S2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c6370f607a4359347b88f4ab1c5e6f02
+    m_Address: Notes/SingleNote_S0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0bd605d79308694690744dc33ae87af
+    m_Address: Notes/SingleNote_S1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e28e20a2620c3144fa7846c3831b00eb
+    m_Address: Notes/SingleNote_S2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a68fcacaba7eab847870b329736ea8be
+    m_Address: Materials/ImageEffects/Blur-GameSpace
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 17466bc77d8d6f146870319ef092fafe, type: 2}
   m_SchemaSet:

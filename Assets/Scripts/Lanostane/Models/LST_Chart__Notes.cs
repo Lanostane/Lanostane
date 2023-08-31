@@ -1,6 +1,5 @@
 ﻿using System;
 using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
-using UnityEditor;
 using UnityEngine.Scripting;
 using ZeroFormatter;
 using System.Collections.Generic;
