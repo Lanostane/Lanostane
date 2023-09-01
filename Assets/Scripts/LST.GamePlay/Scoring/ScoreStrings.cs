@@ -10,7 +10,7 @@ namespace LST.GamePlay.Scoring
     public static class ScoreStrings
     {
         public static readonly char[] ScoreBuffer = new char[8];
-        public static readonly char[] ComboBuffer = new char[5];
+        public static readonly char[] ComboBuffer = new char[6];
 
         public static int ComboCharsCount { get; private set; } = 0;
 
@@ -28,7 +28,17 @@ namespace LST.GamePlay.Scoring
 
         public static void SetComboBuffer(int combo)
         {
-            if (combo >= 10000)
+            if (combo >= 100000)
+            {
+                ComboBuffer[0] = GetDigitChar(combo, 6);
+                ComboBuffer[1] = GetDigitChar(combo, 5);
+                ComboBuffer[2] = GetDigitChar(combo, 4);
+                ComboBuffer[3] = GetDigitChar(combo, 3);
+                ComboBuffer[4] = GetDigitChar(combo, 2);
+                ComboBuffer[5] = GetDigitChar(combo, 1);
+                ComboCharsCount = 6;
+            }
+            else if (combo >= 10000)
             {
                 ComboBuffer[0] = GetDigitChar(combo, 5);
                 ComboBuffer[1] = GetDigitChar(combo, 4);
