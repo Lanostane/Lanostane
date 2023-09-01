@@ -13,6 +13,7 @@ namespace LST.GamePlay.Judge
         public float Timing { get; private set; }
         public float Duration { get; private set; }
         public float Degree { get; private set; }
+        public bool IsAutoJudgeNote { get; private set; }
         public LST_LongNoteType Type { get; private set; }
         public LST_NoteSize Size { get; private set; }
         protected ILongNoteGraphic Graphic { get; private set; }
@@ -31,6 +32,7 @@ namespace LST.GamePlay.Judge
             Graphic = graphic;
             JudgeDone = false;
             LastInputTime = float.MaxValue;
+            IsAutoJudgeNote = info.Flags.HasFlag(LST_NoteSpecialFlags.AutoJudgement);
         }
 
         public void ReportLastInputTime(float clickTime, InputHandle updatedInputHandle)

@@ -35,9 +35,10 @@ namespace Lanostane.Models
     [Flags]
     public enum LST_NoteSpecialFlags : byte
     {
-        None = 0,
-        NoJudgement = 1,
-        NoGraphic = 2
+        None            = 0,
+        NoJudgement     = 1 << 0,
+        NoGraphic       = 1 << 1,
+        AutoJudgement   = 1 << 2
     }
 
     public static class NoteSizeExtension

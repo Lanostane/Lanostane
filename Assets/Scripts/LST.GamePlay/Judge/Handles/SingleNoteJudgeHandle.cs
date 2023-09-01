@@ -10,6 +10,7 @@ namespace LST.GamePlay.Judge
     {
         public override float CurrentTiming => Timing;
         public override float CurrentDegree => Degree;
+        public bool IsAutoJudgeNote { get; private set; }
 
         public override int TotalNoteCount => 1;
         public override bool JudgeDone { get; protected set; }
@@ -27,6 +28,7 @@ namespace LST.GamePlay.Judge
             Size = info.Size;
             Graphic = graphic;
             JudgeDone = false;
+            IsAutoJudgeNote = info.Flags.HasFlag(LST_NoteSpecialFlags.AutoJudgement);
         }
 
         public void TryReportJudge(float clickTime, InputHandle handle = null)

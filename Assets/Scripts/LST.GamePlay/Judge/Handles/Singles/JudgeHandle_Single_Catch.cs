@@ -49,7 +49,7 @@ namespace LST.GamePlay.Judge
 
         protected override JudgeType GetJudgeResult(float noteTime, float clickTime)
         {
-            if (GamePlays.NoteJudgeUpdater.AutoPlay)
+            if (GamePlays.NoteJudgeUpdater.AutoPlay || IsAutoJudgeNote)
                 return JudgeType.PurePerfect;
 
             var delta = MathfE.AbsDelta(noteTime, clickTime);

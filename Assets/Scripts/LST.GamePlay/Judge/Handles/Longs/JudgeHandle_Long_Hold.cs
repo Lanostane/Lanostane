@@ -150,7 +150,7 @@ namespace LST.GamePlay.Judge
             var subnote = _CurrentJudgeTiming.Value;
             var tolerance = (subnote.IsFirst || subnote.IsLast) ? _TickInterval * 5.0f : _TickInterval * 2.0f;
 
-            if (GamePlays.NoteJudgeUpdater.AutoPlay)
+            if (GamePlays.NoteJudgeUpdater.AutoPlay || IsAutoJudgeNote)
             {
                 if (subnote.Timing <= chartTime)
                 {

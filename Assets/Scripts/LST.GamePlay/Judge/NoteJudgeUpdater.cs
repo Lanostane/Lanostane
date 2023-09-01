@@ -110,7 +110,7 @@ namespace LST.GamePlay.Judge
                 if (handler.JudgeDone)
                     continue;
 
-                if (AutoPlay)
+                if (AutoPlay || handler.IsAutoJudgeNote)
                 {
                     if (handler.Timing < chartTime)
                     {
@@ -135,7 +135,7 @@ namespace LST.GamePlay.Judge
             for (int i = 0; i < items.Length; i++)
             {
                 var handler = items[i];
-                if (AutoPlay)
+                if (AutoPlay || handler.IsAutoJudgeNote)
                 {
                     handler.ReportAutoPlay(chartTime);
                     handler.UpdateGraphic(chartTime);
