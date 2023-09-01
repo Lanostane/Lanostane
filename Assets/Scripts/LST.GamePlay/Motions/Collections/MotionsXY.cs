@@ -31,8 +31,8 @@ namespace LST.GamePlay.Motions
                 Duration = linear.Duration,
                 Ease = linear.Ease,
                 IsLinear = true,
-                Degree = linear.NewDegree,
-                Radius = linear.NewRadius
+                Degree = linear.DegreeParam,
+                Radius = linear.RadiusParam
             });
         }
 
@@ -44,8 +44,8 @@ namespace LST.GamePlay.Motions
                 Duration = circler.Duration,
                 Ease = circler.Ease,
                 IsLinear = false,
-                Degree = circler.DeltaDegree,
-                Radius = circler.DeltaRadius
+                Degree = circler.DegreeParam,
+                Radius = circler.RadiusParam
             });
         }
 

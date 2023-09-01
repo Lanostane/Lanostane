@@ -26,7 +26,7 @@ namespace LST.GamePlay.Motions
                 Timing = heightMo.Timing,
                 Duration = heightMo.Duration,
                 Ease = heightMo.Ease,
-                HeightDelta = heightMo.DeltaHeight
+                HeightDelta = heightMo.HeightParam
             });
         }
 

@@ -26,7 +26,7 @@ namespace LST.GamePlay.Motions
                 Timing = rot.Timing,
                 Duration = rot.Duration,
                 Ease = rot.Ease,
-                RotationDelta = rot.DeltaRotation
+                RotationDelta = rot.RotationParam
             });
         }
 
