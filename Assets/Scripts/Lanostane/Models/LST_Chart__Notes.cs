@@ -18,21 +18,25 @@ namespace Lanostane.Models
         [ID(0)] public virtual LST_NoteSize Size { get; set; }
         [ID(1)] public virtual float Timing { get; set; }
         [ID(2)] public virtual float Degree { get; set; }
-        [ID(3)] public virtual ushort ScrollGroup { get; set; }
-        [ID(4)] public virtual bool Highlight { get; set; }
+        [ID(3)] public virtual bool Highlight { get; set; }
 
-        [ID(100)] public virtual LST_NoteSpecialFlags Flags { get; set; } = LST_NoteSpecialFlags.None;
-        [ID(101)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
+        [ID(100)] public virtual ushort ScrollGroup { get; set; }
+        [ID(101)] public virtual ushort RotationGroup { get; set; }
+
+        [ID(200)] public virtual LST_NoteSpecialFlags Flags { get; set; } = LST_NoteSpecialFlags.None;
+        [ID(201)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
 
         [IgnoreFormat]
         public LST_SingleNoteInfo NoteInfo => new()
         {
             Timing = Timing,
             Degree = Degree,
-            ScrollGroup = ScrollGroup,
             Size = Size,
             Highlight = Highlight,
             Type = LST_SingleNoteType.Click,
+
+            ScrollGroup = ScrollGroup,
+            RotationGroup = RotationGroup,
 
             Flags = Flags,
             ColorPaletteIndex = ColorPaletteIndex
@@ -46,21 +50,25 @@ namespace Lanostane.Models
         [ID(0)] public virtual LST_NoteSize Size { get; set; }
         [ID(1)] public virtual float Timing { get; set; }
         [ID(2)] public virtual float Degree { get; set; }
-        [ID(3)] public virtual ushort ScrollGroup { get; set; }
-        [ID(4)] public virtual bool Highlight { get; set; }
+        [ID(3)] public virtual bool Highlight { get; set; }
 
-        [ID(100)] public virtual LST_NoteSpecialFlags Flags { get; set; } = LST_NoteSpecialFlags.None;
-        [ID(101)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
+        [ID(100)] public virtual ushort ScrollGroup { get; set; }
+        [ID(101)] public virtual ushort RotationGroup { get; set; }
+
+        [ID(200)] public virtual LST_NoteSpecialFlags Flags { get; set; } = LST_NoteSpecialFlags.None;
+        [ID(201)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
 
         [IgnoreFormat]
         public LST_SingleNoteInfo NoteInfo => new()
         {
             Timing = Timing,
             Degree = Degree,
-            ScrollGroup = ScrollGroup,
             Size = Size,
             Highlight = Highlight,
             Type = LST_SingleNoteType.Catch,
+
+            ScrollGroup = ScrollGroup,
+            RotationGroup = RotationGroup,
 
             Flags = Flags,
             ColorPaletteIndex = ColorPaletteIndex
@@ -74,22 +82,26 @@ namespace Lanostane.Models
         [ID(0)] public virtual LST_NoteSize Size { get; set; }
         [ID(1)] public virtual float Timing { get; set; }
         [ID(2)] public virtual float Degree { get; set; }
-        [ID(3)] public virtual ushort ScrollGroup { get; set; }
-        [ID(4)] public virtual bool Highlight { get; set; }
-        [ID(5)] public virtual LST_FlickDir Direction { get; set; }
+        [ID(3)] public virtual bool Highlight { get; set; }
+        [ID(4)] public virtual LST_FlickDir Direction { get; set; }
 
-        [ID(100)] public virtual LST_NoteSpecialFlags Flags { get; set; } = LST_NoteSpecialFlags.None;
-        [ID(101)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
+        [ID(100)] public virtual ushort ScrollGroup { get; set; }
+        [ID(101)] public virtual ushort RotationGroup { get; set; }
+
+        [ID(200)] public virtual LST_NoteSpecialFlags Flags { get; set; } = LST_NoteSpecialFlags.None;
+        [ID(201)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
 
         [IgnoreFormat]
         public LST_SingleNoteInfo NoteInfo => new()
         {
             Timing = Timing,
             Degree = Degree,
-            ScrollGroup = ScrollGroup,
             Size = Size,
             Highlight = Highlight,
             Type = Direction == LST_FlickDir.In ? LST_SingleNoteType.FlickIn : LST_SingleNoteType.FlickOut,
+
+            ScrollGroup = ScrollGroup,
+            RotationGroup = RotationGroup,
 
             Flags = Flags,
             ColorPaletteIndex = ColorPaletteIndex
@@ -104,12 +116,14 @@ namespace Lanostane.Models
         [ID(1)] public virtual float Timing { get; set; }
         [ID(2)] public virtual float Duration { get; set; }
         [ID(3)] public virtual float Degree { get; set; }
-        [ID(4)] public virtual ushort ScrollGroup { get; set; }
-        [ID(5)] public virtual bool Highlight { get; set; }
-        [ID(6)] public virtual List<LST_Joint> Joints { get; protected set; } = new();
+        [ID(4)] public virtual bool Highlight { get; set; }
+        [ID(5)] public virtual List<LST_Joint> Joints { get; protected set; } = new();
 
-        [ID(100)] public virtual LST_NoteSpecialFlags Flags { get; set; } = LST_NoteSpecialFlags.None;
-        [ID(101)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
+        [ID(100)] public virtual ushort ScrollGroup { get; set; }
+        [ID(101)] public virtual ushort RotationGroup { get; set; }
+
+        [ID(200)] public virtual LST_NoteSpecialFlags Flags { get; set; } = LST_NoteSpecialFlags.None;
+        [ID(201)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
 
         [IgnoreFormat]
         public LST_LongNoteInfo NoteInfo => CreateNoteInfo();
@@ -120,10 +134,12 @@ namespace Lanostane.Models
                 Timing = Timing,
                 Duration = Duration,
                 Degree = Degree,
-                ScrollGroup = ScrollGroup,
                 Size = Size,
                 Highlight = Highlight,
                 Type = LST_LongNoteType.Hold,
+
+                ScrollGroup = ScrollGroup,
+                RotationGroup = RotationGroup,
 
                 Flags = Flags,
                 ColorPaletteIndex = ColorPaletteIndex
@@ -140,10 +156,12 @@ namespace Lanostane.Models
         [ID(0)] public virtual float Timing { get; set; }
         [ID(1)] public virtual float Duration { get; set; }
         [ID(2)] public virtual float Degree { get; set; }
-        [ID(3)] public virtual ushort ScrollGroup { get; set; }
-        [ID(4)] public List<LST_Joint> Joints { get; protected set; } = new();
+        [ID(3)] public List<LST_Joint> Joints { get; protected set; } = new();
 
-        [ID(100)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
+        [ID(100)] public virtual ushort ScrollGroup { get; set; }
+        [ID(101)] public virtual ushort RotationGroup { get; set; }
+
+        [ID(200)] public virtual LST_ColorPaletteIndex ColorPaletteIndex { get; set; } = LST_ColorPaletteIndex.None;
 
         [IgnoreFormat]
         public LST_LongNoteInfo NoteInfo => CreateNoteInfo();
@@ -154,10 +172,12 @@ namespace Lanostane.Models
                 Timing = Timing,
                 Duration = Duration,
                 Degree = Degree,
-                ScrollGroup = ScrollGroup,
                 Size = LST_NoteSize.Size0,
                 Highlight = false,
                 Type = LST_LongNoteType.Hold,
+
+                ScrollGroup = ScrollGroup,
+                RotationGroup = RotationGroup,
 
                 Flags = LST_NoteSpecialFlags.None,
                 ColorPaletteIndex = ColorPaletteIndex
@@ -174,5 +194,6 @@ namespace Lanostane.Models
         [ID(0)] public virtual float Duration { get; set; }
         [ID(1)] public virtual float DeltaDegree { get; set; }
         [ID(2)] public virtual EaseType Ease { get; set; }
+        [ID(3)] public virtual bool HasMidGraphic { get; set; } = true;
     }
 }
