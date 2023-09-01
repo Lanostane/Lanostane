@@ -100,7 +100,8 @@ namespace Lanostane.Models.ThirdParty
                             Timing = e.Timing,
                             Duration = e.Duration,
                             Ease = e.cfmi.ToLSTEase(),
-                            DeltaRotation = e.ctp
+                            RotationParam = e.ctp,
+                            IsDeltaMode = true
                         });
                         break;
 
@@ -110,7 +111,8 @@ namespace Lanostane.Models.ThirdParty
                             Timing = e.Timing,
                             Duration = e.Duration,
                             Ease = e.cfmi.ToLSTEase(),
-                            DeltaHeight = e.ctp
+                            HeightParam = e.ctp,
+                            IsDeltaMode = true
                         });
                         break;
 
@@ -120,8 +122,9 @@ namespace Lanostane.Models.ThirdParty
                             Timing = e.Timing,
                             Duration = e.Duration,
                             Ease = e.cfmi.ToLSTEase(),
-                            NewDegree = e.ctp,
-                            NewRadius = e.ctp1
+                            DegreeParam = e.ctp,
+                            RadiusParam = e.ctp1,
+                            IsDeltaMode = false
                         });
                         break;
 
@@ -131,8 +134,9 @@ namespace Lanostane.Models.ThirdParty
                             Timing = e.Timing,
                             Duration = e.Duration,
                             Ease = e.cfmi.ToLSTEase(),
-                            DeltaDegree = e.ctp,
-                            DeltaRadius = e.ctp1
+                            DegreeParam = e.ctp,
+                            RadiusParam = e.ctp1,
+                            IsDeltaMode = true
                         });
                         break;
                 }

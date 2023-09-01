@@ -23,8 +23,10 @@ namespace Lanostane.Models
     {
         [ID(0)] public virtual float Timing { get; set; }
         [ID(1)] public virtual float Duration { get; set; }
-        [ID(2)] public virtual float DeltaRotation { get; set; }
-        [ID(3)] public virtual EaseType Ease { get; set; }
+        [ID(2)] public virtual float RotationParam { get; set; }
+
+        [ID(100)] public virtual EaseType Ease { get; set; }
+        [ID(101)] public virtual bool IsDeltaMode { get; set; }
     }
 
     [Preserve]
@@ -33,9 +35,11 @@ namespace Lanostane.Models
     {
         [ID(0)] public virtual float Timing { get; set; }
         [ID(1)] public virtual float Duration { get; set; }
-        [ID(2)] public virtual float NewDegree { get; set; }
-        [ID(3)] public virtual float NewRadius { get; set; }
-        [ID(4)] public virtual EaseType Ease { get; set; }
+        [ID(2)] public virtual float DegreeParam { get; set; }
+        [ID(3)] public virtual float RadiusParam { get; set; }
+
+        [ID(100)] public virtual EaseType Ease { get; set; }
+        [ID(101)] public virtual bool IsDeltaMode { get; set; }
     }
 
     [Preserve]
@@ -44,9 +48,11 @@ namespace Lanostane.Models
     {
         [ID(0)] public virtual float Timing { get; set; }
         [ID(1)] public virtual float Duration { get; set; }
-        [ID(2)] public virtual float DeltaDegree { get; set; }
-        [ID(3)] public virtual float DeltaRadius { get; set; }
-        [ID(4)] public virtual EaseType Ease { get; set; }
+        [ID(2)] public virtual float DegreeParam { get; set; }
+        [ID(3)] public virtual float RadiusParam { get; set; }
+
+        [ID(100)] public virtual EaseType Ease { get; set; }
+        [ID(101)] public virtual bool IsDeltaMode { get; set; }
     }
 
     [Preserve]
@@ -55,8 +61,10 @@ namespace Lanostane.Models
     {
         [ID(0)] public virtual float Timing { get; set; }
         [ID(1)] public virtual float Duration { get; set; }
-        [ID(2)] public virtual float DeltaHeight { get; set; }
-        [ID(3)] public virtual EaseType Ease { get; set; }
+        [ID(2)] public virtual float HeightParam { get; set; }
+
+        [ID(100)] public virtual EaseType Ease { get; set; }
+        [ID(101)] public virtual bool IsDeltaMode { get; set; }
     }
 
     [Preserve]
