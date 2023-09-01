@@ -96,6 +96,19 @@ namespace Lanostane.Models
 
     [Preserve]
     [ZeroFormattable]
+    public class LST_RotationGroupMotion
+    {
+        [ID(0)] public virtual ushort Group { get; set; } = 0;
+        [ID(1)] public virtual float Timing { get; set; }
+        [ID(2)] public virtual float Duration { get; set; }
+        [ID(3)] public virtual float RotationParam { get; set; }
+
+        [ID(100)] public virtual EaseType Ease { get; set; }
+        [ID(101)] public virtual bool IsDeltaMode { get; set; }
+    }
+
+    [Preserve]
+    [ZeroFormattable]
     public class LST_SubCameraAlphaChange
     {
         [ID(0)] public virtual float Timing { get; set; }
