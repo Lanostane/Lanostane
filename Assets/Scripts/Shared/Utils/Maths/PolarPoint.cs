@@ -40,5 +40,16 @@ namespace Utils.Maths
         public static PolarPoint operator -(PolarPoint a) => new(-a.Rho, a.Theta);
         public static PolarPoint operator +(PolarPoint a, PolarPoint b) => new(a.Rho + b.Rho, a.Theta + b.Theta);
         public static PolarPoint operator -(PolarPoint a, PolarPoint b) => new(a.Rho - b.Rho, a.Theta - b.Theta);
+        public static PolarPoint operator *(PolarPoint p, float multiplier) => new(p.Rho * multiplier, p.Theta * multiplier);
+
+        public static bool operator ==(PolarPoint a, PolarPoint b)
+        {
+            return (a.Rho == b.Rho) && (a.Theta == b.Theta);
+        }
+
+        public static bool operator !=(PolarPoint a, PolarPoint b)
+        {
+            return (a.Rho != b.Rho) || (a.Theta != b.Theta);
+        }
     }
 }
