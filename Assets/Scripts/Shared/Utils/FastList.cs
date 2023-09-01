@@ -42,6 +42,19 @@ namespace Utils
             set => _InternalList[index] = value;
         }
 
+        public void ForEach(Action<T> action)
+        {
+            if (action == null)
+                return;
+
+            var items = Items;
+            var length = Length;
+            for (int i = 0; i<length; i++)
+            {
+                action.Invoke(items[i]);
+            }
+        }
+
         public void Add(T item)
         {
             _InternalList.Add(item);
