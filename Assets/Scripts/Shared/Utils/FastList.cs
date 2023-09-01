@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Utils
 {
-    public sealed class FastList<T>
+    public sealed class FastList<T> : IList<T>
     {
         private T[] _Cache = Array.Empty<T>();
         private readonly List<T> _InternalList = new();
@@ -30,6 +31,15 @@ namespace Utils
 
                 return _Cache;
             }
+        }
+
+        public int Count => Length;
+        public bool IsReadOnly => false;
+
+        public T this[int index]
+        {
+            get => _InternalList[index];
+            set => _InternalList[index] = value;
         }
 
         public void Add(T item)
@@ -62,6 +72,50 @@ namespace Utils
         {
             _InternalList.Clear();
             _HasDirty = true;
+        }
+
+        public int IndexOf(T item)
+        {
+            return _InternalList.IndexOf(item);
+        }
+
+        public void Insert(int index, T item)
+        {
+            _InternalList.Insert(index, item);
+            _HasDirty = true;
+        }
+
+        public void RemoveAt(int index)
+        {
+            _InternalList.RemoveAt(index);
+            _HasDirty = true;
+        }
+
+        public bool Contains(T item)
+        {
+            return _InternalList.Contains(item);
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            _InternalList.CopyTo(array, arrayIndex);
+        }
+
+        public bool Remove(T item)
+        {
+            var removed = _InternalList.Remove(item);
+            _HasDirty = removed;
+            return removed;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return _InternalList.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _InternalList.GetEnumerator();
         }
     }
 }
