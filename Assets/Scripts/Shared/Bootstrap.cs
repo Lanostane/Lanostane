@@ -12,7 +12,8 @@ namespace Shared
     {
         None,
         PlayerScenario,
-        CreatorScenario
+        CreatorScenario,
+        Automatic
     }
 
     internal sealed class Bootstrap : MonoBehaviour
@@ -22,6 +23,13 @@ namespace Shared
 
         void Start()
         {
+            if (_Boot == BootstrapType.Automatic)
+            {
+                _Boot = Utils.Unity.Platform.IsWindows ?
+                    BootstrapType.CreatorScenario:
+                    BootstrapType.PlayerScenario;
+            }
+
             if (_Boot == BootstrapType.PlayerScenario)
             {
                 LoadingWorker.Instance.AddSceneLoadJob(SceneName.PlayerUI);
