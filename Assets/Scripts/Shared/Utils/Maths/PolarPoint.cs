@@ -13,18 +13,21 @@ namespace Utils.Maths
             Theta = theta;
         }
 
-        public PolarPoint Normalized()
+        public readonly PolarPoint Normalized
         {
-            var coord = ToCoord();
-            return new PolarPoint(coord.magnitude, Mathf.Atan2(coord.y, coord.x) * Mathf.Rad2Deg);
+            get
+            {
+                var coord = ToCoord();
+                return new PolarPoint(coord.magnitude, Mathf.Atan2(coord.y, coord.x) * Mathf.Rad2Deg);
+            }
         }
 
-        public Vector2 ToCoord2D()
+        public readonly Vector2 ToCoord2D()
         {
             return new Vector2(FastTrig.DegCos(Theta), FastTrig.DegSin(Theta)) * Rho;
         }
 
-        public Vector3 ToCoord()
+        public readonly Vector3 ToCoord()
         {
             return new Vector3(FastTrig.DegCos(Theta), FastTrig.DegSin(Theta), 0.0f) * Rho;
         }
@@ -34,6 +37,28 @@ namespace Utils.Maths
             var theta = Mathf.Lerp(p1.Theta, p2.Theta, t);
             var rho = Mathf.Lerp(p1.Rho, p2.Rho, t);
             return new PolarPoint(rho, theta);
+        }
+
+        public override readonly bool Equals(object obj)
+        {
+            if (obj is PolarPoint other)
+            {
+                return other == this;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override readonly int GetHashCode()
+        {
+            return Rho.GetHashCode() ^ Theta.GetHashCode(); //Lazy
+        }
+
+        public override readonly string ToString()
+        {
+            return $"Rho: {Rho}, Theta: {Theta}";
         }
 
         public static PolarPoint operator +(PolarPoint a) => a;

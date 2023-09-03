@@ -62,7 +62,7 @@ namespace LST.GamePlay.Motions
                 if (xy.IsLinear)
                 {
                     newXy.Start = currentPoint;
-                    newXy.End = p.Normalized();
+                    newXy.End = p.Normalized;
                     currentPoint = newXy.End;
                 }
                 else
@@ -71,7 +71,7 @@ namespace LST.GamePlay.Motions
                     newXy.End = currentPoint + p;
                     if (newXy.End.Rho < 0.0f)
                     {
-                        currentPoint = newXy.End.Normalized();
+                        currentPoint = newXy.End.Normalized;
                     }
                     else
                     {
