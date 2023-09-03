@@ -13,19 +13,11 @@ using Utils.Maths;
 
 namespace Utils.Timelines
 {
-    public struct FloatTimelineItem
-    {
-        public float Timing;
-        public float Duration;
-        public float Delta;
-        public EaseType Easing;
-    }
-
     [BurstCompile]
     public struct FloatTimelineJob : IJob
     {
         [ReadOnly]
-        public NativeArray<FloatTimelineItem> Items;
+        public NativeArray<TimelineItemData<float>> Items;
         public float CurrentTime;
 
         [WriteOnly]
@@ -44,7 +36,7 @@ namespace Utils.Timelines
                 //Fully Done
                 if (endTime <= CurrentTime)
                 {
-                    delta += item.Delta;
+                    delta += item.Param;
                     continue;
                 }
 
@@ -56,16 +48,16 @@ namespace Utils.Timelines
 
                 var p = math.unlerp(startTime, endTime, CurrentTime);
                 p = item.Easing.EvalClamped(p);
-                delta += item.Delta * p;
+                delta += item.Param * p;
             }
 
             Result[0] = delta;
         }
 
         [BurstDiscard]
-        public static float Evaluate(float currentTime, FloatTimelineItem[] items)
+        public static float Evaluate(float currentTime, TimelineItemData<float>[] items)
         {
-            using var itemArray = new NativeArray<FloatTimelineItem>(items.Length, Allocator.TempJob);
+            using var itemArray = new NativeArray<TimelineItemData<float>>(items.Length, Allocator.TempJob);
             using var resultArray = new NativeArray<float>(1, Allocator.TempJob);
             var job = new FloatTimelineJob()
             {

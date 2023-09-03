@@ -12,27 +12,11 @@ using Utils.Maths;
 
 namespace Utils.Timelines
 {
-    public struct Vector2TimelineItem
-    {
-        public float Timing;
-        public float Duration;
-        public Vector2 Delta;
-        public EaseType Easing;
-    }
-
-    public struct Vector3TimelineItem
-    {
-        public float Timing;
-        public float Duration;
-        public Vector3 Delta;
-        public EaseType Easing;
-    }
-
     [BurstCompile]
     public struct Vector3TimelineJob : IJob
     {
         [ReadOnly]
-        public NativeArray<Vector3TimelineItem> Items;
+        public NativeArray<TimelineItemData<Vector3>> Items;
         public float CurrentTime;
 
         [WriteOnly]
@@ -51,7 +35,7 @@ namespace Utils.Timelines
                 //Fully Done
                 if (endTime <= CurrentTime)
                 {
-                    delta += item.Delta;
+                    delta += item.Param;
                     continue;
                 }
 
@@ -63,16 +47,16 @@ namespace Utils.Timelines
 
                 var p = math.unlerp(startTime, endTime, CurrentTime);
                 p = item.Easing.EvalClamped(p);
-                delta += item.Delta * p;
+                delta += item.Param * p;
             }
 
             Result[0] = delta;
         }
 
         [BurstDiscard]
-        public static Vector3 Evaluate(float currentTime, Vector3TimelineItem[] items)
+        public static Vector3 Evaluate(float currentTime, TimelineItemData<Vector3>[] items)
         {
-            using var itemArray = new NativeArray<Vector3TimelineItem>(items.Length, Allocator.TempJob);
+            using var itemArray = new NativeArray<TimelineItemData<Vector3>>(items.Length, Allocator.TempJob);
             using var resultArray = new NativeArray<Vector3>(1, Allocator.TempJob);
             var job = new Vector3TimelineJob()
             {
@@ -90,7 +74,7 @@ namespace Utils.Timelines
     public struct Vector2TimelineJob : IJob
     {
         [ReadOnly]
-        public NativeArray<Vector2TimelineItem> Items;
+        public NativeArray<TimelineItemData<Vector2>> Items;
         public float CurrentTime;
 
         [WriteOnly]
@@ -109,7 +93,7 @@ namespace Utils.Timelines
                 //Fully Done
                 if (endTime <= CurrentTime)
                 {
-                    delta += item.Delta;
+                    delta += item.Param;
                     continue;
                 }
 
@@ -121,16 +105,16 @@ namespace Utils.Timelines
 
                 var p = math.unlerp(startTime, endTime, CurrentTime);
                 p = item.Easing.EvalClamped(p);
-                delta += item.Delta * p;
+                delta += item.Param * p;
             }
 
             Result[0] = delta;
         }
 
         [BurstDiscard]
-        public static Vector2 Evaluate(float currentTime, Vector2TimelineItem[] items)
+        public static Vector2 Evaluate(float currentTime, TimelineItemData<Vector2>[] items)
         {
-            using var itemArray = new NativeArray<Vector2TimelineItem>(items.Length, Allocator.TempJob);
+            using var itemArray = new NativeArray<TimelineItemData<Vector2>>(items.Length, Allocator.TempJob);
             using var resultArray = new NativeArray<Vector2>(1, Allocator.TempJob);
             var job = new Vector2TimelineJob()
             {

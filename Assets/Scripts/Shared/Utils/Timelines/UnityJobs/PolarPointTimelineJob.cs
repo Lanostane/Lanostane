@@ -12,19 +12,11 @@ using Utils.Maths;
 
 namespace Utils.Timelines
 {
-    public struct PolarPointTimelineItem
-    {
-        public float Timing;
-        public float Duration;
-        public PolarPoint Delta;
-        public EaseType Easing;
-    }
-
     [BurstCompile]
     public struct PolarPointTimelineJob : IJob
     {
         [ReadOnly]
-        public NativeArray<PolarPointTimelineItem> Items;
+        public NativeArray<TimelineItemData<PolarPoint>> Items;
         public float CurrentTime;
 
         [WriteOnly]
@@ -43,7 +35,7 @@ namespace Utils.Timelines
                 //Fully Done
                 if (endTime <= CurrentTime)
                 {
-                    delta += item.Delta;
+                    delta += item.Param;
                     continue;
                 }
 
@@ -55,16 +47,16 @@ namespace Utils.Timelines
 
                 var p = math.unlerp(startTime, endTime, CurrentTime);
                 p = item.Easing.EvalClamped(p);
-                delta += item.Delta * p;
+                delta += item.Param * p;
             }
 
             Result[0] = delta;
         }
 
         [BurstDiscard]
-        public static PolarPoint Evaluate(float currentTime, PolarPointTimelineItem[] items)
+        public static PolarPoint Evaluate(float currentTime, TimelineItemData<PolarPoint>[] items)
         {
-            using var itemArray = new NativeArray<PolarPointTimelineItem>(items.Length, Allocator.TempJob);
+            using var itemArray = new NativeArray<TimelineItemData<PolarPoint>>(items.Length, Allocator.TempJob);
             using var resultArray = new NativeArray<PolarPoint>(1, Allocator.TempJob);
             var job = new PolarPointTimelineJob()
             {
